@@ -3,15 +3,16 @@ package model;
 import javafx.scene.image.Image;
 
 //For this class it might not useful for current usage, but will be usefull for later level
-public class FishKind2 extends Fishes{
+public class Mine extends Dangers{
     
-    final Image dir = new Image("/FishPicture/FirstStageUsage/noback2.png");
+    final Image dir = new Image("/FishPicture/FirstStageUsage/mine0.jpg");
 
-    int imageSize = 183;
+    int imageSize = 68;
 
-    FishKind2(){
-        this.speed = 12;
-        this.size = 2;
+    Mine(){
+        this.speed = 10;
+        this.size = 1;
+        this.direction = 270;
     }
 
     public int getImageSize() {
@@ -21,4 +22,5 @@ public class FishKind2 extends Fishes{
     public void setImageSize(int imageSize) {
         this.imageSize = imageSize;
     }
+
 }
