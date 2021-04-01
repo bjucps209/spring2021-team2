@@ -38,8 +38,7 @@ public class FishGame {
     // constructor while game start, model will recieve different value from
     // different level. however other limitation such as speed, will not in
     // constructor because each kind of fish have its own speed and their initial
-    // speed in their object and each one of fish have its own speed. therefore
-    // speed is not in constructor.
+    // speed in their own object;
     public FishGame(int life, int points, int health, int numberOfFood, int numberOfType1Fish, int numberOfType2Fish,
             int numberOfType3Fish) {
         this.life = life;
