@@ -5,9 +5,9 @@ import javafx.scene.image.Image;
 //For this class it might not useful for current usage, but will be usefull for later level
 public class FishKind1 extends Fishes{
     
-    final Image dir = new Image("/FishPicture/FirstStageUsage/noback.png");
+    private final Image dir = new Image("/FishPicture/FirstStageUsage/noback.png");
 
-    int imageSize = 115;
+    private int imageSize = 115;
 
     FishKind1(){
         this.speed = 10;
@@ -20,5 +20,9 @@ public class FishKind1 extends Fishes{
 
     public void setImageSize(int imageSize) {
         this.imageSize = imageSize;
+    }
+
+    public Image getDir() {
+		return this.dir;
     }
 }

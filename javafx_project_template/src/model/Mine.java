@@ -5,17 +5,20 @@ import javafx.scene.image.Image;
 //For this class it might not useful for current usage, but will be usefull for later level
 public class Mine extends AllObject{
     
-    final Image dir = new Image("/FishPicture/FirstStageUsage/mine0.jpg");
+    private final Image dir = new Image("/FishPicture/FirstStageUsage/mine0.jpg");
 
-    int imageSize = 68;
+    private int imageSize = 68;
 
-    int direction;
 
 
     Mine(){
         this.speed = 10;
         this.size = 1;
         this.direction = 270;
+    }
+
+    @Override
+    public void ChangeSpeedAndDirection() {
     }
 
     public int getImageSize() {
@@ -26,13 +29,8 @@ public class Mine extends AllObject{
         this.imageSize = imageSize;
     }
 
-    
-    public int getDirection() {
-        return this.direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
+    public Image getDir() {
+		return this.dir;
     }
 
 }

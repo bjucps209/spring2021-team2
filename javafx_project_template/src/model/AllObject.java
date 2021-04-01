@@ -8,6 +8,15 @@ public class AllObject {
     int size;
     int direction;
 
+    //override by chrildren
+    public void ChangeSpeedAndDirection() {}
+
+    public void updatePosition() {
+        x += speed * Math.cos(direction * Math.PI / 180);
+        y += speed * Math.sin(direction * Math.PI / 180);
+    }
+
+
     public int getX() {
         return this.x;
     }

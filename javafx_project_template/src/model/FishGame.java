@@ -5,7 +5,9 @@ import java.util.Random;
 
 public class FishGame {
 
-    // the storage of all things in the sceen
+    // the storage of all things in the sceen.
+    //first element of list will be user's fish;
+    // while using for loops don't cover first element.
     ArrayList<AllObject> objectStorage;
 
     // three basic value for the game
@@ -32,6 +34,7 @@ public class FishGame {
     public FishGame() {
         isCheatModeOn = false;
         isGameOver = false;
+        objectStorage.add(new FishKind1());
 
     }
 
@@ -50,30 +53,24 @@ public class FishGame {
         this.numberOfType1Fish = numberOfType1Fish;
         this.numberOfType2Fish = numberOfType2Fish;
         this.numberOfType3Fish = numberOfType3Fish;
+        objectStorage.add(new FishKind1());
     }
 
-    // each fish is on their owe movement.
-    // they will change speed and direction every 3 seconds. It should be called every 3s in timeline at viewclass
-    // And for speed, there is the limitation,
-    // it can't increasing too much or stop
-    // for direction, we import fish for left edge and right edge of screen.
-    // we purpose want to make fish go cross the screen,
-    // Therefore the random for direction will be 66% go for initial direction,
-    // 33% go for opposite direction.
-    // Also Our fish will not go up and down, we are try to much them slightly go up
-    // and down while they are move cross the creen
-    public void movement() {
+    //from x and y we know image position, from image size we know how much it covers
+    // x and y + size x size we can get the area of fish that other fish can't touches. 
+    //remind and undeterming, size of the fish will be grow, we need careful about this. 
+    public void Fishmeet(){
+
     }
+
+    //block the area that fish can't go cross, will not use in early level,
+    //lt can work on later of the project.
+    public void blockingArea(){
+
+    }
+
 
     // all getters and setters
-    public void randDirection() {
-
-    }
-
-    public void randSpeed() {
-
-    }
-
     public int getNumberOfFood() {
         return this.numberOfFood;
     }
