@@ -53,10 +53,10 @@ public class FishGame {
     }
 
     // each fish is on their owe movement.
-    // However, they will change speed and direction every 3 seconds.
-    // And for speed there is the limitation of speed,
+    // they will change speed and direction every 3 seconds. It should be called every 3s in timeline at viewclass
+    // And for speed, there is the limitation,
     // it can't increasing too much or stop
-    // for direction, we immport fish for left edge and right edge of screen.
+    // for direction, we import fish for left edge and right edge of screen.
     // we purpose want to make fish go cross the screen,
     // Therefore the random for direction will be 66% go for initial direction,
     // 33% go for opposite direction.
