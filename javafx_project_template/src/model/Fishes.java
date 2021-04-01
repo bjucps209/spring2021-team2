@@ -34,7 +34,7 @@ public class Fishes extends AllObject {
     // Also Our fish will not go up and down, we are try to much them slightly go up
     // and down while they are move cross the creen
 
-    // remember limit of dirction number;
+    // remember limitation of dirction number;
     @Override
     public void ChangeSpeedAndDirection() {
     }
