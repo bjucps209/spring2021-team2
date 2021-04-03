@@ -2,21 +2,16 @@ package model;
 
 public class BaseOrb extends Item{
     
-   String type="Orb";
-   int healthvalue;
+   
+   int value;
 
    
-public String getType() {
-    return type;
-}
-public void setType(String type) {
-    this.type = type;
-}
+
 public int getHealthvalue() {
-    return healthvalue;
+    return value;
 }
-public void setHealthvalue(int healthvalue) {
-    this.healthvalue = healthvalue;
+public void setHealthvalue(int value) {
+    this.value = value;
 }
     
 }

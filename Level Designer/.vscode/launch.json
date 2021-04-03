@@ -6,11 +6,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch LvlApp",
+            "request": "launch",
+            "mainClass": "LvlApp",
+            "projectName": "app"
+        },
+        {
+            "type": "java",
             "name": "Launch with Arguments",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "app",
-           //  "args": "${command:SpecifyProgramArgs}"
+            "projectName": "app"
         }
     ]
 }
