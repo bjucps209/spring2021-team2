@@ -1,6 +1,6 @@
 import javafx.application.Application;
 
-public class App {
+public class LvlApp {
     public static void main(String[] args) {
         Application.launch(GUIApplication.class, args);
     }
