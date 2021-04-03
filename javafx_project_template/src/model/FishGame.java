@@ -6,11 +6,13 @@ import java.util.Random;
 public class FishGame {
 
     // the storage of all things in the sceen.
-    //first element of list will be user's fish;
+    // first element of list will be user's fish;
     // while using for loops don't cover first element.
     ArrayList<AllObject> objectStorage;
 
     // three basic value for the game
+    // from class we learn this week those variable may change to intproperty in
+    // order to bind
     int life;
     int points;
     int health;
@@ -22,6 +24,7 @@ public class FishGame {
     int numberOfType1Fish;
     int numberOfType2Fish;
     int numberOfType3Fish;
+    int numberOfPoisonFish;
 
     // to bolean for state for game,
     // if isCheatModeOn = true, user fish will not die
@@ -56,19 +59,21 @@ public class FishGame {
         objectStorage.add(new FishKind1());
     }
 
-    //from x and y we know image position, from image size we know how much it covers
-    // x and y + size x size we can get the area of fish that other fish can't touches. 
-    //remind and undeterming, size of the fish will be grow, we need careful about this. 
-    public void Fishmeet(){
+    // from x and y we know image position, from image size we know how much it
+    // covers
+    // x and y + size x size we can get the area of fish that other fish can't
+    // touches.
+    // remind and undeterming, size of the fish will be grow, we need careful about
+    // this.
+    public void Fishmeet() {
 
     }
 
-    //block the area that fish can't go cross, will not use in early level,
-    //lt can work on later of the project.
-    public void blockingArea(){
+    // block the area that fish can't go cross, will not use in early level,
+    // lt can work on later of the project.
+    public void blockingArea() {
 
     }
-
 
     // all getters and setters
     public int getNumberOfFood() {

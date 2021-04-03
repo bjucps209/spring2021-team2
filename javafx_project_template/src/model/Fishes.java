@@ -7,20 +7,10 @@ import javax.naming.directory.DirContext;
 public class Fishes extends AllObject {
 
     //initialdirction of fish final?
-    private final int initialDirection;
+    int initialDirection;
 
-    // random the inital direction.
-    Fishes() {
-        var rand = new Random();
-        int ran = rand.nextInt(2);
-        if (ran == 0) {
-            // remember import from left edge of screen
-            initialDirection = 0 + rand.nextInt(10);
-        } else {
-            // remember import from right edge of screen
-            initialDirection = 180 + rand.nextInt(10);
-        }
-    }
+
+
 
     // each fish is on their owe movement.
     // they will change speed and direction every 3 seconds. It should be called

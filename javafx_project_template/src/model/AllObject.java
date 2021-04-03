@@ -2,11 +2,13 @@ package model;
 
 public class AllObject {
     
+    //from class we learn this week those variable may change to intproperty in oder to bind
     int x;
     int y;
     int speed;
     int size;
     int direction;
+
 
     //override by chrildren
     public void ChangeSpeedAndDirection() {}
