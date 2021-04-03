@@ -1,4 +1,6 @@
-package model;
+
+
+import model.*;
 
 public class LevelLoader {
 
