@@ -30,9 +30,9 @@ The art style is based off of the Joust arcade game from 1982. The 2D sprites we
 
 ## Story
 
-Welcome to Joust. On earth in the year 2050, the evil dictator Mik Gnoj Nu of North Aerok carried out a mass nuclear-holocaust of the planet earth, leaving nature to crumble. With lava pits opening up everywhere and reanimated dinosaurs now ruling the planet with their radiation-enhanced intellect and power, you and your mutated flying ostrich Ralph travel the hellscape searching and saving the last vestiges of humanity.
+Welcome to Ocean Brawl. You are a small fish who is determined to rule the ocean. Fight bigger fish on your way to ultimate victory.   
 
-However, the evil Un still has his evil lackeys (all named Mik) flying about on their evil mutated buzzards trying to subjugate all survivors with pterodactyls making their day even worse. As the hero of our story, it's your duty to end North Aerok's reign of terror by traversing danger-fraught levels, each with more enemies than the last all the while breaking the dropped eggs before they hatch into more trouble. Can you bring earth back from this radical nightmare?
+
 
 ## Gameplay
 
