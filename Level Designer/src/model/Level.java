@@ -1,5 +1,3 @@
-package model;
-
 import java.util.ArrayList;
 public class Level {
     
@@ -11,4 +9,11 @@ public class Level {
 
     ArrayList<Obstacle> obstacles=new ArrayList<Obstacle>();
     ArrayList<Food> orbs=new ArrayList<Food>();
+
+
+
+    
+
+
+    
 }

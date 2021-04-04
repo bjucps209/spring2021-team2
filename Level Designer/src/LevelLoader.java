@@ -1,6 +1,4 @@
-
-
-import model.*;
+package model;
 
 public class LevelLoader {
 
@@ -18,12 +16,12 @@ public class LevelLoader {
      /**
      * load
      * Input: nameofFile, name of File so that the loader knows which file to load 
-     * Return: None
+     * Return: 
      * Purpose:Loads a level into the designer for modification 
      */
-    public AllObject load(){
+    public rraylist> load(){
         throw new RuntimeException("Method Not Implemented");
-        
+
         
 
     }
