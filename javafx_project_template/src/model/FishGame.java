@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.PrintWriter;
+import java.io.PrintStream;
 
 public class FishGame {
 
@@ -33,6 +35,9 @@ public class FishGame {
     // if isGameGver = true either use win or lose,
     boolean isCheatModeOn;
     boolean isGameOver;
+
+    // the save file path
+    private final String savefile = "/level.save";
 
     // basic constructor to start game if there is not input yet, purpose for
     // testing the program.
@@ -189,5 +194,29 @@ public class FishGame {
 
     public void setIsGameOver(boolean isGameOver) {
         this.isGameOver = isGameOver;
+    }
+
+    // code for loading the state of a game
+    public void load() {
+        try {
+            PrintStream save = new PrintStream(savefile);
+
+            save.close();
+        } catch (Exception e) {
+            
+        }
+        
+    }
+
+    // code for saving the state of the game
+    public void save() {
+        try {
+            PrintWriter save = new PrintWriter(savefile);
+
+            save.close();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        
     }
 }
