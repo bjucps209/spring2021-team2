@@ -39,6 +39,7 @@ public class FishGame {
     public FishGame() {
         isCheatModeOn = false;
         isGameOver = false;
+        objectStorage = new ArrayList<AllObject>();
         objectStorage.add(new FishType1());
 
     }
@@ -58,6 +59,7 @@ public class FishGame {
         this.numberOfType1Fish = numberOfType1Fish;
         this.numberOfType2Fish = numberOfType2Fish;
         this.numberOfType3Fish = numberOfType3Fish;
+        objectStorage = new ArrayList<AllObject>();
         objectStorage.add(new FishType1());
     }
 
@@ -99,11 +101,12 @@ public class FishGame {
         }
     }
 
-    public void addshark(){
+    //add shark into fishGame list 
+    public void addShark(){
 
     }
-
-    public void sharkpass(){
+    //the motion of the shark delate everything in the FishGame list
+    public void sharkPass(){
         
     }
 
@@ -172,7 +175,7 @@ public class FishGame {
         this.health = health;
     }
 
-    public boolean isIsCheatModeOn() {
+    public boolean getIsCheatModeOn() {
         return this.isCheatModeOn;
     }
 
@@ -180,7 +183,7 @@ public class FishGame {
         this.isCheatModeOn = isCheatModeOn;
     }
 
-    public boolean isIsGameOver() {
+    public boolean getIsGameOver() {
         return this.isGameOver;
     }
 

@@ -31,6 +31,9 @@ public class Obstacles extends AllObject {
     public Image getDir() {
         return this.dir;
     }
+
+    public void remove(Obstacles obstacles) {
+    }
 }
 
     

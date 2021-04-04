@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 //For this class it might not useful for current usage, but will be usefull for later level
 public class FishType1 extends Fishes{
     
-    //private final Image dir = new Image("/FishPicture/FirstStageUsage/noback.png");
+    private final Image dir = new Image("/FishPicture/FirstStageUsage/noback.png");
 
     private int imageSize = 115;
 
@@ -39,7 +39,7 @@ public class FishType1 extends Fishes{
         this.imageSize = imageSize;
     }
 
-/*    public Image getDir() {
+    public Image getDir() {
 		return this.dir;
-    }*/
+    }
 }
