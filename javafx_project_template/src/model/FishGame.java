@@ -17,6 +17,8 @@ public class FishGame {
     int points;
     int health;
 
+    public static int level;
+
     // it use to make sure there is no too many food on the screen
     int numberOfFood;
 
@@ -37,7 +39,8 @@ public class FishGame {
     public FishGame() {
         isCheatModeOn = false;
         isGameOver = false;
-        objectStorage.add(new FishKind1());
+        objectStorage = new ArrayList<AllObject>();
+        objectStorage.add(new FishType1());
 
     }
 
@@ -56,7 +59,8 @@ public class FishGame {
         this.numberOfType1Fish = numberOfType1Fish;
         this.numberOfType2Fish = numberOfType2Fish;
         this.numberOfType3Fish = numberOfType3Fish;
-        objectStorage.add(new FishKind1());
+        objectStorage = new ArrayList<AllObject>();
+        objectStorage.add(new FishType1());
     }
 
     // from x and y we know image position, from image size we know how much it
@@ -73,6 +77,37 @@ public class FishGame {
     // lt can work on later of the project.
     public void blockingArea() {
 
+    }
+
+    // add a new object to arraylist
+    public void add(AllObject a){
+        objectStorage.add(a);
+    }
+
+    public void remove(AllObject a){
+        objectStorage.remove(a);
+    }
+
+    //turns cheat mode on
+    public void enableCheatMode(){
+        if(isCheatModeOn == false) {
+            isCheatModeOn = true;
+        }
+    }
+    //turns cheat mode off
+    public void disableCheatMode(){
+        if(isCheatModeOn == true) {
+            isCheatModeOn = false;
+        }
+    }
+
+    //add shark into fishGame list 
+    public void addShark(){
+
+    }
+    //the motion of the shark delate everything in the FishGame list
+    public void sharkPass(){
+        
     }
 
     // all getters and setters
@@ -140,7 +175,7 @@ public class FishGame {
         this.health = health;
     }
 
-    public boolean isIsCheatModeOn() {
+    public boolean getIsCheatModeOn() {
         return this.isCheatModeOn;
     }
 
@@ -148,7 +183,7 @@ public class FishGame {
         this.isCheatModeOn = isCheatModeOn;
     }
 
-    public boolean isIsGameOver() {
+    public boolean getIsGameOver() {
         return this.isGameOver;
     }
 

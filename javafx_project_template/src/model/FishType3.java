@@ -5,16 +5,16 @@ import java.util.Random;
 import javafx.scene.image.Image;
 
 //For this class it might not useful for current usage, but will be usefull for later level
-public class PoisonFish extends Fishes {
-
-    private final Image dir = new Image("/PoisonFish.png");// not picture yet
+public class FishType3 extends Fishes{
+    
+    private final Image dir = new Image("/FishPicture/FirstStageUsage/noback3.png");
 
     private int imageSize = 317;
 
-    PoisonFish() {
+    FishType3(){
         this.speed = 8;
         this.size = 3;
-
+        
         // random the inital direction.
         var rand = new Random();
         int ran = rand.nextInt(2);
@@ -30,7 +30,7 @@ public class PoisonFish extends Fishes {
             y = rand.nextInt(1000);
         }
     }
-
+    
     public int getImageSize() {
         return this.imageSize;
     }
@@ -40,6 +40,6 @@ public class PoisonFish extends Fishes {
     }
 
     public Image getDir() {
-        return this.dir;
+		return this.dir;
     }
 }
