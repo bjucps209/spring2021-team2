@@ -1,5 +1,8 @@
+
 import java.util.ArrayList;
-public class Level {
+import model.Food;
+import model.Obstacles;
+public class GameLevel {
     
     String levelName;
     String levelPhotoPath;
@@ -7,7 +10,7 @@ public class Level {
     boolean bossFish;
 
 
-    ArrayList<Obstacle> obstacles=new ArrayList<Obstacle>();
+    ArrayList<Obstacles> obstacles=new ArrayList<Obstacles>();
     ArrayList<Food> orbs=new ArrayList<Food>();
 
 
