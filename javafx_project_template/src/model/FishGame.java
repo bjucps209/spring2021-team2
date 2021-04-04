@@ -110,6 +110,15 @@ public class FishGame {
         
     }
 
+    //load and save, I don't know yet
+    public void load(){
+
+    }
+
+    public void save(){
+
+    }
+
     // all getters and setters
     public int getNumberOfFood() {
         return this.numberOfFood;
