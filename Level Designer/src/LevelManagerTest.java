@@ -1,9 +1,18 @@
 import org.junit.Test;
+
+import model.AllObject;
+import model.GameLevel;
+import java.util.ArrayList;
+
+
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class LevelManagerTest {
 
@@ -11,6 +20,22 @@ public class LevelManagerTest {
 
     @Test
     public void saveTest(){
+
+        LevelManager manager= new LevelManager();
+        ArrayList<AllObject> objects=new ArrayList<AllObject>();
+        GameLevel level=new GameLevel("The Tank", "/somepath", 20, false,objects);
+        manager.save(level);
+       
+        manager.load(); //This assumes load works.
+        GameLevel levelfromLoad=manager.getLevelArray().get(0);
+        assertEquals(levelfromLoad.getLevelName(),"The Tank");
+        assertEquals(levelfromLoad.getLevelPhotoPath(),"/somepath");
+        assertEquals(levelfromLoad.getNumFish(),20);
+        assertEquals(levelfromLoad.isBossFish(),false);
+        assertEquals(levelfromLoad.getObjects(), objects);
+
+
+
         
         
 
@@ -19,15 +44,30 @@ public class LevelManagerTest {
     }
     @Test
     public void loadTest() throws IOException{
+        LevelManager manager= new LevelManager();
+         // create
+        File f = new File("testsave.txt");
+        try {
+            f.createNewFile();
+        } catch(Exception e) {
+
+        }        
         
+        FileWriter fw = new FileWriter("testsave.txt", false);
+
+        // write test data to file using fw
+        fw.write("L The Aquarium,1, Aquarium.png,9 ,1");
+
+         manager.load();
+        assertEquals("The Aquarium", manager.getLevelArray().get(0).getLevelName());
+    
 
     }
     @Test
     public void doesFileExist_Throws()  throws IOException{
         Files.deleteIfExists(Paths.get("testload.txt"));
         LevelManager manager = new LevelManager();
-        manager.load();
-
+       
 
         
 
