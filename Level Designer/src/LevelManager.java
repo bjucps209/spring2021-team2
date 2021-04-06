@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import model.AllObject;
 import model.GameLevel;
 public class LevelManager {
+
+
+
     ArrayList<GameLevel> levelArray=new ArrayList<GameLevel>();
 
     public ArrayList<GameLevel> load() {
