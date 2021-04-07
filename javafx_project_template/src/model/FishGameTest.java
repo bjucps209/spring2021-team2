@@ -11,11 +11,11 @@ public class FishGameTest {
     @Test
     public void FishmeetTest(){
         FishGame a = new FishGame();
-        a.add(new FishType1());
-        a.add(new FishType1());
-        a.add(new FishType1());
-        a.add(new FishType1());
-        ArrayList<AllObject> b = a.getObjectStorage();
+        a.add(new Fishes());
+        a.add(new Fishes());
+        a.add(new Fishes());
+        a.add(new Fishes());
+        ArrayList<World> b = a.getObjectStorage();
         b.get(0).setX(11);
         b.get(1).setX(11);
         b.get(0).setY(11);
@@ -30,7 +30,7 @@ public class FishGameTest {
     public void blockingAreaTest(){
         FishGame a = new FishGame();
         a.add(new Obstacles());
-        ArrayList<AllObject> b = a.getObjectStorage();
+        ArrayList<World> b = a.getObjectStorage();
         a.blockingArea();
         //can't test
     }
@@ -39,7 +39,7 @@ public class FishGameTest {
     public void addTest(){
         FishGame a = new FishGame();
         a.add(new Obstacles());
-        ArrayList<AllObject> b = a.getObjectStorage();
+        ArrayList<World> b = a.getObjectStorage();
         b.get(1).setX(2);
         assertEquals(b.get(1).getY(),2);
     }
@@ -49,7 +49,7 @@ public class FishGameTest {
         FishGame a = new FishGame();
         var b = new Obstacles();
         a.remove(b);
-        ArrayList<AllObject> c = a.getObjectStorage();
+        ArrayList<World> c = a.getObjectStorage();
         assertEquals(1, c.size());
     }
 

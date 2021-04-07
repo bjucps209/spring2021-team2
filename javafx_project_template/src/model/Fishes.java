@@ -4,11 +4,13 @@ import java.util.Random;
 
 import javax.naming.directory.DirContext;
 
-public class Fishes extends AllObject {
+public class Fishes extends World {
 
     //initialdirction of fish final?
     int initialDirection;
 
+    //Fish type enum
+    FishType fishtype;
 
 
 
@@ -25,6 +27,26 @@ public class Fishes extends AllObject {
     // and down while they are move cross the creen
 
     // remember limitation of dirction number;
+
+    Fishes(){
+        this.speed = 10;
+        this.size = 1;
+
+        // random the inital direction.
+        var rand = new Random();
+        int ran = rand.nextInt(2);
+        if (ran == 0) {
+            // remember import from left edge of screen
+            initialDirection = 0 + rand.nextInt(10);
+            x = 1-imageSize;
+            y = rand.nextInt(1000);
+        } else {
+            // remember import from right edge of screen
+            initialDirection = 180 + rand.nextInt(10);
+            x = 1;
+            y = rand.nextInt(1000);
+        }
+    }
     @Override
     public void ChangeSpeedAndDirection() {
     }
@@ -55,6 +77,13 @@ public class Fishes extends AllObject {
 
     }
 
+    public FishType getFishtype() {
+        return this.fishtype;
+    }
+
+    public void setFishtype(FishType fishtype) {
+        this.fishtype = fishtype;
+    }
 
     
 

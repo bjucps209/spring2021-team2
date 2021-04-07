@@ -4,11 +4,8 @@ import java.util.Random;
 
 import javafx.scene.image.Image;
 
-public class Obstacles extends AllObject {
+public class Obstacles extends World {
 
-    private final Image dir = new Image("/PoisonFish.png");// not picture yet
-
-    private int imageSize = 317;
 
     Obstacles() {
         this.speed = 0;
@@ -26,10 +23,6 @@ public class Obstacles extends AllObject {
 
     public void setImageSize(int imageSize) {
         this.imageSize = imageSize;
-    }
-
-    public Image getDir() {
-        return this.dir;
     }
 
     public void remove(Obstacles obstacles) {

@@ -5,11 +5,8 @@ import java.util.Random;
 import javafx.scene.image.Image;
 
 //For this class it might not useful for current usage, but will be usefull for later level
-public class Shark extends AllObject {
+public class Shark extends World {
 
-    private final Image dir = new Image("/PoisonFish.png");// not picture yet
-
-    private int imageSize = 317;
 
     Shark() {
         this.speed = 20;
@@ -27,9 +24,5 @@ public class Shark extends AllObject {
 
     public void setImageSize(int imageSize) {
         this.imageSize = imageSize;
-    }
-
-    public Image getDir() {
-        return this.dir;
     }
 }

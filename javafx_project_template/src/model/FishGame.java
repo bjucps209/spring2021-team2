@@ -2,15 +2,13 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.io.PrintWriter;
-import java.io.PrintStream;
 
 public class FishGame {
 
     // the storage of all things in the sceen.
     // first element of list will be user's fish;
     // while using for loops don't cover first element.
-    ArrayList<AllObject> objectStorage;
+    ArrayList<World> objectStorage;
 
     // three basic value for the game
     // from class we learn this week those variable may change to intproperty in
@@ -19,7 +17,9 @@ public class FishGame {
     int points;
     int health;
 
+    //Level static global variable
     public static int level;
+
 
     // it use to make sure there is no too many food on the screen
     int numberOfFood;
@@ -36,16 +36,13 @@ public class FishGame {
     boolean isCheatModeOn;
     boolean isGameOver;
 
-    // the save file path
-    private final String savefile = "/level.save";
-
     // basic constructor to start game if there is not input yet, purpose for
     // testing the program.
     public FishGame() {
         isCheatModeOn = false;
         isGameOver = false;
-        objectStorage = new ArrayList<AllObject>();
-        objectStorage.add(new FishType1());
+        objectStorage = new ArrayList<World>();
+        objectStorage.add(new Fishes());/////////////////////////////////////////////////////////////////////////
 
     }
 
@@ -64,8 +61,8 @@ public class FishGame {
         this.numberOfType1Fish = numberOfType1Fish;
         this.numberOfType2Fish = numberOfType2Fish;
         this.numberOfType3Fish = numberOfType3Fish;
-        objectStorage = new ArrayList<AllObject>();
-        objectStorage.add(new FishType1());
+        objectStorage = new ArrayList<World>();
+        objectStorage.add(new Fishes());/////////////////////////////////////////////////////////////////////////
     }
 
     // from x and y we know image position, from image size we know how much it
@@ -85,11 +82,11 @@ public class FishGame {
     }
 
     // add a new object to arraylist
-    public void add(AllObject a){
+    public void add(World a){
         objectStorage.add(a);
     }
 
-    public void remove(AllObject a){
+    public void remove(World a){
         objectStorage.remove(a);
     }
 
@@ -157,11 +154,11 @@ public class FishGame {
         this.numberOfType3Fish = numberOfType3Fish;
     }
 
-    public ArrayList<AllObject> getObjectStorage() {
+    public ArrayList<World> getObjectStorage() {
         return this.objectStorage;
     }
 
-    public void setObjectStorage(ArrayList<AllObject> objectStorage) {
+    public void setObjectStorage(ArrayList<World> objectStorage) {
         this.objectStorage = objectStorage;
     }
 
@@ -203,29 +200,5 @@ public class FishGame {
 
     public void setIsGameOver(boolean isGameOver) {
         this.isGameOver = isGameOver;
-    }
-
-    // code for loading the state of a game
-    public void load() {
-        try {
-            PrintStream save = new PrintStream(savefile);
-
-            save.close();
-        } catch (Exception e) {
-            
-        }
-        
-    }
-
-    // code for saving the state of the game
-    public void save() {
-        try {
-            PrintWriter save = new PrintWriter(savefile);
-
-            save.close();
-        } catch (Exception e) {
-            //TODO: handle exception
-        }
-        
     }
 }
