@@ -5,9 +5,10 @@
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="MainWindow">
-    <HBox alignment="CENTER" spacing="30" >  <Button text="Load"  /> <Button text="Save"/></HBox>
+   
+    <HBox  fx:id="tools" />
     
-    <ImageView><image><Image url="@images/logo.png" /></image></ImageView>
+    
     <HBox spacing="10">
         
         <VBox spacing="10" fx:id="dropdown">
