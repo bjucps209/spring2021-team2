@@ -68,7 +68,7 @@ public class Fishes extends AllObject {
     }
 
     @Override
-    public Fishes eat(Fishes a){
+    public AllObject eat(AllObject a){
         return a;
     }
 

@@ -88,16 +88,11 @@ public class FishGame {
             for (int o = 0; o < objectStorage.size(); i++ ){
                 if ( i != o){
                     if (FishGame.circleChecking(objectStorage.get(i).drawCircle(), objectStorage.get(o).drawCircle()) != -1){
-                        if (objectStorage.get(i).getType() == Type.Obstacles && objectStorage.get(o).getType() == Type.Obstacles){
-
+                        situationHandle(objectStorage.get(i), objectStorage.get(o));
                         }
-                        if(objectStorage.get(i).getSize() > objectStorage.get(o).getSize()){
-                            objectStorage.remove(objectStorage.get(i).eat((Fishes)objectStorage.get(o)));
-                        }
-                    };
+                    }
                 }
-            }
-        }
+            } 
     }
 
     public static int circleChecking(int[] circle1, int[] circle2){
@@ -112,21 +107,32 @@ public class FishGame {
         }
     }
     // handle all kinds of situation while different things met
-    // return -1       while firstobject delete, secondOject stay same
-    // return 0        while other object meet wieh obstacles.
-    // return 1        while secondOject delete, firstobject stay same
-    // return 2        while fish meet wieh obstacles.
+    // return 1        first object eat second object
+    // return 2        second object eat first object
+    // return 3        first object is obstacles and second object is not fish
+    // return 4        seoncond object is obstacles and first object is not fish
+    // else do nothing
 
-    public static int situationHandle(AllObject firstobject, AllObject secondObject){
+    public static void situationHandle(AllObject firstobject, AllObject secondObject){
         if (
             (firstobject.getType() == Type.Shark)||
             (firstobject.getSize() > secondObject.getSize()||
             (firstobject instanceof Fishes && secondObject.getType() == Type.Food))){
+                firstobject.eat(secondObject);
         }else if(
             (secondObject.getType() == Type.Shark)||
             (secondObject.getSize() > firstobject.getSize()||
             (secondObject instanceof Fishes && firstobject.getType() == Type.Food))){
-        }else if()
+                secondObject.eat(firstobject);
+        }else if(
+            (firstobject.getType() == Type.Obstacles) && (secondObject instanceof Fishes == false) && (secondObject.getType() != Type.Shark)
+        ){
+            secondObject.setSpeed(0);
+        }else if(
+            (secondObject.getType() == Type.Obstacles) && (firstobject instanceof Fishes == false) && (firstobject.getType() != Type.Shark)
+        ){
+            firstobject.setSpeed(0);
+        }
     }
 
 

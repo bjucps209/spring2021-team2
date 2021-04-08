@@ -1,5 +1,6 @@
 package model;
 
+
 public class AllObject {
     
     //from class we learn this week those variable may change to intproperty in oder to bind
@@ -18,7 +19,7 @@ public class AllObject {
     //override by chrildren
     public void ChangeSpeedAndDirection() {}
 
-    public Fishes eat(Fishes a){
+    public AllObject eat(AllObject a){
         return null;
     }
 
