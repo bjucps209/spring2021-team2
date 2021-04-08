@@ -4,15 +4,10 @@ import java.util.Random;
 
 import javax.naming.directory.DirContext;
 
-public class Fishes extends World {
+public class Fishes extends AllObject {
 
     //initialdirction of fish final?
     int initialDirection;
-
-    //Fish type enum
-    FishType fishtype;
-
-
 
     // each fish is on their owe movement.
     // they will change speed and direction every 3 seconds. It should be called
@@ -28,7 +23,7 @@ public class Fishes extends World {
 
     // remember limitation of dirction number;
 
-    Fishes(){
+    Fishes(Type objType){
         this.speed = 10;
         this.size = 1;
 
@@ -46,7 +41,9 @@ public class Fishes extends World {
             x = 1;
             y = rand.nextInt(1000);
         }
+        this.objtype = objType;
     }
+
     @Override
     public void ChangeSpeedAndDirection() {
     }
@@ -68,21 +65,17 @@ public class Fishes extends World {
         }
         var ran2 = rand.nextInt(10);
         // up bit and down bit need to write here.
+    }
 
+    @Override
+    public Fishes eat(Fishes a){
+        return a;
     }
 
     // change randon speed for fish, 
     // remember up bound and low bound limiation onfish.
     public void randSpeed() {
 
-    }
-
-    public FishType getFishtype() {
-        return this.fishtype;
-    }
-
-    public void setFishtype(FishType fishtype) {
-        this.fishtype = fishtype;
     }
 
     

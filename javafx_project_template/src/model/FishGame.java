@@ -8,11 +8,15 @@ public class FishGame {
     // the storage of all things in the sceen.
     // first element of list will be user's fish;
     // while using for loops don't cover first element.
-    ArrayList<World> objectStorage;
+    ArrayList<AllObject> objectStorage;
 
     // three basic value for the game
     // from class we learn this week those variable may change to intproperty in
     // order to bind
+
+    //userfish
+    Userfish user;
+
     int life;
     int points;
     int health;
@@ -21,14 +25,24 @@ public class FishGame {
     public static int level;
 
 
-    // it use to make sure there is no too many food on the screen
+    // How many food on the screen for now 
     int numberOfFood;
 
-    // it use to make sure there is no too much each kind of fish in the screen
+    // iHow many each kind of fish on the screen for now
     int numberOfType1Fish;
     int numberOfType2Fish;
     int numberOfType3Fish;
     int numberOfPoisonFish;
+
+    // make sure there is not too many food on the screen
+    int limitOfFood;
+
+    // it use to make sure there is no too much each kind of fish in the screen
+    int limitOfType1Fish;
+    int limitOfType2Fish;
+    int limitOfType3Fish;
+    int limitOfPoisonFish;
+
 
     // to bolean for state for game,
     // if isCheatModeOn = true, user fish will not die
@@ -41,28 +55,26 @@ public class FishGame {
     public FishGame() {
         isCheatModeOn = false;
         isGameOver = false;
-        objectStorage = new ArrayList<World>();
-        objectStorage.add(new Fishes());/////////////////////////////////////////////////////////////////////////
-
+        objectStorage = new ArrayList<AllObject>();
     }
 
     // constructor while game start, model will recieve different value from
     // different level. however other limitation such as speed, will not in
     // constructor because each kind of fish have its own speed and their initial
     // speed in their own object;
-    public FishGame(int life, int points, int health, int numberOfFood, int numberOfType1Fish, int numberOfType2Fish,
-            int numberOfType3Fish) {
+    public FishGame(int life, int points, int health, int limitOfFood, int limitOfType1Fish, int limitOfType2Fish,
+            int limitOfType3Fish, int limitOfPoisonFish) {
         this.life = life;
         this.points = points;
         this.health = health;
         isCheatModeOn = false;
         isGameOver = false;
-        this.numberOfFood = numberOfFood;
-        this.numberOfType1Fish = numberOfType1Fish;
-        this.numberOfType2Fish = numberOfType2Fish;
-        this.numberOfType3Fish = numberOfType3Fish;
-        objectStorage = new ArrayList<World>();
-        objectStorage.add(new Fishes());/////////////////////////////////////////////////////////////////////////
+        this.limitOfFood = limitOfFood;
+        this.limitOfType1Fish = limitOfType1Fish;
+        this.limitOfType2Fish = limitOfType2Fish;
+        this.limitOfType3Fish = limitOfType3Fish;
+        this.limitOfPoisonFish = limitOfPoisonFish;
+        objectStorage = new ArrayList<AllObject>();
     }
 
     // from x and y we know image position, from image size we know how much it
@@ -72,8 +84,51 @@ public class FishGame {
     // remind and undeterming, size of the fish will be grow, we need careful about
     // this.
     public void Fishmeet() {
+        for (int i = 0; i < objectStorage.size(); i++ ){
+            for (int o = 0; o < objectStorage.size(); i++ ){
+                if ( i != o){
+                    if (FishGame.circleChecking(objectStorage.get(i).drawCircle(), objectStorage.get(o).drawCircle()) != -1){
+                        if (objectStorage.get(i).getType() == Type.Obstacles && objectStorage.get(o).getType() == Type.Obstacles){
 
+                        }
+                        if(objectStorage.get(i).getSize() > objectStorage.get(o).getSize()){
+                            objectStorage.remove(objectStorage.get(i).eat((Fishes)objectStorage.get(o)));
+                        }
+                    };
+                }
+            }
+        }
     }
+
+    public static int circleChecking(int[] circle1, int[] circle2){
+        int dispostion = (circle1[0] - circle2[0])*(circle1[0] - circle2[0]) + (circle1[1] -circle2[1]) *  (circle1[1] -circle2[1]);
+        int radiussum = (circle1[2] + circle2[2]) * (circle1[2] + circle2[2]);
+        if (dispostion == radiussum){
+            return 1;
+        }else if(dispostion > radiussum){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+    // handle all kinds of situation while different things met
+    // return -1       while firstobject delete, secondOject stay same
+    // return 0        while other object meet wieh obstacles.
+    // return 1        while secondOject delete, firstobject stay same
+    // return 2        while fish meet wieh obstacles.
+
+    public static int situationHandle(AllObject firstobject, AllObject secondObject){
+        if (
+            (firstobject.getType() == Type.Shark)||
+            (firstobject.getSize() > secondObject.getSize()||
+            (firstobject instanceof Fishes && secondObject.getType() == Type.Food))){
+        }else if(
+            (secondObject.getType() == Type.Shark)||
+            (secondObject.getSize() > firstobject.getSize()||
+            (secondObject instanceof Fishes && firstobject.getType() == Type.Food))){
+        }else if()
+    }
+
 
     // block the area that fish can't go cross, will not use in early level,
     // lt can work on later of the project.
@@ -82,11 +137,11 @@ public class FishGame {
     }
 
     // add a new object to arraylist
-    public void add(World a){
+    public void add(AllObject a){
         objectStorage.add(a);
     }
 
-    public void remove(World a){
+    public void remove(AllObject a){
         objectStorage.remove(a);
     }
 
@@ -110,6 +165,10 @@ public class FishGame {
     //the motion of the shark delate everything in the FishGame list
     public void sharkPass(){
         
+    }
+
+    public void updata(){
+
     }
 
     //load and save, I don't know yet
@@ -154,11 +213,11 @@ public class FishGame {
         this.numberOfType3Fish = numberOfType3Fish;
     }
 
-    public ArrayList<World> getObjectStorage() {
+    public ArrayList<AllObject> getObjectStorage() {
         return this.objectStorage;
     }
 
-    public void setObjectStorage(ArrayList<World> objectStorage) {
+    public void setObjectStorage(ArrayList<AllObject> objectStorage) {
         this.objectStorage = objectStorage;
     }
 

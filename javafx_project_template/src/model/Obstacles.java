@@ -4,7 +4,7 @@ import java.util.Random;
 
 import javafx.scene.image.Image;
 
-public class Obstacles extends World {
+public class Obstacles extends AllObject {
 
 
     Obstacles() {

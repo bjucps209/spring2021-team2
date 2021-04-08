@@ -1,6 +1,6 @@
 package model;
 
-public class World {
+public class AllObject {
     
     //from class we learn this week those variable may change to intproperty in oder to bind
     int x;
@@ -11,14 +11,36 @@ public class World {
 
     int imageSize = 115;
 
+    Type objtype;
+
     
 
     //override by chrildren
     public void ChangeSpeedAndDirection() {}
 
+    public Fishes eat(Fishes a){
+        return null;
+    }
+
+    public Type getType() {
+        return this.objtype;
+    }
+
+    public void setType(Type objtype){
+        this.objtype = objtype;
+    }
+
     public void updatePosition() {
         x += speed * Math.cos(direction * Math.PI / 180);
         y += speed * Math.sin(direction * Math.PI / 180);
+    }
+
+    public int[] drawCircle(){
+        int[] circle = new int[3];
+        circle[0] = (x+imageSize)/2;
+        circle[1] = (y+imageSize)/2;
+        circle[2] = imageSize/2;
+        return circle;
     }
 
     public int getImageSize() {

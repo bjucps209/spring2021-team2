@@ -3,7 +3,7 @@ package model;
 import javafx.scene.image.Image;
 
 //For this class it might not useful for current usage, but will be usefull for later level
-public class Food extends World{
+public class Food extends AllObject{
     
     private final Image dir = new Image("/FishPicture/FirstStageUsage/foodnoback.jpg");
 
