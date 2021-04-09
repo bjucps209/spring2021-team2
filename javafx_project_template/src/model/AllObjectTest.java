@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class WorldTest {
+public class AllObjectTest {
     //@Test
     //only method (except for getter and setter) in allobject class,
     //All the object can extends allobjec class will be able to updataPosition

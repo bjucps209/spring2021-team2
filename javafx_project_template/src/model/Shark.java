@@ -5,7 +5,7 @@ import java.util.Random;
 import javafx.scene.image.Image;
 
 //For this class it might not useful for current usage, but will be usefull for later level
-public class Shark extends World {
+public class Shark extends AllObject {
 
 
     Shark() {
@@ -14,15 +14,11 @@ public class Shark extends World {
     }
 
     @Override
-    //sharks have it own movement
-    public void updatePosition() {}
+    public void ChangeSpeedAndDirection() {;}
 
-
-    public int getImageSize() {
-        return this.imageSize;
+    public void Sharkeat(){
+        ;
     }
 
-    public void setImageSize(int imageSize) {
-        this.imageSize = imageSize;
-    }
 }
+
