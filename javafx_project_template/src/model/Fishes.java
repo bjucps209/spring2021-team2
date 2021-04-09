@@ -121,7 +121,6 @@ public class Fishes extends AllObject {
         }
     }
 
-    @Override
     public AllObject[] eat(AllObject a){
         AllObject[] stor;
         if (a.getType() == Type.PoisonFish||a.getType() == Type.Mine){
