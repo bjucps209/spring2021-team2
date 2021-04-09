@@ -14,15 +14,11 @@ public class Shark extends AllObject {
     }
 
     @Override
-    //sharks have it own movement
-    public void updatePosition() {}
+    public void ChangeSpeedAndDirection() {;}
 
-
-    public int getImageSize() {
-        return this.imageSize;
+    public void Sharkeat(){
+        ;
     }
 
-    public void setImageSize(int imageSize) {
-        this.imageSize = imageSize;
-    }
 }
+

@@ -19,8 +19,8 @@ public class AllObject {
     //override by chrildren
     public void ChangeSpeedAndDirection() {}
 
-    public AllObject eat(AllObject a){
-        return null;
+    public AllObject[] eat(AllObject a){
+        return new AllObject[1];
     }
 
     public Type getType() {
