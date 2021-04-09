@@ -55,6 +55,7 @@ public class FishGame {
     public FishGame() {
         isCheatModeOn = false;
         isGameOver = false;
+        this.points = 0;
         objectStorage = new ArrayList<AllObject>();
     }
 
@@ -62,10 +63,10 @@ public class FishGame {
     // different level. however other limitation such as speed, will not in
     // constructor because each kind of fish have its own speed and their initial
     // speed in their own object;
-    public FishGame(int life, int points, int health, int limitOfFood, int limitOfType1Fish, int limitOfType2Fish,
+    public FishGame(int life, int health, int limitOfFood, int limitOfType1Fish, int limitOfType2Fish,
             int limitOfType3Fish, int limitOfPoisonFish) {
         this.life = life;
-        this.points = points;
+        this.points = 0;
         this.health = health;
         isCheatModeOn = false;
         isGameOver = false;
@@ -75,6 +76,27 @@ public class FishGame {
         this.limitOfType3Fish = limitOfType3Fish;
         this.limitOfPoisonFish = limitOfPoisonFish;
         objectStorage = new ArrayList<AllObject>();
+        for (int i = 0; i < limitOfFood; i++){
+            objectStorage.add(new Food());
+            numberOfFood += 1;
+        }
+        for (int i = 0; i < limitOfType1Fish; i++){
+            objectStorage.add(new Fishes(Type.FishType1, 7, 1, 50));
+            numberOfType1Fish += 1;
+        }
+        for (int i = 0; i < limitOfType2Fish; i++){
+            objectStorage.add(new Fishes(Type.FishType2, 6, 2, 100));
+            numberOfType2Fish += 1;
+        }
+        for (int i = 0; i < limitOfType3Fish; i++){
+            objectStorage.add(new Fishes(Type.FishType3, 10, 3, 150));
+            numberOfType3Fish += 1;
+        }
+        for (int i = 0; i < limitOfPoisonFish; i++){
+            objectStorage.add(new Fishes(Type.PoisonFish, 7, 1, 50));
+            numberOfPoisonFish += 1;
+        }
+
     }
 
     // from x and y we know image position, from image size we know how much it
@@ -85,10 +107,24 @@ public class FishGame {
     // this.
     public void Fishmeet() {
         for (int i = 0; i < objectStorage.size(); i++ ){
-            for (int o = 0; o < objectStorage.size(); i++ ){
+            for (int o = 0; o < objectStorage.size(); o++ ){
                 if ( i != o){
                     if (FishGame.circleChecking(objectStorage.get(i).drawCircle(), objectStorage.get(o).drawCircle()) != -1){
-                        situationHandle(objectStorage.get(i), objectStorage.get(o));
+                        if (situationHandle(objectStorage.get(i), objectStorage.get(o)).length != 0);
+                            for (AllObject a : situationHandle(objectStorage.get(i), objectStorage.get(o))){
+                                objectStorage.remove(a);
+                                if ((a.getType() == Type.Food)) {
+                                    numberOfFood -= 1;
+                                }else if ((a.getType() == Type.FishType1)){
+                                    numberOfType1Fish -=1;
+                                }else if ((a.getType() == Type.FishType2)){
+                                    numberOfType2Fish -=1;
+                                }else if ((a.getType() == Type.FishType3)){
+                                    numberOfType3Fish -=1;
+                                }else if (a.getType() == Type.PoisonFish){
+                                    numberOfPoisonFish -= 1;
+                                }
+                            }
                         }
                     }
                 }
@@ -113,25 +149,49 @@ public class FishGame {
     // return 4        seoncond object is obstacles and first object is not fish
     // else do nothing
 
-    public static void situationHandle(AllObject firstobject, AllObject secondObject){
-        if (
-            (firstobject.getType() == Type.Shark)||
+    public static AllObject[] situationHandle(AllObject firstobject, AllObject secondObject){
+        AllObject[] eaten = new AllObject[0];
+        if (firstobject.getType() == Type.Shark){
+            if (secondObject.getType() != Type.Obstacles){
+                eaten = ((Shark) firstobject).Sharkeat(secondObject);
+            }
+        }
+        else if(secondObject.getType() == Type.Shark){
+            if (firstobject.getType() != Type.Obstacles){
+                eaten = ((Shark) secondObject).Sharkeat(firstobject);
+            }
+        }
+        else if (
             (firstobject.getSize() > secondObject.getSize()||
             (firstobject instanceof Fishes && secondObject.getType() == Type.Food))){
-                firstobject.eat(secondObject);
+                eaten = ((Fishes) firstobject).eat(secondObject);
         }else if(
-            (secondObject.getType() == Type.Shark)||
             (secondObject.getSize() > firstobject.getSize()||
             (secondObject instanceof Fishes && firstobject.getType() == Type.Food))){
-                secondObject.eat(firstobject);
+                eaten = ((Fishes) secondObject).eat(firstobject);
         }else if(
             (firstobject.getType() == Type.Obstacles) && (secondObject instanceof Fishes == false) && (secondObject.getType() != Type.Shark)
         ){
             secondObject.setSpeed(0);
         }else if(
-            (secondObject.getType() == Type.Obstacles) && (firstobject instanceof Fishes == false) && (firstobject.getType() != Type.Shark)
+            (secondObject.getType() == Type.Obstacles) && (firstobject instanceof Fishes)
         ){
-            firstobject.setSpeed(0);
+            firstobject.ChangeSpeedAndDirection();
+        }
+        return eaten;
+    }
+
+    public void checknumberofFish(){
+        for (int i = 0; i < limitOfFood - numberOfFood; i++){
+            objectStorage.add(new Food());
+        }for (int i = 0; i < limitOfType1Fish- numberOfType1Fish; i++){
+            objectStorage.add(new Fishes(Type.FishType1, 7, 1, 50));
+        }for (int i = 0; i < limitOfType2Fish- numberOfType2Fish; i++){
+            objectStorage.add(new Fishes(Type.FishType2, 6, 2, 100));
+        }for (int i = 0; i < limitOfType2Fish- numberOfType3Fish; i++){
+            objectStorage.add(new Fishes(Type.FishType2, 10, 3, 150));
+        }for (int i = 0; i < limitOfPoisonFish- numberOfPoisonFish; i++){
+            objectStorage.add(new Fishes(Type.PoisonFish, 7, 1, 50));
         }
     }
 
@@ -139,14 +199,13 @@ public class FishGame {
     // block the area that fish can't go cross, will not use in early level,
     // lt can work on later of the project.
     public void blockingArea() {
-
     }
 
-    // add a new object to arraylist
     public void add(AllObject a){
         objectStorage.add(a);
     }
 
+    
     public void remove(AllObject a){
         objectStorage.remove(a);
     }
@@ -166,15 +225,13 @@ public class FishGame {
 
     //add shark into fishGame list 
     public void addShark(){
-
-    }
-    //the motion of the shark delate everything in the FishGame list
-    public void sharkPass(){
-        
+        objectStorage.add(new Shark());
     }
 
     public void updata(){
-
+        for (AllObject a: objectStorage){
+            a.updatePosition();
+        }
     }
 
     //load and save, I don't know yet
