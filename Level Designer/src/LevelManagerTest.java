@@ -23,10 +23,15 @@ public class LevelManagerTest {
 
         LevelManager manager= new LevelManager();
         ArrayList<AllObject> objects=new ArrayList<AllObject>();
-        GameLevel level=new GameLevel("The Tank", "/somepath", 20, false,objects);
+        GameLevel level=new GameLevel("The Tank", "/images/somepath", 20, false,objects);
         manager.save(level);
        
-        manager.load(); //This assumes load works.
+        try {
+            manager.load("The Tank");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            
+        } //This assumes load works.
         GameLevel levelfromLoad=manager.getLevelArray().get(0);
         assertEquals(levelfromLoad.getLevelName(),"The Tank");
         assertEquals(levelfromLoad.getLevelPhotoPath(),"/somepath");
@@ -58,7 +63,7 @@ public class LevelManagerTest {
         // write test data to file using fw
         fw.write("L The Aquarium,1, Aquarium.png,9 ,1");
 
-         manager.load();
+         manager.load("The Aquarium");
         assertEquals("The Aquarium", manager.getLevelArray().get(0).getLevelName());
     
 
