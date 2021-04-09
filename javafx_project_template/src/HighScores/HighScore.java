@@ -6,7 +6,8 @@ public class HighScore {
 
     // sets the name and score equal to name and score in HighScore
     public HighScore(String name, int score) {
-        throw new RuntimeException("Method not implemented");
+        this.name = name;
+        this.score = score;
     }
     
     public String getName() {
@@ -23,5 +24,11 @@ public class HighScore {
     
     public void setScore(int score) {
         this.score = score;
+    }
+
+    //converts current score to string with space in the middle
+    public String stringer() {
+        String newString = (this.name.toString() + " " + Integer.toString(this.score));
+        return newString;
     }
 }
