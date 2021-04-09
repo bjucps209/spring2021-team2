@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -13,11 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.GameLevel;
+import model.LevelManager;
 
 
 public class MainWindow {
 
-    // put instance of Level Manager in MainWindow 
+    // put instance of Level Manager in MainWindow
+    LevelManager manage=new LevelManager();
+    
 
 
     
@@ -57,7 +61,14 @@ public class MainWindow {
         Button loadFile= new Button("Load");
         newFile.setOnAction((ActionEvent e) -> onNewFileClicked(e));
         saveFile.setOnAction((ActionEvent e) -> onSaveFileClicked(e));
-        loadFile.setOnAction((ActionEvent e) -> onLoadFileClicked(e));
+        loadFile.setOnAction((ActionEvent e) -> {
+            try {
+                onLoadFileClicked(e);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
 
        
      tools.getChildren().addAll(newFile,saveFile,loadFile);
@@ -148,8 +159,9 @@ Bindings.createStringBinding(
     }
 
     @FXML
-     void onLoadFileClicked(ActionEvent e) {
-        System.out.println("L");
+     void onLoadFileClicked(ActionEvent e) throws IOException {
+   
+       manage.load("/model/testsave.txt");
      }
       
     @FXML
