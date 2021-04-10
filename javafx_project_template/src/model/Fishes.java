@@ -149,4 +149,19 @@ public class Fishes extends AllObject {
             this.speed += ran2;
         }
     }
+    // returns a string for the save function
+    public String serialize() {
+        String dataString = "";
+        dataString += this.objtype.toString();
+        dataString += ":";
+        dataString += Integer.toString(x) + "," + Integer.toString(y);
+        dataString += ":";
+        dataString += Integer.toString(this.size);
+        dataString += ":";
+        dataString += Integer.toString(direction);
+        dataString += ":";
+        dataString += Integer.toString(this.imageSize);
+         
+        return dataString;
+    }
 }

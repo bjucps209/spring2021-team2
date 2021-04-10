@@ -30,4 +30,16 @@ public class Mine extends AllObject{
         }
     }
 
+    //TODO: figure out how mine serializatoin works
+    // public String serialize() {
+    //     String dataString = "";
+    //     dataString += this.type.toString();
+    //     dataString += ":";
+    //     dataString += Integer.toString(x) + "," + Integer.toString(y);
+    //     dataString += ":";
+    //     dataString += Integer.toString(direction);
+    //     dataString += ":";
+         
+    //     return dataString;
+    // }
 }

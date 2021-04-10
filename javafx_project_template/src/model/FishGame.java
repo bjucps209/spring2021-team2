@@ -1,5 +1,7 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -236,11 +238,17 @@ public class FishGame {
 
     //load and save, I don't know yet
     public void load(){
+        // probably a for loop to cycle through each object's serialize method which will then be passed to the StreamReader
 
     }
 
     public void save(){
-
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("save.game", true));
+            } catch (Exception e) {
+            //TODO: this breaks model/view separation
+            System.out.println("Save just died");
+        }
     }
 
     // all getters and setters

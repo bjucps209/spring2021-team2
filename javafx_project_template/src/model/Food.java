@@ -16,6 +16,7 @@ public class Food extends AllObject{
         this.direction = 270;
         this.imageSize = 20;
         var rand = new Random();
+        //TODO: figure out how the x and y are generated
         x = rand.nextInt(1000);
         y = this.imageSize;
     }
@@ -33,4 +34,15 @@ public class Food extends AllObject{
         }
     }
 
+    public String serialize() {
+        String dataString = "";
+        dataString += this.type.toString();
+        dataString += ":";
+        dataString += Integer.toString(x) + "," + Integer.toString(y);
+        dataString += ":";
+        dataString += Integer.toString(direction);
+        dataString += ":";
+         
+        return dataString;
+    }
 }
