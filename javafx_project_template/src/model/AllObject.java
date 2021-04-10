@@ -14,7 +14,9 @@ public class AllObject {
 
     Type objtype;
 
-    
+    AllObject(){
+        ;
+    }
 
     //override by chrildren
     public void ChangeSpeedAndDirection() {}

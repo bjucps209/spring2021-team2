@@ -10,6 +10,14 @@ public class Fishes extends AllObject {
     //initialdirction of fish final?
     private int initialDirection;
 
+    public int getInitialDirection() {
+        return this.initialDirection;
+    }
+
+    public void setInitialDirection(int initialDirection) {
+        this.initialDirection = initialDirection;
+    }
+
     // each fish is on their owe movement.
     // they will change speed and direction every 3 seconds. It should be called
     // every 3s in timeline at viewclass

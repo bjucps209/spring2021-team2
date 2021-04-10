@@ -70,8 +70,29 @@ public class FishGameTest {
         assertEquals(a.getObjectStorage().get(0) instanceof Shark, true); 
     }
 
+    @Test
     public void circleCheckingTest(){
+        int[] a = new int[]{30, 30, 10};
+        int[] b = new int[]{60, 60, 5};
+        assertEquals(FishGame.circleChecking(a, b), -1);
+        int[] c = new int[]{40, 40, 5};
+        assertEquals(FishGame.circleChecking(a, c), 0);
         
+    }
+
+    @Test
+    public void userfishcollisionTest(){
+        FishGame a = new FishGame(3, 5, 20, 15, 10, 5, 3);
+        a.getObjectStorage().get(a.getObjectStorage().size()-1).setX(450);
+        a.getObjectStorage().get(a.getObjectStorage().size()-1).setY(450);
+        a.setLife(1);
+        a.userfishcollision();
+        assertEquals(a.getIsGameOver(), false);
+        a.userfishcollision();
+        a.userfishcollision();
+        a.userfishcollision();
+        a.userfishcollision();
+        assertEquals(a.getIsGameOver(), true);
     }
 
 }

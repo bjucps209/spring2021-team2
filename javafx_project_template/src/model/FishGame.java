@@ -19,9 +19,9 @@ public class FishGame {
     //userfish
     Userfish user;
 
-    int life;
-    int points;
-    int health;
+    static int life;
+    static int points = 0; 
+    static int health;
 
     //Level static global variable
     public static int level;
@@ -57,8 +57,8 @@ public class FishGame {
     public FishGame() {
         isCheatModeOn = false;
         isGameOver = false;
-        this.points = 0;
         objectStorage = new ArrayList<AllObject>();
+        user = new Userfish(Type.FishType1, 5, 1, 30);
     }
 
     // constructor while game start, model will recieve different value from
@@ -67,9 +67,8 @@ public class FishGame {
     // speed in their own object;
     public FishGame(int life, int health, int limitOfFood, int limitOfType1Fish, int limitOfType2Fish,
             int limitOfType3Fish, int limitOfPoisonFish) {
-        this.life = life;
-        this.points = 0;
-        this.health = health;
+        FishGame.life = life;
+        FishGame.health = health;
         isCheatModeOn = false;
         isGameOver = false;
         this.limitOfFood = limitOfFood;
@@ -98,6 +97,7 @@ public class FishGame {
             objectStorage.add(new Fishes(Type.PoisonFish, 7, 1, 50));
             numberOfPoisonFish += 1;
         }
+        user = new Userfish(Type.FishType1, 5, 1, 30);
 
     }
 
@@ -133,6 +133,29 @@ public class FishGame {
             } 
     }
 
+    public void userfishcollision(){
+        for (AllObject a : objectStorage){
+            if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1){
+                if (user.getSize() == a.getSize()){
+                    health -= 1;
+                }else if(user.getSize() < a.getSize()){
+                    health -= (a.getSize() - user.getSize());
+                }else if(user.getSize() > a.getSize()){
+                    user.eat(a);
+                }
+            if (FishGame.health < 1){
+                FishGame.life -= 1;
+                if (FishGame.life < 1){
+                    if (isCheatModeOn = false){
+                        isGameOver = true;
+                }
+
+                }
+            }
+            }
+        }
+    }
+
     public static int circleChecking(int[] circle1, int[] circle2){
         int dispostion = (circle1[0] - circle2[0])*(circle1[0] - circle2[0]) + (circle1[1] -circle2[1]) *  (circle1[1] -circle2[1]);
         int radiussum = (circle1[2] + circle2[2]) * (circle1[2] + circle2[2]);
@@ -145,10 +168,10 @@ public class FishGame {
         }
     }
     // handle all kinds of situation while different things met
-    // return 1        first object eat second object
-    // return 2        second object eat first object
-    // return 3        first object is obstacles and second object is not fish
-    // return 4        seoncond object is obstacles and first object is not fish
+    // return        first object eat second object
+    // return        second object eat first object
+    // return        first object is obstacles and second object is not fish
+    // return        seoncond object is obstacles and first object is not fish
     // else do nothing
 
     public static AllObject[] situationHandle(AllObject firstobject, AllObject secondObject){
@@ -194,6 +217,22 @@ public class FishGame {
             objectStorage.add(new Fishes(Type.FishType2, 10, 3, 150));
         }for (int i = 0; i < limitOfPoisonFish- numberOfPoisonFish; i++){
             objectStorage.add(new Fishes(Type.PoisonFish, 7, 1, 50));
+        }
+    }
+
+    public void increaseSize(){
+        if (FishGame.points == 10){
+            user.setSize(user.getSize()+1);
+            user.setImageSize(user.getImageSize()+30);
+        }else if(FishGame.points == 40){
+            user.setSize(user.getSize()+1);
+            user.setImageSize(user.getImageSize()+30);
+        }else if(FishGame.points == 80){
+            user.setSize(user.getSize()+1);
+            user.setImageSize(user.getImageSize()+30);
+        }else if(FishGame.points == 110){
+            user.setSize(user.getSize()+1);
+            user.setImageSize(user.getImageSize()+30);
         }
     }
 

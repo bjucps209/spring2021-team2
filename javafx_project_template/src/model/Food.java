@@ -10,7 +10,7 @@ public class Food extends AllObject{
     Type type = Type.Food;
 
 
-    Food(){
+    public Food(){
         this.speed = 10;
         this.size = 1;
         this.direction = 270;
