@@ -36,5 +36,19 @@ public class Shark extends AllObject {
         b[0] = a;
         return b;
         }
+
+
+    //TODO: figure out how Shark serializatoin works
+    // public String serialize() {
+    //     String dataString = "";
+    //     dataString += this.type.toString();
+    //     dataString += ":";
+    //     dataString += Integer.toString(x) + "," + Integer.toString(y);
+    //     dataString += ":";
+    //     dataString += Integer.toString(direction);
+    //     dataString += ":";
+         
+    //     return dataString;
+    // }
 }
 
