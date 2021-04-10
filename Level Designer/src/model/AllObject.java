@@ -3,6 +3,7 @@ package model;
 public class AllObject {
     
     //from class we learn this week those variable may change to intproperty in oder to bind
+    String type;
     int x;
     int y;
     int speed;
@@ -58,6 +59,8 @@ public class AllObject {
     public void setDirection(int direction) {
         this.direction = direction;
     }
+
+   
 
     
 }

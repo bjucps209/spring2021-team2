@@ -2,14 +2,14 @@ package model;
 
 import org.junit.Test;
 
-import model.AllObject;
-import model.GameLevel;
+
 import java.util.ArrayList;
 
 
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +21,7 @@ public class LevelManagerTest {
 
 
     @Test
-    public void saveTest(){
+    public void saveTest() throws FileNotFoundException{
 
         LevelManager manager= new LevelManager();
         ArrayList<AllObject> objects=new ArrayList<AllObject>();

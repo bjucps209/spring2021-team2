@@ -1,10 +1,12 @@
 package model;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import model.GameLevel;
 public class LevelManager {
 
 
@@ -22,68 +24,94 @@ public class LevelManager {
      */
     
     public GameLevel load(String filename) throws IOException {
+        GameLevel level=new GameLevel("","", 0, false, null);
+        
         System.out.println(filename);
 
 
         
-        try (var reader = new DataInputStream(new FileInputStream("testsave.txt"))) {
+        try (var reader = new DataInputStream(new FileInputStream(filename))) {
+
+
+            String levelDetails="";
             
 
 
                 
             
             while(reader.available()!=0){
-                GameLevel level=new GameLevel("","", 0, false, null);
-               String levelRawDetails=reader.readUTF();
-               System.out.println(levelRawDetails);
+               
+               String levelRawDetails=reader.readLine();
+               levelDetails+=levelRawDetails+"\n";
 
-
-               // break the raw level details up by comma and then place them into 
-               // their slots 
-
-
-
-
-
-
-            // level.setLevelName(levelName);
-
-             /*
-              FOR EXAMPLE 
-
-
-
-             Suit suit=new Suit("","","","",0,false,"");
-             suit.marknumber=reader.readUTF();
-             suit.name = reader.readUTF();
-             suit.equipment=reader.readUTF();
-             suit.purpose = reader.readUTF();
-             suit.rating=reader.readInt();
-             suit.destroyed=reader.readBoolean();
-             suit.photo=reader.readUTF();
-             suits.add(suit);
             }
-             
-            instance.getSuits().clear();
-            instance.getSuits().addAll(suits);
+   
+     String[] lines =levelDetails.split("\\r?\\n");
+  for (String line : lines) {
+      if (!(line.isBlank())){
+
+         if(line.charAt(0)=='L'){
+            line=line.substring(1);
+           
+            System.out.println(line);
+            String[] values = line.split(",");
+            level.levelName=values[0];
+            level.levelPhotoPath=values[1];
+            level.numFish=Integer.parseInt(values[2]);
+            System.out.println(level.levelName);
+            System.out.println(level.numFish);
+
+
+
+      }
+      else if((line.charAt(0)=='O')){
+          System.out.println("Object Found");
             
-         }
-         return suits;
-         */
-            }
- 
+        }
  
             
           
          
  
-     return null;
    
+    }
  }
+ return level;
+}
     }
     
-    public void save(GameLevel level) {
-        throw new RuntimeException("Not Implemented");
+    public void save(GameLevel level) throws FileNotFoundException {
+        try{
+        
+            try (DataOutputStream writer = new DataOutputStream(new FileOutputStream(level.levelName+".txt"))) {
+                
+
+                int levelBossFish=0;
+                if (level.isBossFish()){
+                    levelBossFish=1;
+                }
+
+                String save=String.format("L %s,%s,%d,%d \n",level.levelName,level.levelPhotoPath,level.numFish,levelBossFish);
+               
+                for(AllObject obj: level.objects){
+                save+=obj.type+ ","+obj.x+","+obj.y+"\n";
+
+                }
+                writer.writeBytes(save);
+            }
+              
+                  
+                   
+                    
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("There has been an issue with saving");
+
+        }
+                    
+                 
+                       
+      
     }
 
     public ArrayList<GameLevel> getLevelArray() {

@@ -1,18 +1,19 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.AllObject;
 import model.GameLevel;
 import model.LevelManager;
 
@@ -20,8 +21,11 @@ import model.LevelManager;
 public class MainWindow {
 
     // put instance of Level Manager in MainWindow
-    LevelManager manage=new LevelManager();
+    LevelManager manager=new LevelManager();
     
+
+
+    //GameLevel currentState=new GameLevel("levelName","", "","", "");
 
 
     
@@ -60,12 +64,18 @@ public class MainWindow {
         Button saveFile= new Button("Save");
         Button loadFile= new Button("Load");
         newFile.setOnAction((ActionEvent e) -> onNewFileClicked(e));
-        saveFile.setOnAction((ActionEvent e) -> onSaveFileClicked(e));
+        saveFile.setOnAction((ActionEvent e) -> {
+            try {
+                onSaveFileClicked(e);
+            } catch (FileNotFoundException e2) {
+                e2.printStackTrace();
+            }
+        });
         loadFile.setOnAction((ActionEvent e) -> {
             try {
                 onLoadFileClicked(e);
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
+            
                 e1.printStackTrace();
             }
         });
@@ -76,7 +86,7 @@ public class MainWindow {
 
        VBox LevelSettings=new VBox();
        TextField levelName=new TextField("Level Name");
-       Button levelPhoto=new Button("Photo Path");
+       Button levelPhoto=new Button("Photo");
        levelPhoto.setOnAction((ActionEvent e) -> LevelFileChooser(e));
 
 
@@ -150,22 +160,69 @@ Bindings.createStringBinding(
         //Open the file chooser on the screen
         File file = fileChooser.showOpenDialog(thisStage);
         //Set a new photo per the user's choice
-        /*
+        
         try {
-            
-            ImageView view = new ImageView(file.getName());
-    }
-    */
+            String style=String.format("-fx-background-image: url('/images/%s');", file.getName());
+            pane.setStyle(style);
+      
+        }catch(Exception exception){
+            System.out.println("Exception with saving");
+        }
+    
+        
+    
+    
     }
 
     @FXML
      void onLoadFileClicked(ActionEvent e) throws IOException {
    
-       manage.load("/model/testsave.txt");
+        Node node = (Node) e.getSource();
+        //get the Stage the button is in 
+        Stage thisStage = (Stage) node.getScene().getWindow();
+        //Create a new file chooser
+        FileChooser fileChooser = new FileChooser();
+        //Set the Title Attribute of the fileChooser
+        fileChooser.setTitle("Open Save File");
+        //Open the file chooser on the screen
+        File file = fileChooser.showOpenDialog(thisStage);
+        //Set a new photo per the user's choice
+        
+        try {
+         manager.load(file.getName());
+            
+      
+        }catch(Exception exception){
+            exception.printStackTrace();
+            System.out.println("Exception with saving");
+        }
+    
+        
+    
+    
+    
+
      }
       
     @FXML
-     void onSaveFileClicked(ActionEvent e) {
+     void onSaveFileClicked(ActionEvent e) throws FileNotFoundException {
+         Accordion accord=(Accordion) dropdown.getChildren().get(0);
+         TitledPane tp=(TitledPane) accord.getChildrenUnmodifiable().get(0);
+         VBox vbox= (VBox) tp.getContent();
+        
+        
+         
+        TextField levelName =(TextField) vbox.getChildrenUnmodifiable().get(0);
+         
+
+
+         ArrayList<AllObject> obj=new ArrayList<AllObject>();
+         AllObject object=new AllObject();
+        //object attrs 
+        
+         obj.add(object);
+         GameLevel level=new GameLevel(levelName.getText(),"/somepath", 2, false,obj);
+         manager.save(level);
 
         //if its what's on the screen reflects whats on the pane then disable the save button
         
