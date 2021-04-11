@@ -16,6 +16,8 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.function.DoublePredicate;
+
 import javax.swing.Action;
 import javafx.event.ActionEvent;
 import javafx.scene.Cursor;
@@ -70,17 +72,17 @@ public class GameWindow {
         start.getUser().getRight().bind(Right);
         start.getUser().getDown().bind(Down);
         start.getUser().getLeft().bind(Left);
-        //KeyFrame timerF1 = new KeyFrame(Duration.seconds(3), e -> updataDS());
-        //timer1 = new Timeline(timerF1);
-        //KeyFrame timerF2 = new KeyFrame(Duration.seconds(10), e -> updatanum());
-        //timer2 = new Timeline(timerF2);
+        KeyFrame timerF1 = new KeyFrame(Duration.seconds(3), e -> updataDS());
+        timer1 = new Timeline(timerF1);
+        KeyFrame timerF2 = new KeyFrame(Duration.seconds(10), e -> updatanum());
+        timer2 = new Timeline(timerF2);
         KeyFrame timerF3 = new KeyFrame(Duration.millis(100), e -> updataCollison());
         timer3 = new Timeline(timerF3);
-        //timer1.setCycleCount(-1);
-       // timer2.setCycleCount(-1);
-        //timer3.setCycleCount(-1);
-       // timer1.play();
-       // timer2.play();
+        timer1.setCycleCount(-1);
+        timer2.setCycleCount(-1);
+        timer3.setCycleCount(-1);
+        timer1.play();
+        timer2.play();
         timer3.play();
     }
 
@@ -200,8 +202,8 @@ public class GameWindow {
         }else{image = new ImageView();};
         image.relocate(a.getX().get(), a.getY().get());
         image.setId(""+id);
-        image.xProperty().bind(a.getX());
-        image.yProperty().bind(a.getY());
+        image.xProperty().bindBidirectional(a.getX());
+        image.yProperty().bindBidirectional(a.getY());
         pane.getChildren().add(image);
     }
 }
