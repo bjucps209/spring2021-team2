@@ -146,7 +146,8 @@ public class GameWindow {
         if (a.getType() == Type.Food ){
             ImageView image = new ImageView(IMG_Food);
             image.relocate(a.getX().get(), a.getY().get());
-            image.xProperty().bind(a.getX(), a.getY())
+            image.xProperty().bind(a.getX());
+            image.yProperty().bind(a.getY());
             pane.getChildren().add(image);
         }
     }
