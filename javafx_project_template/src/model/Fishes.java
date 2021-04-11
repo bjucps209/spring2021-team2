@@ -45,14 +45,16 @@ public class Fishes extends AllObject {
         if (ran == 0) {
             // remember import from left edge of screen
             initialDirection = 0 + rand.nextInt(10);
-            x = 1-imageSize;
-            y = rand.nextInt(1000);
+            x.set(1-imageSize);
+            int yuse = rand.nextInt(1000);
+            y.set(yuse);
             direction = initialDirection;
         } else {
             // remember import from right edge of screen
             initialDirection = 180 + rand.nextInt(10);
-            x = 1;
-            y = rand.nextInt(1000);
+            x.set(1);
+            int yuse = rand.nextInt(1000);
+            y.set(yuse);
             direction = initialDirection;
         }
     }
@@ -162,7 +164,7 @@ public class Fishes extends AllObject {
         String dataString = "";
         dataString += this.objtype.toString();
         dataString += ":";
-        dataString += Integer.toString(x) + "," + Integer.toString(y);
+        dataString += Integer.toString(x.get()) + "," + Integer.toString(y.get());
         dataString += ":";
         dataString += Integer.toString(this.size);
         dataString += ":";

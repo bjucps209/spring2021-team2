@@ -1,18 +1,59 @@
 package model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Userfish extends Fishes{
+    
+    Direction direction = Direction.STOP;
+
+     BooleanProperty Up = new SimpleBooleanProperty(false);
+     BooleanProperty Right = new SimpleBooleanProperty(false);
+     BooleanProperty Down = new SimpleBooleanProperty(false);
+     BooleanProperty Left = new SimpleBooleanProperty(false);
 
     Userfish(Type objType, int speed, int size, int imageSize) {
         super(objType, speed, size, imageSize);
-        setX(450);
-        setY(450);
+        setX(new SimpleIntegerProperty(450));
+        setY(new SimpleIntegerProperty(450));
         setInitialDirection(0);
         setDirection(0);
+        
     }
 
     @Override
     public void updatePosition(){
-
+        switch(direction){
+        case Up :
+            y.set(y.get() - speed);
+            break;
+        case RightUp :
+            y.set(y.get() - speed);
+            x.set(x.get() + speed);
+            break;
+        case Right :
+            x.set(x.get() + speed);
+            break;
+        case RightDown :
+            y.set(y.get() + speed);
+            x.set(x.get() + speed);
+            break;
+        case Down :
+            y.set(y.get() + speed);
+            break;
+        case LeftDown :
+            y.set(y.get() + speed);
+            x.set(x.get() - speed);
+            break;
+        case Left :
+            x.set(x.get() - speed);
+            break;
+        case LeftUp :
+            y.set(y.get() - speed);
+            x.set(x.get() - speed);
+            break;
+            }
     }
 
     @Override
@@ -43,5 +84,73 @@ public class Userfish extends Fishes{
             stor[0] = null;
         }
         return stor;
+    }
+
+
+        // if up press and down press do nothing
+    // if right press and left press do nothing
+    // if right press and up press move up right
+    public void moveDirection() {
+        if (Up.get() && !Right.get() && !Down.get() && !Left.get()){
+            direction = Direction.Up;
+        }else if (Up.get() && Right.get() && !Down.get() && !Left.get()){
+            direction = Direction.RightUp;
+        }else if(!Up.get() && Right.get() && !Down.get() && !Left.get()){
+            direction = Direction.Right;
+        }else if(!Up.get() && Right.get() && Down.get() && !Left.get()){
+            direction = Direction.RightDown;
+        }else if (!Up.get() && !Right.get() && Down.get() && !Left.get()){
+            direction = Direction.Down;
+        }else if(!Up.get() && !Right.get() && Down.get() && Left.get()){
+            direction = Direction.LeftDown;
+        }else if(!Up.get() && !Right.get() && !Down.get() && Left.get()){
+            direction = Direction.Down;
+        }else if (Up.get() && !Right.get() && !Down.get() && Left.get()){
+            direction = Direction.LeftUp;
+        }else{
+            direction = Direction.STOP;
+        }
+
+    }
+
+    public void setDirectionenum(Direction direction) {
+		this.direction = direction;
+	}
+
+    public Direction getDirectionenum() {
+        return this.direction;
+    }
+
+    public BooleanProperty getUp() {
+        return this.Up;
+    }
+
+    public void setUp(BooleanProperty Up) {
+        this.Up = Up;
+    }
+
+    public BooleanProperty getRight() {
+        return this.Right;
+    }
+
+    public void setRight(BooleanProperty Right) {
+        this.Right = Right;
+    }
+
+    public BooleanProperty getDown() {
+        return this.Down;
+    }
+
+    public void setDown(BooleanProperty Down) {
+        this.Down = Down;
+    }
+
+    
+    public BooleanProperty getLeft() {
+        return this.Left;
+    }
+
+    public void setLeft(BooleanProperty Left) {
+        this.Left = Left;
     }
 }

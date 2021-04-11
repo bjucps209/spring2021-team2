@@ -15,8 +15,9 @@ public class Mine extends AllObject{
         this.direction = 270;
         this.imageSize = 31;
         var rand = new Random();
-        x = rand.nextInt(1000);
-        y = this.imageSize;
+        int xUse = rand.nextInt(1000);
+        x.set(xUse);
+        y.set(imageSize);
     }
     
     //falling change moving speed

@@ -19,6 +19,14 @@ public class FishGame {
     //userfish
     Userfish user;
 
+    public Userfish getUser() {
+        return this.user;
+    }
+
+    public void setUser(Userfish user) {
+        this.user = user;
+    }
+
     static int life;
     static int points = 0; 
     static int health;

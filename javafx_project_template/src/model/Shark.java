@@ -19,13 +19,15 @@ public class Shark extends AllObject {
         if (ran == 0) {
             // remember import from left edge of screen
             direction = 0;
-            x = 1-imageSize;
-            y = rand.nextInt(1000);
+            x.set(1-imageSize);
+            int yUse = rand.nextInt(1000);
+            y.set(yUse);
         } else {
             // remember import from right edge of screen
             direction = 180;
-            x = 1;
-            y = rand.nextInt(1000);
+            x.set(1);
+            int yUse = rand.nextInt(1000);
+            y.set(yUse);
         }
     }
 

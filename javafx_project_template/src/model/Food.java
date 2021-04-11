@@ -17,8 +17,9 @@ public class Food extends AllObject{
         this.imageSize = 20;
         var rand = new Random();
         //TODO: figure out how the x and y are generated
-        x = rand.nextInt(1000);
-        y = this.imageSize;
+        int xUse = rand.nextInt(1000);
+        x.set(xUse);
+        y.set(this.imageSize);
     }
 
     //falling change moving speed
@@ -38,7 +39,7 @@ public class Food extends AllObject{
         String dataString = "";
         dataString += this.type.toString();
         dataString += ":";
-        dataString += Integer.toString(x) + "," + Integer.toString(y);
+        dataString += Integer.toString(x.get()) + "," + Integer.toString(y.get());
         dataString += ":";
         dataString += Integer.toString(direction);
         dataString += ":";
