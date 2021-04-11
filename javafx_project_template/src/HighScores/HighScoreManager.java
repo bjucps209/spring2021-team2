@@ -10,8 +10,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import javafx.css.Size;
-
 public class HighScoreManager {
 
     public HighScoreManager() {
@@ -63,6 +61,7 @@ public class HighScoreManager {
                     lowStringer(line);
                 } while (line != "");
         } catch (Exception e) {
+            System.out.println(e);
         }
 
         return line;

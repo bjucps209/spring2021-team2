@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="HighScoresWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
+    spacing="10" prefHeight="1000" prefWidth="1000" alignment="CENTER">
+
+    <HBox>
+        <Label text="High Scores"  />
+    </HBox>
+
+    <HBox>
+        <VBox style="-fx-padding: 10" fx:id="rank">
+            <Label text="Rank" />
+        </VBox>
+
+        <VBox style="-fx-padding: 10" fx:id="name">
+            <Label text="Name" />
+        </VBox>
+
+        <VBox style="-fx-padding: 10" fx:id="score">
+            <Label text="Points" />
+        </VBox>
+    </HBox>
+
+</VBox>
