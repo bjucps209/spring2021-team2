@@ -46,6 +46,8 @@ public class FishesTest {
         Fishes fish = new Fishes(Type.FishType1, 2, 3, 100);
         Fishes fish2 = new Fishes(Type.FishType1, 2, 2, 100);
         Fishes fish3 = new Fishes(Type.Mine, 2, 4, 60);
+        Fishes fish4 = new Fishes(Type.Mine, 2, 2, 60);
+        var ssss = fish2.eat(fish4);
         AllObject[] a = new AllObject[1];
         a[0] = fish2;
         AllObject[] b = new AllObject[2];

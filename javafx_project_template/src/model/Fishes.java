@@ -4,6 +4,8 @@ import java.util.Random;
 
 import javax.naming.directory.DirContext;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 
 public class Fishes extends AllObject {
 
@@ -32,7 +34,7 @@ public class Fishes extends AllObject {
 
     // remember limitation of dirction number;
 
-    Fishes(Type objType, int speed, int size, int imageSize){
+    public Fishes(Type objType, int speed, int size, int imageSize){
         this.speed = speed;
         this.size = size;
         this.objtype = objType;
@@ -45,16 +47,16 @@ public class Fishes extends AllObject {
         if (ran == 0) {
             // remember import from left edge of screen
             initialDirection = 0 + rand.nextInt(10);
-            x.set(1-imageSize);
+            x = new SimpleIntegerProperty(1-imageSize);
             int yuse = rand.nextInt(1000);
-            y.set(yuse);
+            y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         } else {
             // remember import from right edge of screen
             initialDirection = 180 + rand.nextInt(10);
-            x.set(1);
+            x = new SimpleIntegerProperty(1);
             int yuse = rand.nextInt(1000);
-            y.set(yuse);
+            y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         }
     }
@@ -132,7 +134,7 @@ public class Fishes extends AllObject {
     }
 
     public AllObject[] eat(AllObject a){
-        AllObject[] stor;
+        AllObject[] stor = new AllObject[]{};
         if (a.getType() == Type.PoisonFish||a.getType() == Type.Mine){
             stor = new AllObject[2];
             stor[0] = this;
@@ -140,9 +142,6 @@ public class Fishes extends AllObject {
         }else if((a instanceof Fishes) && a.getType() != Type.PoisonFish){
             stor = new AllObject[1];
             stor[0] = a;
-        }else{
-            stor = new AllObject[1];
-            stor[0] = null;
         }
         return stor;
     }

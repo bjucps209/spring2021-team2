@@ -44,14 +44,62 @@ public class FishGame {
     int numberOfType3Fish;
     int numberOfPoisonFish;
 
+    public int getNumberOfPoisonFish() {
+        return this.numberOfPoisonFish;
+    }
+
+    public void setNumberOfPoisonFish(int numberOfPoisonFish) {
+        this.numberOfPoisonFish = numberOfPoisonFish;
+    }
+
     // make sure there is not too many food on the screen
     int limitOfFood;
+
+    public int getLimitOfFood() {
+        return this.limitOfFood;
+    }
+
+    public void setLimitOfFood(int limitOfFood) {
+        this.limitOfFood = limitOfFood;
+    }
 
     // it use to make sure there is no too much each kind of fish in the screen
     int limitOfType1Fish;
     int limitOfType2Fish;
     int limitOfType3Fish;
     int limitOfPoisonFish;
+
+    public int getLimitOfType1Fish() {
+        return this.limitOfType1Fish;
+    }
+
+    public void setLimitOfType1Fish(int limitOfType1Fish) {
+        this.limitOfType1Fish = limitOfType1Fish;
+    }
+
+    public int getLimitOfType2Fish() {
+        return this.limitOfType2Fish;
+    }
+
+    public void setLimitOfType2Fish(int limitOfType2Fish) {
+        this.limitOfType2Fish = limitOfType2Fish;
+    }
+
+    public int getLimitOfType3Fish() {
+        return this.limitOfType3Fish;
+    }
+
+    public void setLimitOfType3Fish(int limitOfType3Fish) {
+        this.limitOfType3Fish = limitOfType3Fish;
+    }
+
+    public int getLimitOfPoisonFish() {
+        return this.limitOfPoisonFish;
+    }
+
+    public void setLimitOfPoisonFish(int limitOfPoisonFish) {
+        this.limitOfPoisonFish = limitOfPoisonFish;
+    }
 
 
     // to bolean for state for game,
@@ -115,14 +163,17 @@ public class FishGame {
     // touches.
     // remind and undeterming, size of the fish will be grow, we need careful about
     // this.
-    public void Fishmeet() {
+    public ArrayList<Integer> Fishmeet() {
+        ArrayList<Integer> idToRemove = new ArrayList<Integer>();
+        ArrayList<AllObject> removeList = new ArrayList<>();
         for (int i = 0; i < objectStorage.size(); i++ ){
             for (int o = 0; o < objectStorage.size(); o++ ){
                 if ( i != o){
                     if (FishGame.circleChecking(objectStorage.get(i).drawCircle(), objectStorage.get(o).drawCircle()) != -1){
-                        if (situationHandle(objectStorage.get(i), objectStorage.get(o)).length != 0);
+                        if (situationHandle(objectStorage.get(i), objectStorage.get(o)).length != 0){
                             for (AllObject a : situationHandle(objectStorage.get(i), objectStorage.get(o))){
-                                objectStorage.remove(a);
+                                idToRemove.add(a.getId());
+                                removeList.add(a);
                                 if ((a.getType() == Type.Food)) {
                                     numberOfFood -= 1;
                                 }else if ((a.getType() == Type.FishType1)){
@@ -138,7 +189,12 @@ public class FishGame {
                         }
                     }
                 }
-            } 
+            }
+        }
+        for (AllObject needRmove :  removeList){
+            objectStorage.remove(needRmove);
+        }
+        return idToRemove;
     }
 
     public void userfishcollision(){
@@ -183,7 +239,7 @@ public class FishGame {
     // else do nothing
 
     public static AllObject[] situationHandle(AllObject firstobject, AllObject secondObject){
-        AllObject[] eaten = new AllObject[0];
+        AllObject[] eaten = new AllObject[]{};
         if (firstobject.getType() == Type.Shark){
             if (secondObject.getType() != Type.Obstacles){
                 eaten = ((Shark) firstobject).Sharkeat(secondObject);
@@ -212,20 +268,6 @@ public class FishGame {
             firstobject.ChangeSpeedAndDirection();
         }
         return eaten;
-    }
-
-    public void checknumberofFish(){
-        for (int i = 0; i < limitOfFood - numberOfFood; i++){
-            objectStorage.add(new Food());
-        }for (int i = 0; i < limitOfType1Fish- numberOfType1Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType1, 7, 1, 50));
-        }for (int i = 0; i < limitOfType2Fish- numberOfType2Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType2, 6, 2, 100));
-        }for (int i = 0; i < limitOfType2Fish- numberOfType3Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType2, 10, 3, 150));
-        }for (int i = 0; i < limitOfPoisonFish- numberOfPoisonFish; i++){
-            objectStorage.add(new Fishes(Type.PoisonFish, 7, 1, 50));
-        }
     }
 
     public void increaseSize(){

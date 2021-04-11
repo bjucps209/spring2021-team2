@@ -10,6 +10,16 @@ public class AllObject {
     int speed;
     int size;
     int direction;
+    
+    int id;
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     int imageSize = 115;
 

@@ -2,6 +2,7 @@ package model;
 
 import java.util.Random;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 
 //For this class it might not useful for current usage, but will be usefull for later level
@@ -18,8 +19,8 @@ public class Food extends AllObject{
         var rand = new Random();
         //TODO: figure out how the x and y are generated
         int xUse = rand.nextInt(1000);
-        x.set(xUse);
-        y.set(this.imageSize);
+        x = new SimpleIntegerProperty(xUse);
+        y = new SimpleIntegerProperty(this.imageSize);
     }
 
     //falling change moving speed

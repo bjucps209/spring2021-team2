@@ -6,7 +6,7 @@
 <VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
     spacing="10" prefHeight="1000" prefWidth="1000">
     
-    <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" />
+    <Pane fx:id="pane" prefHeight="1000" prefWidth="1000" style="-fx-background-color: lightgray" />
 
 
 </VBox>

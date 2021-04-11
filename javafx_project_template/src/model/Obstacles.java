@@ -2,6 +2,7 @@ package model;
 
 import java.util.Random;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 
 public class Obstacles extends AllObject {
@@ -13,8 +14,8 @@ public class Obstacles extends AllObject {
         this.direction = 0;
         var rand = new Random();
         int xUse = rand.nextInt(1000);
-        x.set(xUse);
-        y.set(1000 - imageSize);
+        x = new SimpleIntegerProperty(xUse);
+        y = new SimpleIntegerProperty(1000 - imageSize);
     }
 
     @Override
