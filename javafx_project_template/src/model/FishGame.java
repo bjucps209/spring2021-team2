@@ -277,7 +277,7 @@ public class FishGame {
 
     //load and save, I don't know yet
     public void load(){
-        // probably a for loop to cycle through each object's serialize method which will then be passed to the StreamReader
+        // A loop through the save file which will spawn all the objects contained within
 
     }
 
