@@ -4,11 +4,21 @@ import java.util.Random;
 
 import javax.naming.directory.DirContext;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 
 public class Fishes extends AllObject {
 
     //initialdirction of fish final?
     private int initialDirection;
+
+    public int getInitialDirection() {
+        return this.initialDirection;
+    }
+
+    public void setInitialDirection(int initialDirection) {
+        this.initialDirection = initialDirection;
+    }
 
     // each fish is on their owe movement.
     // they will change speed and direction every 3 seconds. It should be called
@@ -24,7 +34,7 @@ public class Fishes extends AllObject {
 
     // remember limitation of dirction number;
 
-    Fishes(Type objType, int speed, int size, int imageSize){
+    public Fishes(Type objType, int speed, int size, int imageSize){
         this.speed = speed;
         this.size = size;
         this.objtype = objType;
@@ -37,14 +47,16 @@ public class Fishes extends AllObject {
         if (ran == 0) {
             // remember import from left edge of screen
             initialDirection = 0 + rand.nextInt(10);
-            x = 1-imageSize;
-            y = rand.nextInt(1000);
+            x = new SimpleIntegerProperty(1-imageSize);
+            int yuse = rand.nextInt(1000);
+            y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         } else {
             // remember import from right edge of screen
             initialDirection = 180 + rand.nextInt(10);
-            x = 1;
-            y = rand.nextInt(1000);
+            x = new SimpleIntegerProperty(1);
+            int yuse = rand.nextInt(1000);
+            y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         }
     }
@@ -122,7 +134,7 @@ public class Fishes extends AllObject {
     }
 
     public AllObject[] eat(AllObject a){
-        AllObject[] stor;
+        AllObject[] stor = new AllObject[]{};
         if (a.getType() == Type.PoisonFish||a.getType() == Type.Mine){
             stor = new AllObject[2];
             stor[0] = this;
@@ -130,9 +142,6 @@ public class Fishes extends AllObject {
         }else if((a instanceof Fishes) && a.getType() != Type.PoisonFish){
             stor = new AllObject[1];
             stor[0] = a;
-        }else{
-            stor = new AllObject[1];
-            stor[0] = null;
         }
         return stor;
     }
@@ -154,7 +163,7 @@ public class Fishes extends AllObject {
         String dataString = "";
         dataString += this.objtype.toString();
         dataString += ":";
-        dataString += Integer.toString(x) + "," + Integer.toString(y);
+        dataString += Integer.toString(x.get()) + "," + Integer.toString(y.get());
         dataString += ":";
         dataString += Integer.toString(this.size);
         dataString += ":";

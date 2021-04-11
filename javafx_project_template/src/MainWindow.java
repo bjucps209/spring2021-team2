@@ -22,4 +22,16 @@ public class MainWindow {
         gameWindow.show();
         
     }
+
+    @FXML
+    void onHighScoresClicked(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("HighScoresWindow.fxml"));
+
+        Stage HighScoresWindow = new Stage();
+
+        HighScoresWindow.setScene(new Scene(loader.load()));
+
+        HighScoresWindow.show();
+        
+    }
 }

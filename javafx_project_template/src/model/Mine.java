@@ -2,10 +2,13 @@ package model;
 
 import java.util.Random;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 
 //For this class it might not useful for current usage, but will be usefull for later level
 public class Mine extends AllObject{
+
+    Type type = Type.Mine;
     
     Mine(){
         this.speed = 10;
@@ -13,8 +16,9 @@ public class Mine extends AllObject{
         this.direction = 270;
         this.imageSize = 31;
         var rand = new Random();
-        x = rand.nextInt(1000);
-        y = this.imageSize;
+        int xUse = rand.nextInt(1000);
+        x = new SimpleIntegerProperty(xUse);
+        y = new SimpleIntegerProperty(imageSize);
     }
     
     //falling change moving speed

@@ -1,20 +1,33 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
 
 public class AllObject {
     
     //from class we learn this week those variable may change to intproperty in oder to bind
-    int x;
-    int y;
+    IntegerProperty x;
+    IntegerProperty y;
     int speed;
     int size;
     int direction;
+    
+    int id;
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     int imageSize = 115;
 
     Type objtype;
 
-    
+    AllObject(){
+        ;
+    }
 
     //override by chrildren
     public void ChangeSpeedAndDirection() {}
@@ -28,14 +41,16 @@ public class AllObject {
     }
 
     public void updatePosition() {
-        x += speed * Math.cos(direction * Math.PI / 180);
-        y += speed * Math.sin(direction * Math.PI / 180);
+        int xpostion = (int) (x.get()+(speed * Math.cos(direction * Math.PI / 180)));
+        int ypostion = (int) (y.get()+(speed * Math.cos(direction * Math.PI / 180)));
+        x.set(xpostion);
+        y.set(ypostion);
     }
 
     public int[] drawCircle(){
         int[] circle = new int[3];
-        circle[0] = (x+imageSize)/2;
-        circle[1] = (y+imageSize)/2;
+        circle[0] = (x.get()+imageSize)/2;
+        circle[1] = (y.get()+imageSize)/2;
         circle[2] = imageSize/2;
         return circle;
     }
@@ -48,19 +63,19 @@ public class AllObject {
         this.imageSize = imageSize;
     }
 
-    public int getX() {
+    public IntegerProperty getX() {
         return this.x;
     }
 
-    public void setX(int x) {
+    public void setX(IntegerProperty x) {
         this.x = x;
     }
 
-    public int getY() {
+    public IntegerProperty getY() {
         return this.y;
     }
 
-    public void setY(int y) {
+    public void setY(IntegerProperty y) {
         this.y = y;
     }
 

@@ -19,9 +19,17 @@ public class FishGame {
     //userfish
     Userfish user;
 
-    int life;
-    int points;
-    int health;
+    public Userfish getUser() {
+        return this.user;
+    }
+
+    public void setUser(Userfish user) {
+        this.user = user;
+    }
+
+    static int life;
+    static int points = 0; 
+    static int health;
 
     //Level static global variable
     public static int level;
@@ -36,14 +44,62 @@ public class FishGame {
     int numberOfType3Fish;
     int numberOfPoisonFish;
 
+    public int getNumberOfPoisonFish() {
+        return this.numberOfPoisonFish;
+    }
+
+    public void setNumberOfPoisonFish(int numberOfPoisonFish) {
+        this.numberOfPoisonFish = numberOfPoisonFish;
+    }
+
     // make sure there is not too many food on the screen
     int limitOfFood;
+
+    public int getLimitOfFood() {
+        return this.limitOfFood;
+    }
+
+    public void setLimitOfFood(int limitOfFood) {
+        this.limitOfFood = limitOfFood;
+    }
 
     // it use to make sure there is no too much each kind of fish in the screen
     int limitOfType1Fish;
     int limitOfType2Fish;
     int limitOfType3Fish;
     int limitOfPoisonFish;
+
+    public int getLimitOfType1Fish() {
+        return this.limitOfType1Fish;
+    }
+
+    public void setLimitOfType1Fish(int limitOfType1Fish) {
+        this.limitOfType1Fish = limitOfType1Fish;
+    }
+
+    public int getLimitOfType2Fish() {
+        return this.limitOfType2Fish;
+    }
+
+    public void setLimitOfType2Fish(int limitOfType2Fish) {
+        this.limitOfType2Fish = limitOfType2Fish;
+    }
+
+    public int getLimitOfType3Fish() {
+        return this.limitOfType3Fish;
+    }
+
+    public void setLimitOfType3Fish(int limitOfType3Fish) {
+        this.limitOfType3Fish = limitOfType3Fish;
+    }
+
+    public int getLimitOfPoisonFish() {
+        return this.limitOfPoisonFish;
+    }
+
+    public void setLimitOfPoisonFish(int limitOfPoisonFish) {
+        this.limitOfPoisonFish = limitOfPoisonFish;
+    }
 
 
     // to bolean for state for game,
@@ -57,8 +113,8 @@ public class FishGame {
     public FishGame() {
         isCheatModeOn = false;
         isGameOver = false;
-        this.points = 0;
         objectStorage = new ArrayList<AllObject>();
+        user = new Userfish(Type.FishType1, 5, 1, 30);
     }
 
     // constructor while game start, model will recieve different value from
@@ -67,9 +123,8 @@ public class FishGame {
     // speed in their own object;
     public FishGame(int life, int health, int limitOfFood, int limitOfType1Fish, int limitOfType2Fish,
             int limitOfType3Fish, int limitOfPoisonFish) {
-        this.life = life;
-        this.points = 0;
-        this.health = health;
+        FishGame.life = life;
+        FishGame.health = health;
         isCheatModeOn = false;
         isGameOver = false;
         this.limitOfFood = limitOfFood;
@@ -98,6 +153,7 @@ public class FishGame {
             objectStorage.add(new Fishes(Type.PoisonFish, 7, 1, 50));
             numberOfPoisonFish += 1;
         }
+        user = new Userfish(Type.FishType1, 5, 1, 30);
 
     }
 
@@ -107,14 +163,17 @@ public class FishGame {
     // touches.
     // remind and undeterming, size of the fish will be grow, we need careful about
     // this.
-    public void Fishmeet() {
+    public ArrayList<Integer> Fishmeet() {
+        ArrayList<Integer> idToRemove = new ArrayList<Integer>();
+        ArrayList<AllObject> removeList = new ArrayList<>();
         for (int i = 0; i < objectStorage.size(); i++ ){
             for (int o = 0; o < objectStorage.size(); o++ ){
                 if ( i != o){
                     if (FishGame.circleChecking(objectStorage.get(i).drawCircle(), objectStorage.get(o).drawCircle()) != -1){
-                        if (situationHandle(objectStorage.get(i), objectStorage.get(o)).length != 0);
+                        if (situationHandle(objectStorage.get(i), objectStorage.get(o)).length != 0){
                             for (AllObject a : situationHandle(objectStorage.get(i), objectStorage.get(o))){
-                                objectStorage.remove(a);
+                                idToRemove.add(a.getId());
+                                removeList.add(a);
                                 if ((a.getType() == Type.Food)) {
                                     numberOfFood -= 1;
                                 }else if ((a.getType() == Type.FishType1)){
@@ -130,7 +189,35 @@ public class FishGame {
                         }
                     }
                 }
-            } 
+            }
+        }
+        for (AllObject needRmove :  removeList){
+            objectStorage.remove(needRmove);
+        }
+        return idToRemove;
+    }
+
+    public void userfishcollision(){
+        for (AllObject a : objectStorage){
+            if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1){
+                if (user.getSize() == a.getSize()){
+                    health -= 1;
+                }else if(user.getSize() < a.getSize()){
+                    health -= (a.getSize() - user.getSize());
+                }else if(user.getSize() > a.getSize()){
+                    user.eat(a);
+                }
+            if (FishGame.health < 1){
+                FishGame.life -= 1;
+                if (FishGame.life < 1){
+                    if (isCheatModeOn = false){
+                        isGameOver = true;
+                }
+
+                }
+            }
+            }
+        }
     }
 
     public static int circleChecking(int[] circle1, int[] circle2){
@@ -145,14 +232,14 @@ public class FishGame {
         }
     }
     // handle all kinds of situation while different things met
-    // return 1        first object eat second object
-    // return 2        second object eat first object
-    // return 3        first object is obstacles and second object is not fish
-    // return 4        seoncond object is obstacles and first object is not fish
+    // return        first object eat second object
+    // return        second object eat first object
+    // return        first object is obstacles and second object is not fish
+    // return        seoncond object is obstacles and first object is not fish
     // else do nothing
 
     public static AllObject[] situationHandle(AllObject firstobject, AllObject secondObject){
-        AllObject[] eaten = new AllObject[0];
+        AllObject[] eaten = new AllObject[]{};
         if (firstobject.getType() == Type.Shark){
             if (secondObject.getType() != Type.Obstacles){
                 eaten = ((Shark) firstobject).Sharkeat(secondObject);
@@ -183,17 +270,19 @@ public class FishGame {
         return eaten;
     }
 
-    public void checknumberofFish(){
-        for (int i = 0; i < limitOfFood - numberOfFood; i++){
-            objectStorage.add(new Food());
-        }for (int i = 0; i < limitOfType1Fish- numberOfType1Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType1, 7, 1, 50));
-        }for (int i = 0; i < limitOfType2Fish- numberOfType2Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType2, 6, 2, 100));
-        }for (int i = 0; i < limitOfType2Fish- numberOfType3Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType2, 10, 3, 150));
-        }for (int i = 0; i < limitOfPoisonFish- numberOfPoisonFish; i++){
-            objectStorage.add(new Fishes(Type.PoisonFish, 7, 1, 50));
+    public void increaseSize(){
+        if (FishGame.points == 10){
+            user.setSize(user.getSize()+1);
+            user.setImageSize(user.getImageSize()+30);
+        }else if(FishGame.points == 40){
+            user.setSize(user.getSize()+1);
+            user.setImageSize(user.getImageSize()+30);
+        }else if(FishGame.points == 80){
+            user.setSize(user.getSize()+1);
+            user.setImageSize(user.getImageSize()+30);
+        }else if(FishGame.points == 110){
+            user.setSize(user.getSize()+1);
+            user.setImageSize(user.getImageSize()+30);
         }
     }
 
@@ -238,7 +327,7 @@ public class FishGame {
 
     //load and save, I don't know yet
     public void load(){
-        // probably a for loop to cycle through each object's serialize method which will then be passed to the StreamReader
+        // A loop through the save file which will spawn all the objects contained within
 
     }
 
