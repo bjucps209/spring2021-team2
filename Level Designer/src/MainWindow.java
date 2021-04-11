@@ -1,10 +1,15 @@
 import java.io.File;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -19,13 +24,28 @@ import model.LevelManager;
 
 
 public class MainWindow {
+    final Image IMG_FISH1 = new Image("/images/fish.png");
+    final Image IMG_FISH2 = new Image("/images/fish2.png");
+    final Image IMG_ROCK= new Image("/images/rock.png");
+    final Image IMG_CONCRETE= new Image("/images/concrete.png");
+    final Image IMG_KELP=new Image("/images/kelp.png");
+    final Image IMG_ALGAE=new Image("/images/algae.png");
+   
+
+   // private static final String IMG_FISH1 = null;
+
+
+
+
 
     // put instance of Level Manager in MainWindow
     LevelManager manager=new LevelManager();
     
 
+   
 
-    //GameLevel currentState=new GameLevel("levelName","", "","", "");
+
+    GameLevel currentState=new GameLevel("levelName","", 0,false, null);
 
 
     
@@ -56,6 +76,7 @@ public class MainWindow {
     @FXML VBox dropdown;
     @FXML 
     void initialize() {
+       
         pane.setStyle("-fx-background-image: url('/images/ocean.png');");
         Thread update = new Thread( () -> updateState() );
         update.start();
@@ -99,15 +120,19 @@ public class MainWindow {
 
 
         VBox Obstacles =new VBox();
-        Button obstacle1=new Button("Rock");
-        Button obstacle2=new Button("Seaweed");
+        Button obstacle1=new Button("Concrete");
+        obstacle1.setOnAction((ActionEvent e) -> {onobstacleType1(e);});
+        Button obstacle2=new Button("Rock");
+        obstacle2.setOnAction((ActionEvent e) -> {onobstacleType2(e);});
         Obstacles.getChildren().addAll(obstacle1,obstacle2);
        
 
 
         VBox FishTypes =new VBox();
         Button fishtype1=new Button("Fish Type 1");
+        fishtype1.setOnAction((ActionEvent e) -> {onFishType1(e);});
         Button fishtype2=new Button("Fish Type 2");
+        fishtype2.setOnAction((ActionEvent e) -> {onFishType2(e);});
         Label  sliderLabel=new Label("");
         Slider slider=new Slider();
        
@@ -131,7 +156,9 @@ Bindings.createStringBinding(
     
  VBox Food=new VBox();
  Button food1=new Button("Algae");
- Button food2=new Button("Seaweed");
+ food1.setOnAction((ActionEvent e) -> {onfood1(e);});
+ Button food2=new Button("Kelp");
+ food2.setOnAction((ActionEvent e) -> {onfood2(e);});
  Food.getChildren().addAll(food1,food2);
  
  
@@ -145,6 +172,71 @@ Bindings.createStringBinding(
         dropdown.getChildren().addAll(accordion);
         
  
+    }
+    @FXML
+    void onobstacleType2(ActionEvent e) {
+        var img = new ImageView(IMG_ROCK);
+        img.setPreserveRatio(true);
+        img.setFitWidth(20);
+        
+        makeDraggable(img);
+        pane.getChildren().add(img);
+    }
+    @FXML
+    void onobstacleType1(ActionEvent e) {
+        var img = new ImageView(IMG_CONCRETE);
+        img.setPreserveRatio(true);
+        img.setFitWidth(20);
+        
+        makeDraggable(img);
+        pane.getChildren().add(img);
+
+    }
+    @FXML
+     void onfood2(ActionEvent e) {
+        var img = new ImageView(IMG_KELP);
+        img.setPreserveRatio(true);
+        img.setFitWidth(20);
+        
+        makeDraggable(img);
+        pane.getChildren().add(img);
+
+    }
+    @FXML
+     void onfood1(ActionEvent e) {
+        var img = new ImageView(IMG_ALGAE);
+        img.setPreserveRatio(true);
+        img.setFitWidth(20);
+        
+        makeDraggable(img);
+        pane.getChildren().add(img);
+
+    }
+    @FXML
+    void onFishType1(ActionEvent e) {
+       
+        var img = new ImageView(IMG_FISH1);
+       img.setPreserveRatio(true);
+       img.setFitWidth(20);
+       
+       makeDraggable(img);
+       pane.getChildren().add(img);
+      // makeClickable(img);
+
+
+    }
+    @FXML
+    void onFishType2(ActionEvent e) {
+       
+        var img = new ImageView(IMG_FISH2);
+       img.setPreserveRatio(true);
+       img.setFitWidth(20);
+       
+       makeDraggable(img);
+       pane.getChildren().add(img);
+      // makeClickable(img);
+
+
     }
 
     //Mouse Event Handler 
@@ -193,8 +285,10 @@ Bindings.createStringBinding(
             
       
         }catch(Exception exception){
-            exception.printStackTrace();
-            System.out.println("Exception with saving");
+            var alert = new Alert(AlertType.WARNING, "Error in loading file!");
+            alert.setHeaderText(null);
+            alert.show();
+            
         }
     
         
@@ -206,23 +300,20 @@ Bindings.createStringBinding(
       
     @FXML
      void onSaveFileClicked(ActionEvent e) throws FileNotFoundException {
-         Accordion accord=(Accordion) dropdown.getChildren().get(0);
-         TitledPane tp=(TitledPane) accord.getChildrenUnmodifiable().get(0);
-         VBox vbox= (VBox) tp.getContent();
+         //Accordion accord=(Accordion) dropdown.getChildren().get(0);
+        // TitledPane tp=(TitledPane) accord.getChildrenUnmodifiable().get(0);
+        // VBox vbox= (VBox) tp.getContent();
         
         
          
-        TextField levelName =(TextField) vbox.getChildrenUnmodifiable().get(0);
+       // TextField levelName =(TextField) vbox.getChildrenUnmodifiable().get(0);
          
 
 
-         ArrayList<AllObject> obj=new ArrayList<AllObject>();
-         AllObject object=new AllObject();
-        //object attrs 
-        
-         obj.add(object);
-         GameLevel level=new GameLevel(levelName.getText(),"/somepath", 2, false,obj);
-         manager.save(level);
+        // ArrayList<AllObject> obj=new ArrayList<AllObject>();
+         
+       
+         manager.save(currentState);
 
         //if its what's on the screen reflects whats on the pane then disable the save button
         
@@ -246,6 +337,43 @@ Bindings.createStringBinding(
 
 
     public GameLevel updateState(){
-        return null;
+        for(Node n:pane.getChildren()){
+            n.getUserData();
+
+            
+
+            
+        }
+        return currentState;
+
     };
+
+
+     private void makeDraggable(Node node) {
+        final Delta dragDelta = new Delta();
+
+        node.setOnMouseEntered(me -> node.getScene().setCursor(Cursor.HAND) );
+        node.setOnMouseExited(me -> node.getScene().setCursor(Cursor.DEFAULT) );
+        node.setOnMousePressed(me -> {
+            dragDelta.x = me.getX();
+            dragDelta.y = me.getY();
+            node.getScene().setCursor(Cursor.MOVE);
+        });
+        node.setOnMouseDragged(me -> {
+            node.setLayoutX(node.getLayoutX() + me.getX() - dragDelta.x);
+            node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
+        });
+        node.setOnMouseReleased(me -> node.getScene().setCursor(Cursor.HAND) );
+
+        // Prevent mouse clicks on img from propagating to the pane and
+        // resulting in creation of a new image
+        node.setOnMouseClicked(me -> me.consume());
+    }
+
+    private class Delta {
+        public double x;
+        public double y;
+    }
 }
+
+
