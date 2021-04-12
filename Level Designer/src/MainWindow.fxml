@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="MainWindow">
+   
+    <HBox  fx:id="tools" />
+    
+    
+    <HBox spacing="10">
+        
+        <VBox spacing="10" fx:id="dropdown">
+            
+        </VBox>
+        <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" />
+        <HBox spacing="10" styleClass="propview">
+          
+          
+        </HBox>
+    </HBox>
+
+    
+</VBox>

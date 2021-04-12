@@ -1,0 +1,16 @@
+.root {
+    -fx-padding: 10; /* Add a small padding around the window */
+}
+
+.leftbutton {
+    -fx-padding: 10;
+
+}
+
+.propview {
+    -fx-padding: 10;
+}
+
+.current {
+    -fx-effect: dropshadow(three-pass-box, rgba(255,0,0,0.8), 10, 0, 0, 0);
+ }
