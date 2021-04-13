@@ -18,11 +18,10 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 * Shubin Yuan - user object can do basic movement and action. Other fish will updata position.
 * Gunnar Funderburk- Model Code, FXML in the middle of development, some bugs with saving and loading still under work but mostly complete. 
 ## Expenses
-* Blake Alexander (balexander012) - 8-28 Hours Remaining
-* Shubin Yuan (ShubinJerry-Yuan) - Model design - 25 hours spended, 25 hours left.
-* Gunnar Funderburk (gfund)- 26 hours spent, 24 hours left 
-* Patrick Menking (TheWanderingCrow) - 8 hours spent, 42 remaining
 
 |Name|Project Section|github Username|Hours Spent|Hours Remaining|Link|
-|-------------|------------|-----------------|-----------|--------|---------|
-|Blake Alexander|High Scores|balexander012|22hrs.|28hrs.|
+|-------------|------------|--------------|--------|--------|-------------|
+|Blake Alexander|High Scores|balexander012|23hrs.|27hrs.|
+|Shubin Yuan|Model Design|ShubinJerry-Yuan|25hrs.|25hrs.|
+|Gunnar Funderburk|Level Design|gfund|26hrs.|24hrs.|
+|Patrick Menking|Serialization|TheWanderingCrow|8hrs.|42hrs.|
