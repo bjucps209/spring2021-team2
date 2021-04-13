@@ -21,7 +21,7 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 
 ## Expenses
 
-|Name|Project Section|github Username|Hours Spent|Hours Remaining|Link|
+|Name|Project Section|GitHub Username|Hours Spent|Hours Remaining|Link|
 |-------------|------------|--------------|--------|--------|-------------|
 |Blake Alexander|High Scores|balexander012|23hrs.|27hrs.|https://github.com/bjucps209/spring2021-team2/wiki/Alexander-Journal|
 |Shubin Yuan|Model Design|ShubinJerry-Yuan|25hrs.|25hrs.|https://github.com/bjucps209/spring2021-team2/wiki/Shubin-Journal|
