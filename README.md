@@ -8,8 +8,8 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 * Images still in the screen while it been eaten.
 
 ## Screen Recording Link
-video without explanation: https://youtu.be/5-zq1BOOBiM
-video with little explanation: https://youtu.be/yS0C1gbiTuM
+* video without explanation: https://youtu.be/5-zq1BOOBiM
+* video with little explanation: https://youtu.be/yS0C1gbiTuM
 
 
 ## Work Completed
