@@ -20,6 +20,8 @@ public class Fishes extends AllObject {
         this.initialDirection = initialDirection;
     }
 
+
+
     // each fish is on their owe movement.
     // they will change speed and direction every 3 seconds. It should be called
     // every 3s in timeline at viewclass
@@ -54,11 +56,12 @@ public class Fishes extends AllObject {
         } else {
             // remember import from right edge of screen
             initialDirection = 180 + rand.nextInt(10);
-            x = new SimpleIntegerProperty(1);
+            y = new SimpleIntegerProperty();
             int yuse = rand.nextInt(1000);
-            y = new SimpleIntegerProperty(yuse);
+            x = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         }
+        id += 1;
     }
 
     @Override

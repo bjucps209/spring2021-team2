@@ -1,6 +1,8 @@
 .root {
     -fx-padding: 10; /* Add a small padding around the window */
     -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-background-image: url(FishPicture/12222.jpg);
+
 }
 
 /* for Macs */

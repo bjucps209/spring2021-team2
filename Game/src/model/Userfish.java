@@ -6,17 +6,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Userfish extends Fishes{
     
-    Direction direction = Direction.STOP;
+    static Direction direction = Direction.STOP;
 
-     BooleanProperty Up = new SimpleBooleanProperty(false);
-     BooleanProperty Right = new SimpleBooleanProperty(false);
-     BooleanProperty Down = new SimpleBooleanProperty(false);
-     BooleanProperty Left = new SimpleBooleanProperty(false);
+    public static BooleanProperty Up = new SimpleBooleanProperty(false);
+    public static BooleanProperty Right = new SimpleBooleanProperty(false);
+    public static BooleanProperty Down = new SimpleBooleanProperty(false);
+    public static BooleanProperty Left = new SimpleBooleanProperty(false);
 
     Userfish(Type objType, int speed, int size, int imageSize) {
         super(objType, speed, size, imageSize);
-        this.x = new SimpleIntegerProperty(450);
-        this.y = new SimpleIntegerProperty(450);
+        this.x = new SimpleIntegerProperty(250);
+        this.y = new SimpleIntegerProperty(250);
         setInitialDirection(0);
         setDirection(0);
         
@@ -80,8 +80,7 @@ public class Userfish extends Fishes{
                 FishGame.points += 8;
             }
         }else{
-            stor = new AllObject[1];
-            stor[0] = null;
+            stor = null;
         }
         return stor;
     }
@@ -90,8 +89,8 @@ public class Userfish extends Fishes{
         // if up press and down press do nothing
     // if right press and left press do nothing
     // if right press and up press move up right
-    public void moveDirection() {
-        if (Up.get() && !Right.get() && !Down.get() && !Left.get()){
+    public static void facingDirection() {
+        if (Up.get() && !Right.get() && !Down.get() && !Left.get()){    
             direction = Direction.Up;
         }else if (Up.get() && Right.get() && !Down.get() && !Left.get()){
             direction = Direction.RightUp;
@@ -104,7 +103,7 @@ public class Userfish extends Fishes{
         }else if(!Up.get() && !Right.get() && Down.get() && Left.get()){
             direction = Direction.LeftDown;
         }else if(!Up.get() && !Right.get() && !Down.get() && Left.get()){
-            direction = Direction.Down;
+            direction = Direction.Left;
         }else if (Up.get() && !Right.get() && !Down.get() && Left.get()){
             direction = Direction.LeftUp;
         }else{
@@ -113,44 +112,44 @@ public class Userfish extends Fishes{
 
     }
 
-    public void setDirectionenum(Direction direction) {
-		this.direction = direction;
+    public static void setDirectionenum(Direction direction) {
+		Userfish.direction = direction;
 	}
 
-    public Direction getDirectionenum() {
-        return this.direction;
+    public static Direction getDirectionenum() {
+        return Userfish.direction;
     }
 
-    public BooleanProperty getUp() {
-        return this.Up;
+    public static BooleanProperty getUp() {
+        return Userfish.Up;
     }
 
-    public void setUp(BooleanProperty Up) {
-        this.Up = Up;
+    public static void setUp(BooleanProperty Up) {
+        Userfish.Up = Up;
     }
 
-    public BooleanProperty getRight() {
-        return this.Right;
+    public static BooleanProperty getRight() {
+        return Userfish.Right;
     }
 
-    public void setRight(BooleanProperty Right) {
-        this.Right = Right;
+    public static void setRight(BooleanProperty Right) {
+        Userfish.Right = Right;
     }
 
-    public BooleanProperty getDown() {
-        return this.Down;
+    public static BooleanProperty getDown() {
+        return Userfish.Down;
     }
 
-    public void setDown(BooleanProperty Down) {
-        this.Down = Down;
+    public static void setDown(BooleanProperty Down) {
+        Userfish.Down = Down;
     }
 
     
-    public BooleanProperty getLeft() {
-        return this.Left;
+    public static BooleanProperty getLeft() {
+        return Userfish.Left;
     }
 
-    public void setLeft(BooleanProperty Left) {
-        this.Left = Left;
+    public static void setLeft(BooleanProperty Left) {
+        Userfish.Left = Left;
     }
 }

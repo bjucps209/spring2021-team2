@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="HighScoresWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
-    spacing="10" prefHeight="1000" prefWidth="1000" alignment="CENTER">
+    spacing="10" prefHeight="1000" prefWidth="1200" alignment="CENTER">
 
     <HBox>
         <Label text="High Scores"  />

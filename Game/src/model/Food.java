@@ -12,10 +12,10 @@ public class Food extends AllObject{
 
 
     public Food(){
-        this.speed = 10;
-        this.size = 1;
+        this.speed = 3;
+        this.size = 0;
         this.direction = 270;
-        this.imageSize = 20;
+        this.imageSize = 21;
         var rand = new Random();
         //TODO: figure out how the x and y are generated
         int xUse = rand.nextInt(1000);

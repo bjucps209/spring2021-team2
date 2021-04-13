@@ -114,7 +114,7 @@ public class FishGame {
         isCheatModeOn = false;
         isGameOver = false;
         objectStorage = new ArrayList<AllObject>();
-        user = new Userfish(Type.FishType1, 5, 1, 30);
+        user = new Userfish(Type.FishType1, 4, 1, 30);
     }
 
     // constructor while game start, model will recieve different value from
@@ -133,28 +133,27 @@ public class FishGame {
         this.limitOfType3Fish = limitOfType3Fish;
         this.limitOfPoisonFish = limitOfPoisonFish;
         objectStorage = new ArrayList<AllObject>();
+        user = new Userfish(Type.FishType2, 4, 2, 73);
         for (int i = 0; i < limitOfFood; i++){
             objectStorage.add(new Food());
             numberOfFood += 1;
         }
         for (int i = 0; i < limitOfType1Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType1, 7, 1, 50));
+            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 53));
             numberOfType1Fish += 1;
         }
         for (int i = 0; i < limitOfType2Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType2, 6, 2, 100));
+            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 73));
             numberOfType2Fish += 1;
         }
         for (int i = 0; i < limitOfType3Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType3, 10, 3, 150));
+            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 103));
             numberOfType3Fish += 1;
         }
         for (int i = 0; i < limitOfPoisonFish; i++){
-            objectStorage.add(new Fishes(Type.PoisonFish, 7, 1, 50));
+            objectStorage.add(new Fishes(Type.PoisonFish, 4, 1, 53));
             numberOfPoisonFish += 1;
         }
-        user = new Userfish(Type.FishType1, 5, 1, 30);
-
     }
 
     // from x and y we know image position, from image size we know how much it
@@ -197,27 +196,39 @@ public class FishGame {
         return idToRemove;
     }
 
-    public void userfishcollision(){
+    public ArrayList<Integer> userfishcollision(){
+        ArrayList<Integer> idToDelete = new ArrayList<>();
+
         for (AllObject a : objectStorage){
+
             if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1){
                 if (user.getSize() == a.getSize()){
                     health -= 1;
                 }else if(user.getSize() < a.getSize()){
                     health -= (a.getSize() - user.getSize());
                 }else if(user.getSize() > a.getSize()){
-                    user.eat(a);
-                }
-            if (FishGame.health < 1){
-                FishGame.life -= 1;
-                if (FishGame.life < 1){
-                    if (isCheatModeOn = false){
-                        isGameOver = true;
+                    if (user.eat(a) != null){
+                        AllObject[] temp = user.eat(a).clone();
+                        for (AllObject b : temp){
+                            System.out.println("CCCCCC");
+                            idToDelete.add(b.getId());
+                            objectStorage.remove(b);
+                        }
+                    }
                 }
 
-                }
-            }
             }
         }
+        if (FishGame.health < 1){
+            FishGame.life -= 1;
+            if (FishGame.life < 1){
+                if (isCheatModeOn = false){
+                    isGameOver = true;
+            }
+
+            }
+        }
+        return idToDelete;
     }
 
     public static int circleChecking(int[] circle1, int[] circle2){

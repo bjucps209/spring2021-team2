@@ -4,9 +4,11 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
-    spacing="10" prefHeight="400" prefWidth="250">
+    spacing="10" prefHeight="480" prefWidth="852" alignment="CENTER">
+    
 
-    <Button onAction="#onStartClicked" text="Start"  />
-    <Button onAction="#onHighScoresClicked" text="High Scores"  />
+
+    <Button onAction="#onStartClicked" text="Start" alignment = "CENTER"/>
+    <Button onAction="#onHighScoresClicked" text="High Scores"  alignment = "CENTER"/>
 
 </VBox>

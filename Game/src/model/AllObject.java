@@ -10,8 +10,9 @@ public class AllObject {
     int speed;
     int size;
     int direction;
-    
-    int id;
+
+    static int id;
+
 
     public int getId() {
         return this.id;
@@ -42,9 +43,10 @@ public class AllObject {
 
     public void updatePosition() {
         int xpostion = (int) (x.get()+(speed * Math.cos(direction * Math.PI / 180)));
-        int ypostion = (int) (y.get()+(speed * Math.cos(direction * Math.PI / 180)));
+        int ypostion = (int) (y.get()+(speed * Math.sin(direction * Math.PI / 180)));
         x.set(xpostion);
         y.set(ypostion);
+
     }
 
     public int[] drawCircle(){
