@@ -21,4 +21,4 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 * Blake Alexander (balexander012) - 8-28 Hours Remaining
 * Shubin Yuan (ShubinJerry-Yuan) - Model design - 25 hours spended, 25 hours left.
 * Gunnar Funderburk (gfund)- 26 hours spent, 24 hours left 
-* 
+* Patrick Menking (TheWanderingCrow) - 8 hours spent, 42 remaining
