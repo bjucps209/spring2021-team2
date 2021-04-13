@@ -10,6 +10,7 @@ To play the game, you may use either your mouse or the arrow keys. Navigate acro
 
 ## Work Completed
 * Blake Alexander - Model code finished for High Scores. FXML started and view code in progress. A txt is able to be created but the View does not read from the txt file to insert the high scores yet. 
+* Patrick Menking - Basic serialization completed, still needs implementation in the GUI along with testing.
 
 ## Expenses
 * Blake Alexander (balexander012) - 8-28 Hours Remaining
