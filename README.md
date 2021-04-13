@@ -16,7 +16,9 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 * Blake Alexander - Model code finished for High Scores. FXML started and view code in progress. A txt is able to be created but the View does not read from the txt file to insert the high scores yet. 
 * Patrick Menking - Basic serialization completed, still needs implementation in the GUI along with testing.
 * Shubin Yuan - user object can do basic movement and action. Other fish will updata position.
-
+* Gunnar Funderburk- Model Code, FXML in the middle of development, some bugs with saving and loading still under work but mostly complete. 
 ## Expenses
 * Blake Alexander (balexander012) - 8-28 Hours Remaining
 * Shubin Yuan (ShubinJerry-Yuan) - Model design - 25 hours spended, 25 hours left.
+* Gunnar Funderburk (gfund)- 26 hours spent, 24 hours left 
+* 
