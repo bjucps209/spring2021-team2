@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "src.App",
+            "projectName": "app"
+        },
+        {
+            "type": "java",
             "name": "Launch LvlApp",
             "request": "launch",
             "mainClass": "LvlApp",
