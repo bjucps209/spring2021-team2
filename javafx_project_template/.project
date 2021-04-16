@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>app</name>
-	<comment>Project Level Designer created by Buildship.</comment>
+	<name>javafx_project_template</name>
+	<comment>Project javafx_project_template created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>

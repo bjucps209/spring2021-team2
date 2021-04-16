@@ -1,11 +1,23 @@
 import HighScores.HighScore;
 import HighScores.HighScoreManager;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class HighScoresWindow {
+
+    @FXML
+    ImageView imageHS;
+
+    @FXML
+    VBox backgroundBox;
 
     @FXML
     VBox rank;
@@ -17,18 +29,23 @@ public class HighScoresWindow {
     VBox score;
 
     public void initialize() {
+        // BackgroundFill backgroundFill = new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY);
+        // Background background = new Background(backgroundFill);
+        // backgroundBox.setBackground(background);
+
+        imageHS.setPreserveRatio(true);
+
         HighScoreManager scores = new HighScoreManager();
-        HighScore details = new HighScore(null, 0);
         int count = 0;
         scores.load();
-        System.out.println(scores.getAllScores().size());
         for (int i = 0; i < scores.getAllScores().size(); i++) {
+            HighScore currentScore = scores.getAllScores().get(i);
             count++;
             Label lblRank = new Label(count + ")");
             rank.getChildren().add(lblRank);
-            Label lblName = new Label(details.getName());
+            Label lblName = new Label(currentScore.getName());
             name.getChildren().add(lblName);
-            Label lblScore = new Label(String.valueOf(details.getScore()));
+            Label lblScore = new Label(String.valueOf(currentScore.getScore()));
             score.getChildren().add(lblScore);
         }
     }
