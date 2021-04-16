@@ -43,7 +43,7 @@ public class GameWindow {
     final Image IMG_Fish3 = new Image("/FishPicture/FirstStageUsage/noback3.png");
     final Image IMG_Food = new Image("/FishPicture/FirstStageUsage/foodnoback.png");
     final Image IMG_Mine = new Image("/FishPicture/FirstStageUsage/mine0.jpg");
-    final Image IMG_PoisonFish = new Image("/FishPicture/FirstStageUsage/poisonfish.png");
+    final Image IMG_PoisonFish = new Image("/FishPicture/FirstStageUsage/PoisonFish.png");
     
     FishGame start;
 
