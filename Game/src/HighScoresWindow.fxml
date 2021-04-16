@@ -4,14 +4,14 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="HighScoresWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
-    spacing="10" prefHeight="1000" prefWidth="1200" alignment="CENTER">
+    spacing="10" prefHeight="600" prefWidth="500" alignment="CENTER">
 
-    <HBox>
+    <HBox alignment="CENTER">
         <Label text="High Scores"  />
     </HBox>
 
-    <HBox>
-        <VBox style="-fx-padding: 10" fx:id="rank">
+    <HBox alignment="CENTER">
+        <VBox style="-fx-padding: 10" fx:id="rank" >
             <Label text="Rank" />
             <Label text="1)" />
             <Label text="2)" />
