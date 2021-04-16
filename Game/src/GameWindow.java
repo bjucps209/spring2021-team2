@@ -109,7 +109,7 @@ public class GameWindow {
 
     //will user press P key, timeline stoped
     //what happen after that? Press P agin keep play, press Esc quit?
-    void onPKeyPress(){
+    public void onPKeyPress(){
         timer1.pause();
         timer2.pause();
         timer3.pause();

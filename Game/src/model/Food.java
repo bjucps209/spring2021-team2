@@ -36,6 +36,7 @@ public class Food extends AllObject{
         }
     }
 
+    @Override
     public String serialize() {
         String dataString = "";
         dataString += this.type.toString();

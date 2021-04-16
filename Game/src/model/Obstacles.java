@@ -22,6 +22,7 @@ public class Obstacles extends AllObject {
     public void ChangeSpeedAndDirection() {;}
 
     //TODO: figure out how Obstacle serializatoin works
+    // @Override
     // public String serialize() {
     //     String dataString = "";
     //     dataString += this.type.toString();

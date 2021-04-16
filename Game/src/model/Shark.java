@@ -44,6 +44,7 @@ public class Shark extends AllObject {
 
 
     //TODO: figure out how Shark serializatoin works
+    // @Override
     // public String serialize() {
     //     String dataString = "";
     //     dataString += this.type.toString();

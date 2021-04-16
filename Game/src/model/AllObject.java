@@ -33,6 +33,10 @@ public class AllObject {
     //override by chrildren
     public void ChangeSpeedAndDirection() {}
 
+    public String serialize() throws Exception {
+        throw new Exception("Method cannot serialize");
+    }
+
     public Type getType() {
         return this.objtype;
     }

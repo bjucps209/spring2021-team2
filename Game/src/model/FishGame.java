@@ -342,12 +342,16 @@ public class FishGame {
 
     }
 
-    public void save(){
+    public void save() throws Exception {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("save.game", true));
+            for (AllObject item : objectStorage) {
+                writer.append(item.serialize());
+                writer.append("\n");
+            }
+            writer.close();
             } catch (Exception e) {
-            //TODO: this breaks model/view separation
-            System.out.println("Save just died");
+                throw new Exception("Save crashed in FishGame.java");
         }
     }
 

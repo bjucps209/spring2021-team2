@@ -35,6 +35,7 @@ public class Mine extends AllObject{
     }
 
     //TODO: figure out how mine serializatoin works
+    // @Override
     // public String serialize() {
     //     String dataString = "";
     //     dataString += this.type.toString();

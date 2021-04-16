@@ -162,6 +162,7 @@ public class Fishes extends AllObject {
         }
     }
     // returns a string for the save function
+    @Override
     public String serialize() {
         String dataString = "";
         dataString += this.objtype.toString();
