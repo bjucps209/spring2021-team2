@@ -44,6 +44,12 @@ public class GameWindow {
     final Image IMG_Food = new Image("/FishPicture/FirstStageUsage/foodnoback.png");
     final Image IMG_Mine = new Image("/FishPicture/FirstStageUsage/mine0.jpg");
     final Image IMG_PoisonFish = new Image("/FishPicture/FirstStageUsage/PoisonFish.png");
+    // final Image swim_cycle1 = new Image("/FishPicture/Fish/Fish1/swim_cycle1.jpg");
+    // final Image swim_cycle2 = new Image("/FishPicture/Fish/Fish1/swim_cycle.2.png");
+    // final Image swim_cycle3 = new Image("/FishPicture/Fish/Fish1/swim_cycle.3.png");
+    // final Image swim_cycle4 = new Image("/FishPicture/Fish/Fish1/swim_cycle.4.png");
+    // final Image swim_cycle5 = new Image("/FishPicture/Fish/Fish1/swim_cycle.5.png");
+    // final Image swim_cycle6 = new Image("/FishPicture/Fish/Fish1/swim_cycle.6.png");
     
     FishGame start;
 
@@ -60,17 +66,18 @@ public class GameWindow {
         System.out.println("111111111");
 
         start = new FishGame(1, 1, 0, 1, 1, 1, 1);
+        imagePutting(start.getUser());
         for (AllObject a : start.getObjectStorage()){
             imagePutting(a);
         }
-        imagePutting(start.getUser());
+
         KeyFrame timerF1 = new KeyFrame(Duration.millis(50), e -> updata());
         timer1 = new Timeline(timerF1);
         timer1.setCycleCount(-1);
         timer1.play();
 
-        KeyFrame timerF2 = new KeyFrame(Duration.millis(200), e -> updataDS());
-        timer2 = new Timeline(timerF1);
+        KeyFrame timerF2 = new KeyFrame(Duration.millis(2000), e -> updataDS());
+        timer2 = new Timeline(timerF2);
         timer2.setCycleCount(-1);
         timer2.play();
         // KeyFrame timerF3 = new KeyFrame(Duration.millis(50), e -> System.out.println(
@@ -124,8 +131,8 @@ public class GameWindow {
     public void updataDS(){
         for(AllObject a : start.getObjectStorage()){
             if (a instanceof Fishes){
-                ((Fishes)a).randDirection();
-                ((Fishes)a).randSpeed();
+                ((Fishes)a).ChangeSpeedAndDirection();
+                System.out.println("X:"+ a.getX().get()+ " Y:" + a.getY().get() + " Speed:" + a.getSpeed() + " Direction" + a.getDirection());
             }
         }
     }
@@ -209,5 +216,9 @@ public class GameWindow {
         //         pane.getChildren().removeIf((e) -> Integer.parseInt(e.getId()) == i);
         //     }
         // };
+    }
+
+    void ImageChange(){
+        ((ImageView) pane.getChildren().get(0)).setImage(swim_cycle1);
     }
 }

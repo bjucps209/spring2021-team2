@@ -48,14 +48,14 @@ public class Fishes extends AllObject {
         int ran = rand.nextInt(2);
         if (ran == 0) {
             // remember import from left edge of screen
-            initialDirection = 0 + rand.nextInt(10);
+            initialDirection = 0 + rand.nextInt(5);
             x = new SimpleIntegerProperty(1-imageSize);
             int yuse = rand.nextInt(1000);
             y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         } else {
             // remember import from right edge of screen
-            initialDirection = 180 + rand.nextInt(10);
+            initialDirection = 180 + rand.nextInt(5);
             y = new SimpleIntegerProperty();
             int yuse = rand.nextInt(1000);
             x = new SimpleIntegerProperty(yuse);
@@ -73,15 +73,15 @@ public class Fishes extends AllObject {
     public void randDirection() {
         var rand = new Random();
         var ran = rand.nextInt(3);
-        var ran2 = rand.nextInt(10);
+        var ran2 = rand.nextInt(5);
         var ran3 = rand.nextInt(2);
         switch (ran) {
         case 0:
             if (direction <= 180) {
                 direction += 180;
-                if(360 - direction < 10){
+                if(360 - direction < 5){
                     direction -= ran2;
-                }else if (360 - direction < 30){
+                }else if (360 - direction < 25){
                     if(ran3 == 0){
                         direction -= ran2;
                     }else{
@@ -92,9 +92,9 @@ public class Fishes extends AllObject {
                 }
             } else {
                 direction -= 180;
-                if (direction-180 < 10){
+                if (direction-180 < 5){
                     direction += ran2;
-                }else if (direction-180 < 30){
+                }else if (direction-180 < 25){
                     if(ran3 == 0){
                         direction -= ran2;
                     }else{
@@ -108,9 +108,9 @@ public class Fishes extends AllObject {
         case 1:
         case 2:
         if (direction <= 180) {
-            if(360 - direction < 10){
+            if(360 - direction < 5){
                 direction -= ran2;
-            }else if (360 - direction < 30){
+            }else if (360 - direction < 25){
                 if(ran3 == 0){
                     direction -= ran2;
                 }else{
@@ -120,9 +120,9 @@ public class Fishes extends AllObject {
                 direction += ran2;
             }
         } else {
-            if (direction-180 < 10){
+            if (direction-180 < 5){
                 direction += ran2;
-            }else if (direction-180 < 30){
+            }else if (direction-180 < 25){
                 if(ran3 == 0){
                     direction -= ran2;
                 }else{
@@ -154,11 +154,15 @@ public class Fishes extends AllObject {
     public void randSpeed() {
         var rand = new Random();
         int ran = rand.nextInt(2);
-        int ran2 = rand.nextInt(10);
+        int ran2 = rand.nextInt(4);
         if(ran == 0){
-            this.speed -= ran2;
+            if (speed > 3){
+                this.speed -= ran2;
+            }
         }else{
-            this.speed += ran2;
+            if (speed < 11){
+                this.speed += ran2;
+            }
         }
     }
     // returns a string for the save function
