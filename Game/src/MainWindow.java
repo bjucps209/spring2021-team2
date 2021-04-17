@@ -39,6 +39,12 @@ public class MainWindow {
                     case A:
                         Userfish.Left.set(true);
                         break;
+                    case ESCAPE:
+                        try {
+                            GameWindow.onESCPress();
+                        } catch (Exception e) {
+
+                        }
                     }
                     Userfish.facingDirection();
                 }

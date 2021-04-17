@@ -51,7 +51,7 @@ public class GameWindow {
     // final Image swim_cycle5 = new Image("/FishPicture/Fish/Fish1/swim_cycle.5.png");
     // final Image swim_cycle6 = new Image("/FishPicture/Fish/Fish1/swim_cycle.6.png");
     
-    FishGame start;
+    static FishGame start;
 
     @FXML
     Pane pane;
@@ -124,8 +124,8 @@ public class GameWindow {
 
 
     //Screen action again, if ESC click promp windows ask user to save
-    void onESCPress(){
-
+    public static void onESCPress() throws Exception {
+        start.save();
     }
 
     public void updataDS(){
@@ -218,7 +218,7 @@ public class GameWindow {
         // };
     }
 
-    void ImageChange(){
-        ((ImageView) pane.getChildren().get(0)).setImage(swim_cycle1);
-    }
+    // void ImageChange(){
+    //     ((ImageView) pane.getChildren().get(0)).setImage(swim_cycle1);
+    // }
 }
