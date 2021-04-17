@@ -16,6 +16,8 @@ public class Obstacles extends AllObject {
         int xUse = rand.nextInt(1000);
         x = new SimpleIntegerProperty(xUse);
         y = new SimpleIntegerProperty(1000 - imageSize);
+        id = FishGame.id;
+        FishGame.id += 1;
     }
 
     @Override

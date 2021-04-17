@@ -31,6 +31,8 @@ public class FishGame {
     static int points = 0; 
     static int health;
 
+    static int id = 0;
+
     //Level static global variable
     public static int level;
 
@@ -196,38 +198,40 @@ public class FishGame {
         return idToRemove;
     }
 
-    public ArrayList<Integer> userfishcollision(){
-        ArrayList<Integer> idToDelete = new ArrayList<>();
+    public int userfishcollision(){
+        int idToDelete = 0;
+        AllObject removea = null;
 
         for (AllObject a : objectStorage){
 
             if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1){
-                if (user.getSize() == a.getSize()){
-                    health -= 1;
-                }else if(user.getSize() < a.getSize()){
-                    health -= (a.getSize() - user.getSize());
-                }else if(user.getSize() > a.getSize()){
-                    if (user.eat(a) != null){
-                        AllObject[] temp = user.eat(a).clone();
-                        for (AllObject b : temp){
-                            System.out.println("CCCCCC");
-                            idToDelete.add(b.getId());
-                            objectStorage.remove(b);
-                        }
+                if (a instanceof Fishes||a.getType() == Type.Mine||a.getType() == Type.Food){
+                    if (user.getSize() == a.getSize()){
+                        health -= 1;
+                    }else if(user.getSize() < a.getSize()){
+                        health -= (a.getSize() - user.getSize());
+                    }else if(user.getSize() > a.getSize()){
+                        idToDelete = (user.Usereat(a).getId());
+                        removea = a;
+                        System.out.print("ssssssssssssssssssssssssssssss\n");
                     }
                 }
-
             }
         }
         if (FishGame.health < 1){
+            System.out.print("TTTTTTTTTTTTTTTTTTTTTTTT\n");
             FishGame.life -= 1;
-            if (FishGame.life < 1){
-                if (isCheatModeOn = false){
-                    isGameOver = true;
-            }
-
+            // fish heal become 5
+            FishGame.health = 5;
+        }
+        if (FishGame.life < 1){
+            System.out.print("SDSDSDSDSDSDSDSDS\n");
+            if (isCheatModeOn = false){
+                isGameOver = true;
             }
         }
+        objectStorage.remove(removea);
+        System.out.print("FFFFFFFFFFFFFFFFFF\n");
         return idToDelete;
     }
 

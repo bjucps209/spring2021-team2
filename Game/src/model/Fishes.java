@@ -41,6 +41,8 @@ public class Fishes extends AllObject {
         this.size = size;
         this.objtype = objType;
         this.imageSize = imageSize;
+        id = FishGame.id;
+        FishGame.id += 1;
 
         // random the inital direction.
         //inital x, intial y, intial initalDirection, intial direction
@@ -61,7 +63,9 @@ public class Fishes extends AllObject {
             x = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         }
-        id += 1;
+        id = FishGame.id;
+        FishGame.id += 1;
+
     }
 
     @Override
@@ -77,63 +81,45 @@ public class Fishes extends AllObject {
         var ran3 = rand.nextInt(2);
         switch (ran) {
         case 0:
-            if (direction <= 180) {
+            if (direction < 180) {
                 direction += 180;
-                if(360 - direction < 5){
-                    direction -= ran2;
-                }else if (360 - direction < 25){
-                    if(ran3 == 0){
-                        direction -= ran2;
-                    }else{
-                        direction += ran2;
-                    }
-                }else{
-                    direction += ran2;
-                }
             } else {
                 direction -= 180;
-                if (direction-180 < 5){
-                    direction += ran2;
-                }else if (direction-180 < 25){
-                    if(ran3 == 0){
-                        direction -= ran2;
-                    }else{
-                        direction += ran2;
-                    }
-                }else{
-                    direction -= ran2;
-                }
             }
             break;
         case 1:
         case 2:
-        if (direction <= 180) {
-            if(360 - direction < 5){
-                direction -= ran2;
-            }else if (360 - direction < 25){
-                if(ran3 == 0){
-                    direction -= ran2;
-                }else{
-                    direction += ran2;
-                }
-            }else{
-                direction += ran2;
-            }
-        } else {
-            if (direction-180 < 5){
-                direction += ran2;
-            }else if (direction-180 < 25){
-                if(ran3 == 0){
-                    direction -= ran2;
-                }else{
-                    direction += ran2;
-                }
-            }else{
-                direction -= ran2;
-            }
-        }
             break;
         }
+
+        if (direction < 180){
+            if (180 - direction < 5 || (180 - direction < 155 && 180 - direction > 135)){
+                direction -= ran2;
+            }else if ((180 - direction > 4 && 180 - direction < 26)||(180 - direction < 176 && 180 - direction > 134)){
+                switch(ran3){
+                    case 0:
+                        direction += ran2;
+                    case 1:
+                        direction -= ran2;
+                }
+            }else if ((180 - direction > 25 && 180 - direction < 45)|| 180 - direction > 175){
+                direction += ran2;
+            }
+        }else{
+            if (360 - direction < 5 || (360 - direction < 155 && 360 - direction > 135)){
+                direction -= ran2;
+            }else if ((360 - direction > 4 && 360 - direction < 26)||(360 - direction < 176 && 360 - direction > 134)){
+                switch(ran3){
+                    case 0:
+                        direction += ran2;
+                    case 1:
+                        direction -= ran2;
+                }
+            }else if ((360 - direction > 25 && 360 - direction < 45)|| 360 - direction > 175){
+                direction += ran2;
+            }
+        }
+        
     }
 
     public AllObject[] eat(AllObject a){
@@ -154,14 +140,14 @@ public class Fishes extends AllObject {
     public void randSpeed() {
         var rand = new Random();
         int ran = rand.nextInt(2);
-        int ran2 = rand.nextInt(4);
+        int ran2 = rand.nextInt(3);
         if(ran == 0){
-            if (speed > 3){
-                this.speed -= ran2;
+            if (speed < 3){
+                this.speed += ran2;
             }
         }else{
-            if (speed < 11){
-                this.speed += ran2;
+            if (speed > 10){
+                this.speed -= ran2;
             }
         }
     }
