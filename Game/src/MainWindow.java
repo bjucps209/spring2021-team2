@@ -45,6 +45,10 @@ public class MainWindow {
                         } catch (Exception e) {
 
                         }
+                        break;
+                    case P:
+                        GameWindow.onPKeyPress();
+                        break;
                     }
                     Userfish.facingDirection();
                 }

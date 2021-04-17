@@ -345,6 +345,8 @@ public class FishGame {
     public void save() throws Exception {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("save.game", true));
+            writer.append("Level:Difficulty:" + Integer.toString(objectStorage.size()));
+            writer.append("\n");
             for (AllObject item : objectStorage) {
                 writer.append(item.serialize());
                 writer.append("\n");

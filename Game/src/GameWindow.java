@@ -56,9 +56,11 @@ public class GameWindow {
     @FXML
     Pane pane;
     
-    Timeline timer1;
-    Timeline timer2;
-    Timeline timer3;
+    static Timeline timer1;
+    static Timeline timer2;
+    static Timeline timer3;
+
+    static boolean isPaused = false;
 
     // main cord for action, becasue we first working on mousement user fish
     public void initialize(){
@@ -116,16 +118,30 @@ public class GameWindow {
 
     //will user press P key, timeline stoped
     //what happen after that? Press P agin keep play, press Esc quit?
-    public void onPKeyPress(){
-        timer1.pause();
-        timer2.pause();
-        timer3.pause();
+    public static void onPKeyPress(){
+        if (isPaused == true) {
+            timer1.play();
+            timer2.play();
+            //timer3.play();
+            isPaused = false;
+            System.out.println("Game is unpaused");
+        }
+
+        else if (isPaused == false) {
+            timer1.pause();
+            timer2.pause();
+            //timer3.pause();
+            isPaused = true;
+            System.out.println("Game is paused");
+        }
     }
 
 
     //Screen action again, if ESC click promp windows ask user to save
     public static void onESCPress() throws Exception {
-        start.save();
+        if (isPaused == true) {
+            start.save();
+        }
     }
 
     public void updataDS(){
