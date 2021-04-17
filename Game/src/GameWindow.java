@@ -116,8 +116,8 @@ public class GameWindow {
         // timer3.play();
     }
 
-    //will user press P key, timeline stoped
-    //what happen after that? Press P agin keep play, press Esc quit?
+    //When the user presses P, it will pause the timelines, upon re-entry it will resume the timelines
+    //While the timelines are paused the user will be able to save by pressing the ESC key
     public static void onPKeyPress(){
         if (isPaused == true) {
             timer1.play();
@@ -137,7 +137,7 @@ public class GameWindow {
     }
 
 
-    //Screen action again, if ESC click promp windows ask user to save
+    //while isPaused is true, the user can save by pressing the ESC key
     public static void onESCPress() throws Exception {
         if (isPaused == true) {
             start.save();
