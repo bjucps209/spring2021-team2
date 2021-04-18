@@ -59,17 +59,15 @@ public class Userfish extends Fishes{
     @Override
     public void ChangeSpeedAndDirection(){;}
 
-    @Override
-    public AllObject[] eat(AllObject a){
-        AllObject[] stor;
+
+    public AllObject Usereat(AllObject a){
+        AllObject stor;
+        stor = a;
         if (a.getType() == Type.PoisonFish||a.getType() == Type.Mine){
-            stor = new AllObject[2];
-            stor[0] = this;
-            stor[1] = a;
             FishGame.life -= 1;
+            FishGame.health = 5;
+            //TODO: user fish need to show some thing to user if he lose a life.
         }else if((a instanceof Fishes) && (a.getType() != Type.PoisonFish)||(a.getType() == Type.Food)){
-            stor = new AllObject[1];
-            stor[0] = a;
             if (a.getType() == Type.Food){
                 FishGame.points += 1;
             }else if(a.getType() == Type.FishType1){
@@ -79,8 +77,6 @@ public class Userfish extends Fishes{
             }else if(a.getType() == Type.FishType3){
                 FishGame.points += 8;
             }
-        }else{
-            stor = null;
         }
         return stor;
     }

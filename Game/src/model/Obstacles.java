@@ -16,23 +16,25 @@ public class Obstacles extends AllObject {
         int xUse = rand.nextInt(1000);
         x = new SimpleIntegerProperty(xUse);
         y = new SimpleIntegerProperty(1000 - imageSize);
+        id = FishGame.id;
+        FishGame.id += 1;
     }
 
     @Override
     public void ChangeSpeedAndDirection() {;}
 
     //TODO: figure out how Obstacle serializatoin works
-    // @Override
-    // public String serialize() {
-    //     String dataString = "";
-    //     dataString += this.type.toString();
-    //     dataString += ":";
-    //     dataString += Integer.toString(x) + "," + Integer.toString(y);
-    //     dataString += ":";
-    //     dataString += Integer.toString(direction);
-    //     dataString += ":";
+    @Override
+    public String serialize() {
+        String dataString = "";
+        dataString += "Obstacle";
+        dataString += ":";
+        dataString += x.toString() + "," + y.toString();
+        dataString += ":";
+        dataString += Integer.toString(direction);
+        dataString += ":";
          
-    //     return dataString;
-    // }
+        return dataString;
+    }
     
 }

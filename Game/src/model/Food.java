@@ -21,6 +21,8 @@ public class Food extends AllObject{
         int xUse = rand.nextInt(1000);
         x = new SimpleIntegerProperty(xUse);
         y = new SimpleIntegerProperty(this.imageSize);
+        id = FishGame.id;
+        FishGame.id += 1;
     }
 
     //falling change moving speed

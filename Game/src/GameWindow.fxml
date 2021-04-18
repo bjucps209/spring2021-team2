@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
-    spacing="10" prefHeight="1000" prefWidth="1000">
+    spacing="10" prefHeight="719" prefWidth="1366" style="-fx-background-image: url(FishPicture/Background.jpg);" >
     
-    <Pane fx:id="pane" prefHeight="1000" prefWidth="1000" style="-fx-background-color: lightgray" />
+    <Pane fx:id="pane" prefHeight="1000" prefWidth="1000" />
 
 
 </VBox>

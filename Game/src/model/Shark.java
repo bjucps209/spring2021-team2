@@ -29,6 +29,8 @@ public class Shark extends AllObject {
             x = new SimpleIntegerProperty(1);
             int yUse = rand.nextInt(1000);
             y = new SimpleIntegerProperty(yUse);
+            id = FishGame.id;
+            FishGame.id += 1;
         }
     }
 

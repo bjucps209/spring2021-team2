@@ -11,7 +11,7 @@ public class AllObject {
     int size;
     int direction;
 
-    static int id;
+    int id;
 
 
     public int getId() {

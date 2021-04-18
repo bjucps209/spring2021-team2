@@ -19,6 +19,8 @@ public class Mine extends AllObject{
         int xUse = rand.nextInt(1000);
         x = new SimpleIntegerProperty(xUse);
         y = new SimpleIntegerProperty(imageSize);
+        id = FishGame.id;
+        FishGame.id += 1;
     }
     
     //falling change moving speed
@@ -35,16 +37,16 @@ public class Mine extends AllObject{
     }
 
     //TODO: figure out how mine serializatoin works
-    // @Override
-    // public String serialize() {
-    //     String dataString = "";
-    //     dataString += this.type.toString();
-    //     dataString += ":";
-    //     dataString += Integer.toString(x) + "," + Integer.toString(y);
-    //     dataString += ":";
-    //     dataString += Integer.toString(direction);
-    //     dataString += ":";
+    @Override
+    public String serialize() {
+        String dataString = "";
+        dataString += this.type.toString();
+        dataString += ":";
+        dataString += x.toString() + "," + y.toString();
+        dataString += ":";
+        dataString += Integer.toString(direction);
+        dataString += ":";
          
-    //     return dataString;
-    // }
+        return dataString;
+    }
 }

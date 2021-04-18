@@ -38,9 +38,14 @@ import javafx.scene.input.MouseEvent;
 
 public class GameWindow {
 
-    final Image IMG_Fish1 = new Image("/FishPicture/FirstStageUsage/noback.png");
-    final Image IMG_Fish2 = new Image("/FishPicture/FirstStageUsage/noback2.png");
-    final Image IMG_Fish3 = new Image("/FishPicture/FirstStageUsage/noback3.png");
+    final Image User_fishl = new Image("/FishPicture/Fish/userfish_left.gif");
+    final Image User_fishr = new Image("/FishPicture/Fish/userfish_right.gif");
+    final Image IMG_Fish1l = new Image("/FishPicture/Fish/fish1_l.gif");
+    final Image IMG_Fish1r = new Image("/FishPicture/Fish/fish1_r.gif");
+    final Image IMG_Fish2l = new Image("/FishPicture/Fish/fish2_l.gif");
+    final Image IMG_Fish2r = new Image("/FishPicture/Fish/fish2_r.gif");
+    final Image IMG_Fish3l = new Image("/FishPicture/Fish/fish3_l.gif");
+    final Image IMG_Fish3r = new Image("/FishPicture/Fish/fish3_r.gif");
     final Image IMG_Food = new Image("/FishPicture/FirstStageUsage/foodnoback.png");
     final Image IMG_Mine = new Image("/FishPicture/FirstStageUsage/mine0.jpg");
     final Image IMG_PoisonFish = new Image("/FishPicture/FirstStageUsage/PoisonFish.png");
@@ -68,7 +73,16 @@ public class GameWindow {
         System.out.println("111111111");
 
         start = new FishGame(1, 1, 0, 1, 1, 1, 1);
-        imagePutting(start.getUser());
+
+        ImageView image =  new ImageView(User_fishl);
+        image.layoutXProperty().bind(start.getUser().getX());
+        image.layoutYProperty().bind(start.getUser().getY());
+        image.setId(""+start.getUser().getId());
+        image.setFitHeight(30);
+        image.setFitWidth(30);
+        pane.getChildren().add(image);
+
+
         for (AllObject a : start.getObjectStorage()){
             imagePutting(a);
         }
@@ -82,7 +96,14 @@ public class GameWindow {
         timer2 = new Timeline(timerF2);
         timer2.setCycleCount(-1);
         timer2.play();
-        // KeyFrame timerF3 = new KeyFrame(Duration.millis(50), e -> System.out.println(
+        
+        //  KeyFrame timerF3 = new KeyFrame(Duration.millis(50), e -> start.userfishcollision());
+        //  timer3 = new Timeline(timerF3);
+        //  timer3.setCycleCount(-1);
+        //  timer3.setDelay(Duration.seconds(10));
+        //  timer3.play();
+
+
         //     Userfish.Up.get() +" " +  Userfish.Right.get() + " " + Userfish.Down.get() + " "+ Userfish.Left.get() + " " + Userfish.getDirectionenum()));
         // timer3 = new Timeline(timerF3);
         // timer3.setCycleCount(-1);
@@ -116,8 +137,8 @@ public class GameWindow {
         // timer3.play();
     }
 
-    //will user press P key, timeline stoped
-    //what happen after that? Press P agin keep play, press Esc quit?
+    //When the user presses P, it will pause the timelines, upon re-entry it will resume the timelines
+    //While the timelines are paused the user will be able to save by pressing the ESC key
     public static void onPKeyPress(){
         if (isPaused == true) {
             timer1.play();
@@ -137,7 +158,7 @@ public class GameWindow {
     }
 
 
-    //Screen action again, if ESC click promp windows ask user to save
+    //while isPaused is true, the user can save by pressing the ESC key
     public static void onESCPress() throws Exception {
         if (isPaused == true) {
             start.save();
@@ -197,17 +218,21 @@ public class GameWindow {
 
     }
 
+    public void loseLife(){
+        
+    }
+
     @FXML
     public void imagePutting(AllObject a){
         ImageView image;
         if (a.getType() == Type.Food ){
             image = new ImageView(IMG_Food);
         }else if (a.getType() == Type.FishType1){
-            image = new ImageView(IMG_Fish1);
+            image = new ImageView(IMG_Fish1l);
         }else if (a.getType() == Type.FishType2){
-            image = new ImageView(IMG_Fish2);
+            image = new ImageView(IMG_Fish2l);
         }else if (a.getType() == Type.FishType3){
-            image = new ImageView(IMG_Fish3);
+            image = new ImageView(IMG_Fish3l);
         }else if (a.getType() == Type.Mine){
             image = new ImageView(IMG_Mine);
         }else if (a.getType() == Type.PoisonFish){
@@ -217,6 +242,7 @@ public class GameWindow {
         image.layoutYProperty().bind(a.getY());
         image.setId(""+a.getId());
         pane.getChildren().add(image);
+        System.out.println("X:" + a.getX().get() + " Y:" + a.getY().get() + " ID:"+ a.getId());
     }
 
 
@@ -226,7 +252,17 @@ public class GameWindow {
         // for (int a : start.Fishmeet()){
         //      pane.getChildren().removeIf((i) -> Integer.parseInt(i.getId()) == a);
         // }
-        start.userfishcollision().size();
+
+
+
+        int idNeedDelete = start.userfishcollision();
+        if (idNeedDelete != 0){
+            pane.getChildren().removeIf((e) -> Integer.parseInt(e.getId()) == idNeedDelete);
+        }
+
+
+
+
         // if (start.userfishcollision().size() != 0){
         //     for (int i :start.userfishcollision()){
         //         pane.getChildren().removeIf((e) -> Integer.parseInt(e.getId()) == i);
