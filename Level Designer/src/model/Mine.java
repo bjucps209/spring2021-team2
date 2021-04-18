@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 //For this class it might not useful for current usage, but will be usefull for later level
 public class Mine extends AllObject{
     
-    private final Image dir = new Image("/FishPicture/FirstStageUsage/mine0.jpg");
+  
 
     private int imageSize = 68;
 
@@ -30,8 +30,5 @@ public class Mine extends AllObject{
         this.imageSize = imageSize;
     }
 
-    public Image getDir() {
-		return this.dir;
-    }
-
+   
 }

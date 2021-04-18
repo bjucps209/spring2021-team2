@@ -1,0 +1,8 @@
+L Testing,/images/concrete.png,26,1 
+Concrete,281,121
+Rock,404,187
+Rock,197,340
+algae,126,149
+Kelp,152,59
+Type 2,497,120
+Type 1,202,449

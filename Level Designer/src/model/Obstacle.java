@@ -5,11 +5,8 @@ import java.util.Random;
 import javafx.scene.image.Image;
 
 public class Obstacle extends AllObject {
-
-    private final Image dir = new Image("/PoisonFish.png");// not picture yet
-
     private int imageSize = 317;
-    String type;
+    private String type;
 
     public Obstacle(String type) {
         this.speed = 0;
@@ -22,6 +19,14 @@ public class Obstacle extends AllObject {
 
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public int getImageSize() {
         return this.imageSize;
     }
@@ -30,9 +35,7 @@ public class Obstacle extends AllObject {
         this.imageSize = imageSize;
     }
 
-    public Image getDir() {
-        return this.dir;
-    }
+
 }
 
     

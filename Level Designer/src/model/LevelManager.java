@@ -94,7 +94,8 @@ public class LevelManager {
                 String save=String.format("L %s,%s,%d,%d \n",level.levelName,level.levelPhotoPath,level.numFish,levelBossFish);
                
                 for(AllObject obj: level.objects){
-                save+=obj.type+ ","+obj.x+","+obj.y+"\n";
+                save+=obj.getType()+ ","+obj.getX()+","+obj.getY()+"\n";
+                //rewrite this 4/18^
 
                 }
                 writer.writeBytes(save);

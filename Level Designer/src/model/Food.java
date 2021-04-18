@@ -5,12 +5,19 @@ import javafx.scene.image.Image;
 //For this class it might not useful for current usage, but will be usefull for later level
 public class Food extends AllObject{
     
-    private final Image dir = new Image("/FishPicture/FirstStageUsage/foodnoback.jpg");
-
+    
     private int imageSize = 68;
-    String type;
+    private String type;
 
 
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Food(String type){
         this.speed = 10;
@@ -24,16 +31,7 @@ public class Food extends AllObject{
     public void ChangeSpeedAndDirection() {
     }
 
-    public int getImageSize() {
-        return this.imageSize;
-    }
-
-    public void setImageSize(int imageSize) {
-        this.imageSize = imageSize;
-    }
-
-    public Image getDir() {
-		return this.dir;
-    }
+  
+   
 
 }
