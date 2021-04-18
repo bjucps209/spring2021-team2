@@ -78,8 +78,8 @@ public class GameWindow {
         image.layoutXProperty().bind(start.getUser().getX());
         image.layoutYProperty().bind(start.getUser().getY());
         image.setId(""+start.getUser().getId());
-        image.setFitHeight(30);
-        image.setFitWidth(30);
+        image.setFitHeight(80);
+        image.setFitWidth(80);
         pane.getChildren().add(image);
 
 
@@ -97,11 +97,10 @@ public class GameWindow {
         timer2.setCycleCount(-1);
         timer2.play();
         
-        //  KeyFrame timerF3 = new KeyFrame(Duration.millis(50), e -> start.userfishcollision());
-        //  timer3 = new Timeline(timerF3);
-        //  timer3.setCycleCount(-1);
-        //  timer3.setDelay(Duration.seconds(10));
-        //  timer3.play();
+          KeyFrame timerF3 = new KeyFrame(Duration.millis(1000), e -> updatanum());
+          timer3 = new Timeline(timerF3);
+          timer3.setCycleCount(-1);
+          timer3.play();
 
 
         //     Userfish.Up.get() +" " +  Userfish.Right.get() + " " + Userfish.Down.get() + " "+ Userfish.Left.get() + " " + Userfish.getDirectionenum()));
@@ -227,16 +226,28 @@ public class GameWindow {
         ImageView image;
         if (a.getType() == Type.Food ){
             image = new ImageView(IMG_Food);
+            image.setFitHeight(25);
+            image.setFitWidth(25);
         }else if (a.getType() == Type.FishType1){
             image = new ImageView(IMG_Fish1l);
+            image.setFitHeight(50);
+            image.setFitWidth(50);
         }else if (a.getType() == Type.FishType2){
             image = new ImageView(IMG_Fish2l);
+            image.setFitHeight(80);
+            image.setFitWidth(80);
         }else if (a.getType() == Type.FishType3){
             image = new ImageView(IMG_Fish3l);
+            image.setFitHeight(110);
+            image.setFitWidth(110);
         }else if (a.getType() == Type.Mine){
             image = new ImageView(IMG_Mine);
+            image.setFitHeight(35);
+            image.setFitWidth(35);
         }else if (a.getType() == Type.PoisonFish){
             image = new ImageView(IMG_PoisonFish);
+            image.setFitHeight(50);
+            image.setFitWidth(50);
         }else{image = new ImageView();};
         image.layoutXProperty().bind(a.getX());
         image.layoutYProperty().bind(a.getY());
