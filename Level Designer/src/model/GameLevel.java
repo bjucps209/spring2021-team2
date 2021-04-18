@@ -60,6 +60,10 @@ public class GameLevel {
     public void setObjects(ArrayList<AllObject> objects) {
         this.objects = objects;
     }
+    public void addObj(AllObject object){
+       objects.add(object);
+
+    }
 
 
     public GameLevel(String levelName, String levelPhotoPath, int numFish, boolean bossFish,

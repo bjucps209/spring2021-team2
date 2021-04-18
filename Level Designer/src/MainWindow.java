@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -19,21 +20,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.AllObject;
+import model.Fish;
+import model.Food;
 import model.GameLevel;
 import model.LevelManager;
+import model.Obstacle;
 
 
 public class MainWindow {
-    final Image IMG_FISH1 = new Image("/images/fish.png");
-    final Image IMG_FISH2 = new Image("/images/fish2.png");
-    final Image IMG_ROCK= new Image("/images/rock.png");
-    final Image IMG_CONCRETE= new Image("/images/concrete.png");
-    final Image IMG_KELP=new Image("/images/kelp.png");
-    final Image IMG_ALGAE=new Image("/images/algae.png");
+   
    
 
-   // private static final String IMG_FISH1 = null;
-
+ 
 
 
 
@@ -58,10 +56,12 @@ public class MainWindow {
 
     // Borrowed idea from https://stackoverflow.com/questions/41079498/javafx-differentiate-between-click-and-click-dragged
     boolean dragging=false;
+    //if dragging is true, the person cannot place something else 
     
     
     
-    Node grabbed; // for the grabbed node 
+    
+    Node grabbed; 
 
 
 
@@ -74,6 +74,7 @@ public class MainWindow {
     @FXML Pane pane;
     @FXML HBox tools;
     @FXML VBox dropdown;
+   
     @FXML 
     void initialize() {
        
@@ -173,47 +174,91 @@ Bindings.createStringBinding(
         
  
     }
+    final Image IMG_FISH1 = new Image("/images/fish.png");
+    final Image IMG_FISH2 = new Image("/images/fish2.png");
+    final Image IMG_ROCK= new Image("/images/rock.png");
+    final Image IMG_CONCRETE= new Image("/images/concrete.png");
+    final Image IMG_KELP=new Image("/images/kelp.png");
+    final Image IMG_ALGAE=new Image("/images/algae.png");
+  
     @FXML
     void onobstacleType2(ActionEvent e) {
+        Obstacle rock=new Obstacle("Rock");
+        
+        currentState.addObj(rock);
+      
+        if(!dragging){
         var img = new ImageView(IMG_ROCK);
         img.setPreserveRatio(true);
         img.setFitWidth(20);
         
         makeDraggable(img);
+      
         pane.getChildren().add(img);
+       
+            dragging=true;
+        }
+
+        
     }
     @FXML
     void onobstacleType1(ActionEvent e) {
+        Obstacle rock=new Obstacle("Concrete");
+        
+        currentState.addObj(rock);
+        if(!dragging){
         var img = new ImageView(IMG_CONCRETE);
         img.setPreserveRatio(true);
         img.setFitWidth(20);
         
         makeDraggable(img);
         pane.getChildren().add(img);
+      
+            dragging=true;
+        }
+        
 
     }
     @FXML
      void onfood2(ActionEvent e) {
+        Food food=new Food("Kelp");
+        
+        currentState.addObj(food);
+        System.out.println(currentState.getObjects());
+        if(!dragging){
         var img = new ImageView(IMG_KELP);
         img.setPreserveRatio(true);
         img.setFitWidth(20);
         
         makeDraggable(img);
         pane.getChildren().add(img);
-
+        dragging=true;
+        }
+  
     }
     @FXML
      void onfood1(ActionEvent e) {
+    if(!dragging){
+        Food food=new Food("algae");
+        
+        currentState.addObj(food);
         var img = new ImageView(IMG_ALGAE);
         img.setPreserveRatio(true);
         img.setFitWidth(20);
         
         makeDraggable(img);
         pane.getChildren().add(img);
+        dragging=true;
+    }
 
     }
     @FXML
     void onFishType1(ActionEvent e) {
+        Fish f=new Fish("type1");
+        
+        currentState.addObj(f);
+       
+      if(!dragging){
        
         var img = new ImageView(IMG_FISH1);
        img.setPreserveRatio(true);
@@ -222,11 +267,21 @@ Bindings.createStringBinding(
        makeDraggable(img);
        pane.getChildren().add(img);
       // makeClickable(img);
-
-
+      dragging=true;
     }
+
+
+
+}
+
+    
     @FXML
     void onFishType2(ActionEvent e) {
+        Fish f=new Fish("type2");
+        
+        currentState.addObj(f);
+       
+        if(!dragging){
        
         var img = new ImageView(IMG_FISH2);
        img.setPreserveRatio(true);
@@ -236,10 +291,21 @@ Bindings.createStringBinding(
        pane.getChildren().add(img);
       // makeClickable(img);
 
-
+      dragging=true;
+    }
     }
 
-    //Mouse Event Handler 
+    //Mouse Event Handle'
+    
+    
+    @FXML
+    void onMouseReleased(MouseEvent value) {
+        System.out.print("M");
+       
+             
+        dragging=false;
+
+}
     @FXML
     void  LevelFileChooser(ActionEvent e) {
         Node node = (Node) e.getSource();
@@ -285,7 +351,7 @@ Bindings.createStringBinding(
             
       
         }catch(Exception exception){
-            var alert = new Alert(AlertType.WARNING, "Error in loading file!");
+            var alert = new Alert(AlertType.WARNING, "Error: You did not select a file!");
             alert.setHeaderText(null);
             alert.show();
             
@@ -300,25 +366,17 @@ Bindings.createStringBinding(
       
     @FXML
      void onSaveFileClicked(ActionEvent e) throws FileNotFoundException {
-         //Accordion accord=(Accordion) dropdown.getChildren().get(0);
-        // TitledPane tp=(TitledPane) accord.getChildrenUnmodifiable().get(0);
-        // VBox vbox= (VBox) tp.getContent();
-        
-        
-         
-       // TextField levelName =(TextField) vbox.getChildrenUnmodifiable().get(0);
-         
+        manager.save(currentState);
+            
 
-
-        // ArrayList<AllObject> obj=new ArrayList<AllObject>();
-         
+        }
        
-         manager.save(currentState);
+       
 
-        //if its what's on the screen reflects whats on the pane then disable the save button
+      
         
-         System.out.println("S");
-    }
+        
+    
     @FXML
     void onNewFileClicked(ActionEvent e) {
         System.out.println("N");
@@ -326,14 +384,7 @@ Bindings.createStringBinding(
     
     }
 
-    @FXML
-    void onMouseClicked(MouseEvent value) {
-        System.out.print("M");
-        System.out.print(value.getEventType());
-             
-        //do handling 
-
-}
+   
 
 
     public GameLevel updateState(){

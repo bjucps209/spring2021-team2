@@ -8,13 +8,15 @@ public class Food extends AllObject{
     private final Image dir = new Image("/FishPicture/FirstStageUsage/foodnoback.jpg");
 
     private int imageSize = 68;
+    String type;
 
 
 
-    Food(){
+    public Food(String type){
         this.speed = 10;
         this.size = 1;
         this.direction = 270;
+        this.type=type;
     }
 
     //falling change moving speed

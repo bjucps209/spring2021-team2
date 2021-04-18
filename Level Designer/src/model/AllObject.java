@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class AllObject {
     
     //from class we learn this week those variable may change to intproperty in oder to bind

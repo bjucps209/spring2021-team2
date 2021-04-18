@@ -10,15 +10,20 @@
     
     
     <HBox spacing="10">
-        
+     <VBox >
         <VBox spacing="10" fx:id="dropdown">
+       
             
         </VBox>
+       
+    </VBox>
         <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" />
         <HBox spacing="10" styleClass="propview">
+        
           
           
         </HBox>
+      
     </HBox>
 
     
