@@ -116,7 +116,7 @@ public class FishGame {
         isCheatModeOn = false;
         isGameOver = false;
         objectStorage = new ArrayList<AllObject>();
-        user = new Userfish(Type.FishType1, 4, 1, 30);
+        user = new Userfish(Type.FishType1, 5, 1, 30);
     }
 
     // constructor while game start, model will recieve different value from
@@ -135,7 +135,7 @@ public class FishGame {
         this.limitOfType3Fish = limitOfType3Fish;
         this.limitOfPoisonFish = limitOfPoisonFish;
         objectStorage = new ArrayList<AllObject>();
-        user = new Userfish(Type.FishType2, 4, 2, 73);
+        user = new Userfish(Type.FishType2, 5, 2, 73);
         for (int i = 0; i < limitOfFood; i++){
             objectStorage.add(new Food());
             numberOfFood += 1;
