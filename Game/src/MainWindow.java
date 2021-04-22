@@ -17,10 +17,14 @@ public class MainWindow {
     @FXML
     void onStartClicked(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
+        GameWindow controller = (GameWindow) loader.getController();
 
         Stage gameWindow = new Stage();
 
         Scene scene = new Scene(loader.load());
+
+        controller.startGame();
+
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -77,10 +81,10 @@ public class MainWindow {
                 }
             }
         });
-
         gameWindow.setScene(scene);
 
         gameWindow.show();
+
 
     }
 

@@ -67,9 +67,15 @@ public class GameWindow {
 
     static boolean isPaused = false;
 
-    // main cord for action, becasue we first working on mousement user fish
     public void initialize(){
 
+        
+    }
+
+
+    // Call from MainWindow in order to start the game
+    @FXML
+    public void startGame() {
         System.out.println("111111111");
 
         start = new FishGame(1, 1, 0, 1, 1, 1, 1);
@@ -81,6 +87,7 @@ public class GameWindow {
         image.setFitHeight(80);
         image.setFitWidth(80);
         pane.getChildren().add(image);
+        
 
 
         for (AllObject a : start.getObjectStorage()){
@@ -135,6 +142,7 @@ public class GameWindow {
         // timer2.play();
         // timer3.play();
     }
+
 
     //When the user presses P, it will pause the timelines, upon re-entry it will resume the timelines
     //While the timelines are paused the user will be able to save by pressing the ESC key

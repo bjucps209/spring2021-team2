@@ -119,6 +119,10 @@ public class FishGame {
         user = new Userfish(Type.FishType1, 5, 1, 30);
     }
 
+    public FishGame(File file) {
+        
+    }
+
     // constructor while game start, model will recieve different value from
     // different level. however other limitation such as speed, will not in
     // constructor because each kind of fish have its own speed and their initial
