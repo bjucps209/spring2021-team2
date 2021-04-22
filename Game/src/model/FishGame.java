@@ -1,6 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
@@ -119,8 +122,22 @@ public class FishGame {
         user = new Userfish(Type.FishType1, 5, 1, 30);
     }
 
+    //constructor for passing soft coded game files into the model
     public FishGame(File file) {
-        
+        // trying to read the file we are given
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
+            String currentLine = reader.readLine();
+            String[] splitString = currentLine.split(":");
+            this.level = Integer.parseInt(splitString[0]);
+            int objectCount = Integer.parseInt(splitString[2]);
+            for (int i = 0; i != objectCount; ++i) {
+                
+            }
+
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
     }
 
     // constructor while game start, model will recieve different value from
