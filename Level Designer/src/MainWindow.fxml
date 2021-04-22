@@ -24,6 +24,20 @@
           
         </HBox>
       
+        <VBox>
+            <Label text="Selected Item Details"/>
+            <Label  fx:id="LblSelected" text="X,Y"/>
+            <HBox>
+            <Button fx:id="flip" />
+            <Button fx:id="copy" />
+            </HBox>
+            
+            
+
+           
+            
+        </VBox>
+      
     </HBox>
 
     

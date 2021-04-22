@@ -6,9 +6,15 @@ import javafx.scene.image.ImageView;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import javafx.beans.binding.Bindings;
+import java.util.Objects;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -25,7 +31,8 @@ import model.Food;
 import model.GameLevel;
 import model.LevelManager;
 import model.Obstacle;
-
+import java.nio.file.*;
+import java.util.stream.Stream;
 
 public class MainWindow {
    
@@ -62,6 +69,7 @@ public class MainWindow {
     
     
     Node grabbed; 
+    Node selected;
 
 
 
@@ -74,19 +82,93 @@ public class MainWindow {
     @FXML Pane pane;
     @FXML HBox tools;
     @FXML VBox dropdown;
+    @FXML Button flip;
+    @FXML Button copy;
+    
+ 
 
 
 
 
 
 
-     /**
-     * Unsets the draggable attribute from the critter
-     */
+
+   
+
+
+
+
+
+
+    private void makeClickable(Node node) {
+    
+      
+      
+
+    
+       
+            
+        node.setOnMouseClicked((me-> {node.getStyleClass().add("current"); 
+
+        if(Objects.isNull(selected)){ 
+            //System.out.println("A");
+            selected=node;
+            //updateSelectedGui();
+        }else if(selected!=node){
+            if (!Objects.isNull(selected.getUserData())){
+            
+                //System.out.println("------");
+           // System.out.println("B");
+            //System.out.println(selected);
+            
+            selected.getStyleClass().clear();
+           // System.out.println("------");
+            selected=node;
+            //updateSelectedGui();
+            //System.out.println(selected);
+            node.getStyleClass().add("current");
+            }
+        }else{
+           if(selected.getStyleClass().size()==3){
+            selected.getStyleClass().clear();
+           }else{
+            selected.getStyleClass().add("current");
+           }
+           
+
+
+        }
+    
+            
+            
+        }));
+        
+     
+
+  
+   
+}
    
    
     @FXML 
-    void initialize() {
+    void initialize() throws IOException {
+
+        Image flipimg = new Image("images/flip.jpg");
+        ImageView flipview = new ImageView(flipimg);
+        flip.setMaxHeight(20);
+        flip.setMaxWidth(10);
+        flipview.setFitHeight(20);
+        flipview.setFitWidth(10);
+        flip.setGraphic(flipview);
+        Image copyimg = new Image("images/copy.png");
+        ImageView copyview = new ImageView(copyimg);
+        copy.setMaxHeight(20);
+        copy.setMaxWidth(20);
+        copyview.setFitHeight(20);
+        copyview.setFitWidth(20);
+        copy.setGraphic(copyview);
+
+        
        
         pane.setStyle("-fx-background-image: url('/images/ocean.png');");
         Thread update = new Thread( () -> updateState() );
@@ -140,10 +222,104 @@ public class MainWindow {
 
 
         VBox FishTypes =new VBox();
+        ArrayList<String> fishTypes=new ArrayList<String>();
+    
+        
+            
+    
+        
+        try (Stream<Path> filepath
+        = Files.walk(Paths.get("C:/Users/gfund/Documents/GitHub/spring2021-team2/Level Designer/src/images/Fish"))) 
+       
+   {
+      // print the name of directories and files with
+      // entire path
+     
+       filepath.forEach(e->{if(Files.isDirectory(e)==false){
+           String filenamewithextension=e.getFileName().toString();
+           String filenamewithoutextension=filenamewithextension.substring(0,filenamewithextension.lastIndexOf("."));
+           String filenamewithnumber=filenamewithoutextension.substring(filenamewithoutextension.lastIndexOf(".png")+4,filenamewithoutextension.length());
+           int filenumber=0;
+          
+           try{
+         
+           filenumber=Integer.parseInt(filenamewithnumber.substring(0,1));
+           }catch(Exception except){ 
+             
+            filenumber= Integer.decode("0x"+filenamewithnumber.substring(0,1));
+             
+           }
+         
+         
+           String filename=filenamewithnumber.substring(1,2).toUpperCase()+filenamewithnumber.substring(2,filenamewithnumber.length()).toLowerCase();
+         //  System.out.println(filenumber);
+          // System.out.println(filename);
+           fishTypes.add(filename);
+  
+     
+           final int fishfinal=filenumber;
+           final String filenamefinal=filename;
+           
+           
+           
+           
+           
+          // fishbutton.setOnAction((ActionEvent event)->{onFish(event,fishfinal,filenamefinal);});
+          // FishTypes.getChildren().add(fishbutton);
+
+
+
+
+
+
+
+
+
+       }});
+           
+           
+       
+   }
+  
+   
+   // if no such directory exists throw an exception.
+   catch (IOException e) 
+   {
+       throw new IOException("Directory Not Present!");
+   }
+   ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(fishTypes));
+   c.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+  
+   
+    @Override
+    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+        System.out.println("Firre");
+        onFish(newValue.intValue(),fishTypes.get(newValue.intValue()));
+    }
+  
+  });try{
+    
+c.setOnMouseClicked(e->{
+    if(Objects.isNull(c.getValue())==false){
+        System.out.println(c.getValue());
+        onFish(fishTypes.indexOf(c.getValue()),String.valueOf(c.getValue()));}});
+  }catch (Exception e){
+      System.out.println("no value");
+      
+  }
+ 
+   FishTypes.getChildren().add(c);
+   //c.getSelectionModel().selectedIndexProperty().addListener(event->onFish(event));
+  
+
+
+
+        /*
         Button fishtype1=new Button("Fish Type 1");
         fishtype1.setOnAction((ActionEvent e) -> {onFishType1(e);});
         Button fishtype2=new Button("Fish Type 2");
         fishtype2.setOnAction((ActionEvent e) -> {onFishType2(e);});
+        */
         Label  sliderLabel=new Label("");
         Slider slider=new Slider();
        
@@ -155,9 +331,9 @@ Bindings.createStringBinding(
         
     
         CheckBox bossFish=new CheckBox("Boss Fish");
-        //Label  sliderLabel=new Label("Number of Enemy Fish");
+      
 
-        FishTypes.getChildren().addAll(fishtype1,fishtype2,sliderLabel,slider,bossFish);
+        FishTypes.getChildren().addAll(sliderLabel,slider,bossFish);
        
  
      
@@ -174,7 +350,7 @@ Bindings.createStringBinding(
  
  
  TitledPane foodpane = new TitledPane("Food", Food);
- TitledPane fishpane = new TitledPane("Fish Settings",FishTypes);
+ TitledPane fishpane = new TitledPane("Fish",FishTypes);
  Accordion accordion = new Accordion();
  accordion.getPanes().addAll(settpane,obspane, foodpane, fishpane);
 
@@ -184,9 +360,54 @@ Bindings.createStringBinding(
         
  
     }
-    final Image IMG_FISH1 = new Image("/images/fish.png");
-    final Image IMG_FISH2 = new Image("/images/fish2.png");
+   
+     void onCheckClicked() {
+      
+    }
+
+
+    void onFish(int filenumber,String filename) {
+       
+
+         String filenumberString=String.valueOf(filenumber);
+
+        
+        if(!dragging){
+            if(filenumber>=10){
+               filenumberString=Integer.toHexString(filenumber);
+
+            }
+      
+            Fish fish =new Fish("Type "+String.valueOf(filenumber));
+          
+            final Image fishImage=new Image(String.format("/images/Fish/Fishhudimage.png%s%s.png",filenumberString,filename));
+           
+           currentState.getObjects().add(fish);
+          
+           var img = new ImageView();
+           img.setImage(fishImage);
+           img.setFitHeight(100);
+           img.setFitWidth(100);
+           
+         
+           
+           
+          //img.setPreserveRatio(true);
+        
+          img.setUserData(fish);
+           
+          makeClickable(img);
+          makeDraggable(img);
+          pane.getChildren().add(img);
+     
+         dragging=true;
+       }
+       
+   
+    }
+   
     final Image IMG_ROCK= new Image("/images/rock.png");
+ 
     final Image IMG_CONCRETE= new Image("/images/concrete.png");
     final Image IMG_KELP=new Image("/images/kelp.png");
     final Image IMG_ALGAE=new Image("/images/algae.png");
@@ -204,10 +425,11 @@ Bindings.createStringBinding(
         var img = new ImageView();
         img.setImage(IMG_ROCK);
         img.setPreserveRatio(true);
-        img.setFitWidth(20);
+        img.setFitHeight(100);
+        img.setFitWidth(100);
         img.setUserData(rock);
 
-       // 
+        makeClickable(img);
         makeDraggable(img);
       
         pane.getChildren().add(img);
@@ -226,9 +448,10 @@ Bindings.createStringBinding(
             currentState.getObjects().add(rock);
         var img = new ImageView(IMG_CONCRETE);
         img.setPreserveRatio(true);
-        img.setFitWidth(20);
+        img.setFitHeight(100);
+        img.setFitWidth(100);
         img.setUserData(rock);
-        
+        makeClickable(img);  
         makeDraggable(img);
         pane.getChildren().add(img);
       
@@ -247,11 +470,12 @@ Bindings.createStringBinding(
         currentState.getObjects().add(food);
         var img = new ImageView(IMG_KELP);
         img.setPreserveRatio(true);
-        img.setFitWidth(20);
+        img.setFitHeight(100);
+        img.setFitWidth(100);
         img.setOnMouseReleased(event -> onMouseReleased(event));
         img.setUserData(food);
         
-        
+        makeClickable(img);
         makeDraggable(img);
         pane.getChildren().add(img);
         dragging=true;
@@ -266,70 +490,18 @@ Bindings.createStringBinding(
         currentState.getObjects().add(food);
         var img = new ImageView(IMG_ALGAE);
         img.setPreserveRatio(true);
-        img.setFitWidth(20);
+        img.setFitHeight(100);
+        img.setFitWidth(100);
         img.setOnMouseReleased(event -> onMouseReleased(event));
         img.setUserData(food);
-        
+        makeClickable(img);
         makeDraggable(img);
         pane.getChildren().add(img);
         dragging=true;
     }
 
     }
-    @FXML
-    void onFishType1(ActionEvent e) {
-        
-      if(!dragging){
-        Fish fish=new Fish("Type 1");
-        
-        currentState.getObjects().add(fish);
-       
-       
-        var img = new ImageView(IMG_FISH1);
-       img.setPreserveRatio(true);
-       img.setFitWidth(20);
-       img.setOnMouseReleased(event -> onMouseReleased(event));
-       img.setUserData(fish);
-        
-        
-       
-       makeDraggable(img);
-       pane.getChildren().add(img);
-      // makeClickable(img);
-      dragging=true;
-    }
-
-
-
-}
-
     
-    @FXML
-    void onFishType2(ActionEvent e) {
-        
-       
-        if(!dragging){
-      
-         Fish fish =new Fish("Type 2");
-        
-        currentState.getObjects().add(fish);
-       
-        var img = new ImageView(IMG_FISH2);
-        
-      
-        
-        
-       img.setPreserveRatio(true);
-       img.setFitWidth(20);
-       img.setUserData(fish);
-        
-       
-       makeDraggable(img);
-       pane.getChildren().add(img);
-  
-      dragging=true;
-    }
-    }
 
     //Mouse Event Handle'
     @FXML
@@ -345,7 +517,7 @@ Bindings.createStringBinding(
     @FXML
     void onMouseReleased(MouseEvent event) {
       
-        System.out.print("M");
+     
        
              
         dragging=false;
@@ -430,8 +602,8 @@ Bindings.createStringBinding(
 
      TitledPane fishPane=(TitledPane) accord.getChildrenUnmodifiable().get(3);
      VBox fishvbox= (VBox) fishPane.getContent(); 
-     Slider enemyFish =(Slider) fishvbox.getChildrenUnmodifiable().get(3);
-     CheckBox bossFish =(CheckBox) fishvbox.getChildrenUnmodifiable().get(4);
+     Slider enemyFish =(Slider) fishvbox.getChildrenUnmodifiable().get(14);
+     CheckBox bossFish =(CheckBox) fishvbox.getChildrenUnmodifiable().get(15);
      currentState.setNumFish((int)enemyFish.getValue());
      currentState.setBossFish(bossFish.isSelected());
 
@@ -500,7 +672,7 @@ Bindings.createStringBinding(
 
         // Prevent mouse clicks on img from propagating to the pane and
         // resulting in creation of a new image
-        node.setOnMouseClicked(me -> me.consume());
+        //node.setOnMouseClicked(me -> me.consume());
     }
 
     private class Delta {
