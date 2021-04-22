@@ -127,6 +127,7 @@ public class FishGame {
         // trying to read the file we are given
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
+            //Read the first line, this should contain information about the level, difficulty and how many objects we need to import
             String currentLine = reader.readLine();
             String[] splitString = currentLine.split(":");
             this.level = Integer.parseInt(splitString[0]);
