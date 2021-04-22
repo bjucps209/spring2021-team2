@@ -12,5 +12,5 @@
 }
 
 .current {
-    -fx-effect: dropshadow(three-pass-box, rgba(167, 148, 42, 0.8), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(12, 235, 23, 0.8), 10, 0, 0, 0);
  }

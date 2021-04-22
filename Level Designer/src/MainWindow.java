@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -23,6 +24,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.AllObject;
@@ -33,6 +36,8 @@ import model.LevelManager;
 import model.Obstacle;
 import java.nio.file.*;
 import java.util.stream.Stream;
+
+import javax.print.attribute.standard.Media;
 
 public class MainWindow {
    
@@ -70,7 +75,7 @@ public class MainWindow {
     
     Node grabbed; 
     Node selected;
-
+   
 
 
 
@@ -84,6 +89,7 @@ public class MainWindow {
     @FXML VBox dropdown;
     @FXML Button flip;
     @FXML Button copy;
+    @FXML Button delete;
     
  
 
@@ -152,6 +158,12 @@ public class MainWindow {
    
     @FXML 
     void initialize() throws IOException {
+        AudioClip music = new AudioClip(
+            getClass().getResource("music.mp3").toString());
+        
+       
+        music.play();
+       
 
         Image flipimg = new Image("images/flip.jpg");
         ImageView flipview = new ImageView(flipimg);
@@ -167,6 +179,13 @@ public class MainWindow {
         copyview.setFitHeight(20);
         copyview.setFitWidth(20);
         copy.setGraphic(copyview);
+        Image deleteimg = new Image("images/trash.png");
+        ImageView deleteview = new ImageView(deleteimg);
+        delete.setMaxHeight(20);
+        delete.setMaxWidth(10);
+        deleteview.setFitHeight(20);
+        deleteview.setFitWidth(10);
+        delete.setGraphic(deleteview);
 
         
        
@@ -293,20 +312,26 @@ public class MainWindow {
    
     @Override
     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-        System.out.println("Firre");
+       
         onFish(newValue.intValue(),fishTypes.get(newValue.intValue()));
+     
     }
   
-  });try{
+  });
     
 c.setOnMouseClicked(e->{
-    if(Objects.isNull(c.getValue())==false){
-        System.out.println(c.getValue());
-        onFish(fishTypes.indexOf(c.getValue()),String.valueOf(c.getValue()));}});
-  }catch (Exception e){
-      System.out.println("no value");
+   
+ c.setValue(0);
+ try{
+    if(Objects.isNull(c.getValue())==false ){
+     
+        onFish(fishTypes.indexOf(c.getValue()),String.valueOf(c.getValue()));
+   }}catch (Exception except){
+    
+  
       
   }
+});
  
    FishTypes.getChildren().add(c);
    //c.getSelectionModel().selectedIndexProperty().addListener(event->onFish(event));
@@ -357,9 +382,12 @@ Bindings.createStringBinding(
         // This is the accordion of buttons that will be added to the screen
         
         dropdown.getChildren().addAll(accordion);
+
+      
+
         
  
-    }
+}
    
      void onCheckClicked() {
       
