@@ -1,6 +1,6 @@
 package model;
 
-import javafx.scene.image.Image;
+
 
 //For this class it might not useful for current usage, but will be usefull for later level
 public class Mine extends AllObject{

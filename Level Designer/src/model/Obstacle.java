@@ -2,7 +2,7 @@ package model;
 
 import java.util.Random;
 
-import javafx.scene.image.Image;
+
 
 public class Obstacle extends AllObject {
     private int imageSize = 317;

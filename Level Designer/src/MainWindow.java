@@ -8,14 +8,15 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
+import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -37,7 +38,7 @@ import model.Obstacle;
 import java.nio.file.*;
 import java.util.stream.Stream;
 
-import javax.print.attribute.standard.Media;
+
 
 public class MainWindow {
    
@@ -90,6 +91,8 @@ public class MainWindow {
     @FXML Button flip;
     @FXML Button copy;
     @FXML Button delete;
+    @FXML Label LblSelected;
+    @FXML VBox Screen;
     
  
 
@@ -158,12 +161,25 @@ public class MainWindow {
    
     @FXML 
     void initialize() throws IOException {
+         
+    
+      
+
+
+     flip.setOnAction((ActionEvent flipevent) -> onFlipClicked(flipevent));
+     copy.setOnAction((ActionEvent copyevent) -> onCopyClicked(copyevent));
+     delete.setOnAction((ActionEvent delevent) -> onDeleteClicked(delevent));
+       
         AudioClip music = new AudioClip(
-            getClass().getResource("music.mp3").toString());
+            Paths.get("music.mp3").toUri().toString());
         
+         //   music.setCycleCount(Timeline.INDEFINITE);
+
+
+         //UNCOMMENT FOR MUSIC 
+       // music.play();
        
-        music.play();
-       
+        
 
         Image flipimg = new Image("images/flip.jpg");
         ImageView flipview = new ImageView(flipimg);
@@ -255,6 +271,7 @@ public class MainWindow {
       // entire path
      
        filepath.forEach(e->{if(Files.isDirectory(e)==false){
+           if(e.getFileName().toString().contains("flip")==false){
            String filenamewithextension=e.getFileName().toString();
            String filenamewithoutextension=filenamewithextension.substring(0,filenamewithextension.lastIndexOf("."));
            String filenamewithnumber=filenamewithoutextension.substring(filenamewithoutextension.lastIndexOf(".png")+4,filenamewithoutextension.length());
@@ -282,9 +299,6 @@ public class MainWindow {
            
            
            
-           
-          // fishbutton.setOnAction((ActionEvent event)->{onFish(event,fishfinal,filenamefinal);});
-          // FishTypes.getChildren().add(fishbutton);
 
 
 
@@ -293,8 +307,7 @@ public class MainWindow {
 
 
 
-
-       }});
+       }}});
            
            
        
@@ -388,10 +401,73 @@ Bindings.createStringBinding(
         
  
 }
-   
-     void onCheckClicked() {
-      
+
+    void onCopyClicked(ActionEvent copyevent) {
+        if(Objects.isNull(selected)==false){
+            
+            ImageView img=(ImageView) selected;
+            Image copyImage=img.getImage();
+            ImageView duplicate=new ImageView();
+            duplicate.setImage(copyImage);
+            duplicate.setTranslateX(selected.getTranslateX()+10);
+            duplicate.setTranslateY(selected.getTranslateY()+10);
+            if(copyImage.getUrl().contains("Fish")){
+            duplicate.setFitHeight(100);
+            duplicate.setFitWidth(100);
+            Fish selectedFish=(Fish)selected.getUserData();
+            Fish duplicatefish =new Fish(selectedFish.type);
+            duplicate.setUserData(duplicatefish);
+          
+           
+         
+
+         
+           
+          makeClickable(duplicate);
+          makeDraggable(duplicate);
+            pane.getChildren().add(duplicate);
+
+
+        }
     }
+    }
+
+
+    void onDeleteClicked(ActionEvent delevent) {
+        if(Objects.isNull(selected)==false){
+            pane.getChildren().remove(selected);
+            
+        }
+        
+    }
+
+
+    void onFlipClicked(ActionEvent e) {
+        if(Objects.isNull(selected)==false){
+          ImageView img=(ImageView) selected;
+       
+          String filename=img.getImage().getUrl();
+
+          if(filename.contains("flip")==false){
+          String filewithoutExtension=filename.substring(0,filename.lastIndexOf(".png"));
+      
+           Image flippedimage=new Image(filewithoutExtension+"flip.png");
+          img.setImage(flippedimage);
+           
+        }else{
+        String filewithoutflip=filename.substring(0,filename.lastIndexOf("flip.png"));
+      
+           Image flippedimage=new Image(filewithoutflip+".png");
+          img.setImage(flippedimage);
+           
+    }
+}
+       
+    }
+
+
+
+  
 
 
     void onFish(int filenumber,String filename) {
@@ -414,6 +490,7 @@ Bindings.createStringBinding(
           
            var img = new ImageView();
            img.setImage(fishImage);
+
            img.setFitHeight(100);
            img.setFitWidth(100);
            
@@ -690,8 +767,23 @@ Bindings.createStringBinding(
             node.getScene().setCursor(Cursor.MOVE);
         });
         node.setOnMouseDragged(me -> {
+            if(node.getLayoutX()<750 && node.getLayoutY()<450 && node.getLayoutY()>-20 && node.getLayoutX()>0 ){
+            
             node.setLayoutX(node.getLayoutX() + me.getX() - dragDelta.x);
             node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
+            
+           }else{
+               
+           
+            node.setLayoutX(  (int) ((Math.random() * (700 - 10)) +10));
+            node.setLayoutY( (int) ((Math.random() * (450 +20)) -20));
+            
+
+           }
+         
+       //   System.out.println(node.getLayoutX());
+        //    System.out.println(node.getLayoutY());
+           
             AllObject object=(AllObject) node.getUserData();
             object.setX((int)node.getLayoutX());
             object.setY((int)node.getLayoutY());
