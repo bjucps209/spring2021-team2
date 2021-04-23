@@ -17,6 +17,7 @@ import model.Userfish;
 import javafx.util.Duration;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.io.File;
 import java.util.List;
 import java.util.function.DoublePredicate;
 
@@ -57,6 +58,8 @@ public class GameWindow {
     // final Image swim_cycle6 = new Image("/FishPicture/Fish/Fish1/swim_cycle.6.png");
     
     static FishGame start;
+    static Boolean amILoading = false;
+    final File saveGame = new File("/save.game");
 
     @FXML
     Pane pane;
@@ -67,18 +70,16 @@ public class GameWindow {
 
     static boolean isPaused = false;
 
-    public void initialize(){
-
-        
-    }
-
-
-    // Call from MainWindow in order to start the game
-    @FXML
-    public void startGame() {
+    public void initialize() {
         System.out.println("111111111");
 
-        start = new FishGame(1, 1, 0, 1, 1, 1, 1);
+        if (amILoading) {
+            System.out.println("REEEEEEEEEEEEE!!!!!!!!!!!!!");
+            start = new FishGame(saveGame);
+        }
+        else {
+            start = new FishGame(1, 1, 0, 1, 1, 1, 1);
+        }
 
         ImageView image =  new ImageView(User_fishl);
         image.layoutXProperty().bind(start.getUser().getX());
@@ -103,11 +104,11 @@ public class GameWindow {
         timer2 = new Timeline(timerF2);
         timer2.setCycleCount(-1);
         timer2.play();
-        
-          KeyFrame timerF3 = new KeyFrame(Duration.millis(1000), e -> updatanum());
-          timer3 = new Timeline(timerF3);
-          timer3.setCycleCount(-1);
-          timer3.play();
+    
+        KeyFrame timerF3 = new KeyFrame(Duration.millis(1000), e -> updatanum());
+        timer3 = new Timeline(timerF3);
+        timer3.setCycleCount(-1);
+        timer3.play();
 
 
         //     Userfish.Up.get() +" " +  Userfish.Right.get() + " " + Userfish.Down.get() + " "+ Userfish.Left.get() + " " + Userfish.getDirectionenum()));
@@ -141,7 +142,11 @@ public class GameWindow {
 
         // timer2.play();
         // timer3.play();
+        
     }
+
+
+
 
 
     //When the user presses P, it will pause the timelines, upon re-entry it will resume the timelines
@@ -287,6 +292,14 @@ public class GameWindow {
         //         pane.getChildren().removeIf((e) -> Integer.parseInt(e.getId()) == i);
         //     }
         // };
+    }
+
+
+
+
+
+    public static void setLoading() {
+        amILoading = true;
     }
 
     // void ImageChange(){

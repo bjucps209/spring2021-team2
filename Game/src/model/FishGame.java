@@ -133,7 +133,46 @@ public class FishGame {
             this.level = Integer.parseInt(splitString[0]);
             int objectCount = Integer.parseInt(splitString[2]);
             for (int i = 0; i != objectCount; ++i) {
+                currentLine = reader.readLine();
+                splitString = currentLine.split(":");
+                String[] coords = splitString[1].split(",");
+                Fishes fish;
+                switch (splitString[0]) {
+                    case "FishType1":
+                        fish = new Fishes(Type.FishType1, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
+                        fish.setDirection(Integer.parseInt(splitString[3]));
+                        fish.setX(Integer.parseInt(coords[0]));
+                        fish.setY(Integer.parseInt(coords[1]));
+                        objectStorage.add(fish);
+                        break;
+
+                    case "FishType2":
+                        fish = new Fishes(Type.FishType2, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
+                        fish.setDirection(Integer.parseInt(splitString[3]));
+                        fish.setX(Integer.parseInt(coords[0]));
+                        fish.setY(Integer.parseInt(coords[1]));
+                        objectStorage.add(fish);
+                        break;
+                    
+                    case "FishType3":
+                        fish = new Fishes(Type.FishType3, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
+                        fish.setDirection(Integer.parseInt(splitString[3]));
+                        fish.setX(Integer.parseInt(coords[0]));
+                        fish.setY(Integer.parseInt(coords[1]));
+                        objectStorage.add(fish);
+                        break;
+
+                    case "PoisonFish":
+                        fish = new Fishes(Type.PoisonFish, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
+                        fish.setDirection(Integer.parseInt(splitString[3]));
+                        fish.setX(Integer.parseInt(coords[0]));
+                        fish.setY(Integer.parseInt(coords[1]));
+                        objectStorage.add(fish);
+                        break;
                 
+                    default:
+                        break;
+                }
             }
 
         } catch (Exception e) {
