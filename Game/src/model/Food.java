@@ -8,19 +8,19 @@ import javafx.scene.image.Image;
 //For this class it might not useful for current usage, but will be usefull for later level
 public class Food extends AllObject{
 
-    Type type = Type.Food;
 
 
     public Food(){
+        objtype = Type.Food;
         this.speed = 3;
         this.size = 0;
-        this.direction = 270;
+        this.direction = 90;
         this.imageSize = 21;
         var rand = new Random();
         //TODO: figure out how the x and y are generated
         int xUse = rand.nextInt(1000);
         x = new SimpleIntegerProperty(xUse);
-        y = new SimpleIntegerProperty(this.imageSize);
+        y = new SimpleIntegerProperty(0);
         id = FishGame.id;
         FishGame.id += 1;
     }
@@ -41,7 +41,7 @@ public class Food extends AllObject{
     @Override
     public String serialize() {
         String dataString = "";
-        dataString += this.type.toString();
+        dataString += objtype.toString();
         dataString += ":";
         dataString += Integer.toString(x.get()) + "," + Integer.toString(y.get());
         dataString += ":";

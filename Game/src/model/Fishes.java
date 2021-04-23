@@ -50,14 +50,14 @@ public class Fishes extends AllObject {
         int ran = rand.nextInt(2);
         if (ran == 0) {
             // remember import from left edge of screen
-            initialDirection = 0 + rand.nextInt(5);
+            initialDirection = 180 + rand.nextInt(5);
             x = new SimpleIntegerProperty(1-imageSize);
             int yuse = rand.nextInt(1000);
             y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         } else {
             // remember import from right edge of screen
-            initialDirection = 180 + rand.nextInt(5);
+            initialDirection = 0 + rand.nextInt(5);
             y = new SimpleIntegerProperty();
             int yuse = rand.nextInt(1000);
             x = new SimpleIntegerProperty(yuse);
