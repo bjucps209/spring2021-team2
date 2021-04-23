@@ -15,8 +15,8 @@ public class Userfish extends Fishes{
 
     Userfish(Type objType, int speed, int size, int imageSize) {
         super(objType, speed, size, imageSize);
-        this.x = new SimpleIntegerProperty(250);
-        this.y = new SimpleIntegerProperty(250);
+        this.x = new SimpleIntegerProperty(450);
+        this.y = new SimpleIntegerProperty(300);
         setInitialDirection(0);
         setDirection(0);
         

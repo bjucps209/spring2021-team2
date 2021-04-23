@@ -72,7 +72,7 @@ public class GameWindow {
 
         System.out.println("111111111");
 
-        start = new FishGame(1, 1, 0, 1, 1, 1, 1);
+        start = new FishGame(1, 1, 1, 1, 1, 1, 1);
 
         ImageView image =  new ImageView(User_fishl);
         image.layoutXProperty().bind(start.getUser().getX());
