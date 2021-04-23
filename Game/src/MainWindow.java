@@ -95,4 +95,18 @@ public class MainWindow {
         HighScoresWindow.show();
 
     }
+
+
+
+    @FXML
+    void onHelpClicked(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("HelpWindow.fxml"));
+
+        Stage Help = new Stage();
+
+        Help.setScene(new Scene(loader.load()));
+
+        Help.show();
+
+    }
 }
