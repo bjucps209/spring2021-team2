@@ -1,9 +1,13 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SetPropertyBase;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -19,6 +23,9 @@ import model.Food;
 import model.Type;
 import model.Userfish;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
+
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.util.List;
@@ -94,6 +101,8 @@ public class GameWindow {
     public void initialize(){
 
         System.out.println("111111111");
+        
+        StringConverter<Number> converter = new NumberStringConverter();
 
         start = new FishGame(1, 1, 1, 1, 1, 1, 1);
         ((Label)hbox.getChildren().get(0)).setFont(new Font("Arial", 30));
@@ -113,6 +122,9 @@ public class GameWindow {
         health.setFont(new Font("Arial", 30));
         health.setTextFill(Color.web("#FF0000"));
 
+        point.textProperty().bind(FishGame.getPoints().asString());
+        health.textProperty().bind(FishGame.getHealth().asString());
+        life.textProperty().bind(FishGame.getlife().asString());
 
         ImageView image =  new ImageView(User_fishl);
         image.layoutXProperty().bind(start.getUser().getX());
@@ -122,6 +134,7 @@ public class GameWindow {
         image.setFitWidth(80);
         pane.getChildren().add(image);
 
+        userfishimagechecking();
 
         for (AllObject a : start.getObjectStorage()){
             imagePutting(a);
@@ -137,21 +150,16 @@ public class GameWindow {
         timer2.setCycleCount(-1);
         timer2.play();
         
-          KeyFrame timerF3 = new KeyFrame(Duration.millis(1000), e -> updatanum());
-          timer3 = new Timeline(timerF3);
-          timer3.setCycleCount(-1);
-          timer3.play();
+        KeyFrame timerF3 = new KeyFrame(Duration.millis(1000), e -> updatanum());
+        timer3 = new Timeline(timerF3);
+        timer3.setCycleCount(-1);
+        timer3.play();
 
 
         //     Userfish.Up.get() +" " +  Userfish.Right.get() + " " + Userfish.Down.get() + " "+ Userfish.Left.get() + " " + Userfish.getDirectionenum()));
         // timer3 = new Timeline(timerF3);
         // timer3.setCycleCount(-1);
         // timer3.play();
-
-
-
-
-
 
         // System.out.println("111111111");
         // id = 0;
@@ -248,8 +256,18 @@ public class GameWindow {
         }
     }
 
-    public void fishchecking(){
-
+    public void userfishimagechecking(){
+        Thread thread1 = new Thread(
+            ()->  {
+            while (!start.getIsGameOver()){
+                if (start.getUser().getDirectionenum() == Direction.Left || start.getUser().getDirectionenum() == Direction.LeftUp||start.getUser().getDirectionenum() == Direction.LeftDown){
+                    Platform.runLater(() -> {((ImageView) pane.getChildren().get(0)).setImage(User_fishl);});
+                }else if (start.getUser().getDirectionenum() == Direction.Right || start.getUser().getDirectionenum() == Direction.RightUp||start.getUser().getDirectionenum() == Direction.RightDown){
+                    Platform.runLater(() -> {((ImageView) pane.getChildren().get(0)).setImage(User_fishr);});
+                }
+            }
+        });
+        thread1.start();
     }
 
     @FXML
@@ -304,15 +322,11 @@ public class GameWindow {
         //      pane.getChildren().removeIf((i) -> Integer.parseInt(i.getId()) == a);
         // }
 
-
-
         int idNeedDelete = start.userfishcollision();
         if (idNeedDelete != 0){
             pane.getChildren().removeIf((e) -> Integer.parseInt(e.getId()) == idNeedDelete);
         }
-
-
-
+        System.out.println(FishGame.getPoints().get());
 
         // if (start.userfishcollision().size() != 0){
         //     for (int i :start.userfishcollision()){

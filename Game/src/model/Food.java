@@ -15,7 +15,7 @@ public class Food extends AllObject{
         this.speed = 3;
         this.size = 0;
         this.direction = 90;
-        this.imageSize = 21;
+        this.imageSize = 13;
         var rand = new Random();
         //TODO: figure out how the x and y are generated
         int xUse = rand.nextInt(1000);

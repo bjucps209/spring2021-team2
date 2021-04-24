@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class FishGame {
 
     // the storage of all things in the sceen.
@@ -16,28 +19,19 @@ public class FishGame {
     // from class we learn this week those variable may change to intproperty in
     // order to bind
 
-    //userfish
+    // userfish
     Userfish user;
 
-    public Userfish getUser() {
-        return this.user;
-    }
-
-    public void setUser(Userfish user) {
-        this.user = user;
-    }
-
-    static int life;
-    static int points = 0; 
-    static int health;
+    static IntegerProperty life;
+    static IntegerProperty points;
+    static IntegerProperty health;
 
     static int id = 0;
 
-    //Level static global variable
+    // Level static global variable
     public static int level;
 
-
-    // How many food on the screen for now 
+    // How many food on the screen for now
     int numberOfFood;
 
     // iHow many each kind of fish on the screen for now
@@ -57,52 +51,11 @@ public class FishGame {
     // make sure there is not too many food on the screen
     int limitOfFood;
 
-    public int getLimitOfFood() {
-        return this.limitOfFood;
-    }
-
-    public void setLimitOfFood(int limitOfFood) {
-        this.limitOfFood = limitOfFood;
-    }
-
     // it use to make sure there is no too much each kind of fish in the screen
     int limitOfType1Fish;
     int limitOfType2Fish;
     int limitOfType3Fish;
     int limitOfPoisonFish;
-
-    public int getLimitOfType1Fish() {
-        return this.limitOfType1Fish;
-    }
-
-    public void setLimitOfType1Fish(int limitOfType1Fish) {
-        this.limitOfType1Fish = limitOfType1Fish;
-    }
-
-    public int getLimitOfType2Fish() {
-        return this.limitOfType2Fish;
-    }
-
-    public void setLimitOfType2Fish(int limitOfType2Fish) {
-        this.limitOfType2Fish = limitOfType2Fish;
-    }
-
-    public int getLimitOfType3Fish() {
-        return this.limitOfType3Fish;
-    }
-
-    public void setLimitOfType3Fish(int limitOfType3Fish) {
-        this.limitOfType3Fish = limitOfType3Fish;
-    }
-
-    public int getLimitOfPoisonFish() {
-        return this.limitOfPoisonFish;
-    }
-
-    public void setLimitOfPoisonFish(int limitOfPoisonFish) {
-        this.limitOfPoisonFish = limitOfPoisonFish;
-    }
-
 
     // to bolean for state for game,
     // if isCheatModeOn = true, user fish will not die
@@ -117,6 +70,7 @@ public class FishGame {
         isGameOver = false;
         objectStorage = new ArrayList<AllObject>();
         user = new Userfish(Type.FishType1, 5, 1, 30);
+        FishGame.points = new SimpleIntegerProperty(0);
     }
 
     // constructor while game start, model will recieve different value from
@@ -125,8 +79,9 @@ public class FishGame {
     // speed in their own object;
     public FishGame(int life, int health, int limitOfFood, int limitOfType1Fish, int limitOfType2Fish,
             int limitOfType3Fish, int limitOfPoisonFish) {
-        FishGame.life = life;
-        FishGame.health = health;
+        FishGame.points = new SimpleIntegerProperty(0);
+        FishGame.life = new SimpleIntegerProperty(life);
+        FishGame.health = new SimpleIntegerProperty(life);
         isCheatModeOn = false;
         isGameOver = false;
         this.limitOfFood = limitOfFood;
@@ -135,25 +90,25 @@ public class FishGame {
         this.limitOfType3Fish = limitOfType3Fish;
         this.limitOfPoisonFish = limitOfPoisonFish;
         objectStorage = new ArrayList<AllObject>();
-        user = new Userfish(Type.FishType2, 5, 2, 73);
-        for (int i = 0; i < limitOfFood; i++){
+        user = new Userfish(Type.FishType2, 5, 2, 50);
+        for (int i = 0; i < limitOfFood; i++) {
             objectStorage.add(new Food());
             numberOfFood += 1;
         }
-        for (int i = 0; i < limitOfType1Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 53));
+        for (int i = 0; i < limitOfType1Fish; i++) {
+            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 25));
             numberOfType1Fish += 1;
         }
-        for (int i = 0; i < limitOfType2Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 73));
+        for (int i = 0; i < limitOfType2Fish; i++) {
+            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 40));
             numberOfType2Fish += 1;
         }
-        for (int i = 0; i < limitOfType3Fish; i++){
-            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 103));
+        for (int i = 0; i < limitOfType3Fish; i++) {
+            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 55));
             numberOfType3Fish += 1;
         }
-        for (int i = 0; i < limitOfPoisonFish; i++){
-            objectStorage.add(new Fishes(Type.PoisonFish, 4, 1, 53));
+        for (int i = 0; i < limitOfPoisonFish; i++) {
+            objectStorage.add(new Fishes(Type.PoisonFish, 4, 1, 25));
             numberOfPoisonFish += 1;
         }
     }
@@ -167,23 +122,24 @@ public class FishGame {
     public ArrayList<Integer> Fishmeet() {
         ArrayList<Integer> idToRemove = new ArrayList<Integer>();
         ArrayList<AllObject> removeList = new ArrayList<>();
-        for (int i = 0; i < objectStorage.size(); i++ ){
-            for (int o = 0; o < objectStorage.size(); o++ ){
-                if ( i != o){
-                    if (FishGame.circleChecking(objectStorage.get(i).drawCircle(), objectStorage.get(o).drawCircle()) != -1){
-                        if (situationHandle(objectStorage.get(i), objectStorage.get(o)).length != 0){
-                            for (AllObject a : situationHandle(objectStorage.get(i), objectStorage.get(o))){
+        for (int i = 0; i < objectStorage.size(); i++) {
+            for (int o = 0; o < objectStorage.size(); o++) {
+                if (i != o) {
+                    if (FishGame.circleChecking(objectStorage.get(i).drawCircle(),
+                            objectStorage.get(o).drawCircle()) != -1) {
+                        if (situationHandle(objectStorage.get(i), objectStorage.get(o)).length != 0) {
+                            for (AllObject a : situationHandle(objectStorage.get(i), objectStorage.get(o))) {
                                 idToRemove.add(a.getId());
                                 removeList.add(a);
                                 if ((a.getType() == Type.Food)) {
                                     numberOfFood -= 1;
-                                }else if ((a.getType() == Type.FishType1)){
-                                    numberOfType1Fish -=1;
-                                }else if ((a.getType() == Type.FishType2)){
-                                    numberOfType2Fish -=1;
-                                }else if ((a.getType() == Type.FishType3)){
-                                    numberOfType3Fish -=1;
-                                }else if (a.getType() == Type.PoisonFish){
+                                } else if ((a.getType() == Type.FishType1)) {
+                                    numberOfType1Fish -= 1;
+                                } else if ((a.getType() == Type.FishType2)) {
+                                    numberOfType2Fish -= 1;
+                                } else if ((a.getType() == Type.FishType3)) {
+                                    numberOfType3Fish -= 1;
+                                } else if (a.getType() == Type.PoisonFish) {
                                     numberOfPoisonFish -= 1;
                                 }
                             }
@@ -192,157 +148,147 @@ public class FishGame {
                 }
             }
         }
-        for (AllObject needRmove :  removeList){
+        for (AllObject needRmove : removeList) {
             objectStorage.remove(needRmove);
         }
         return idToRemove;
     }
 
-    public int userfishcollision(){
+    public int userfishcollision() {
         int idToDelete = 0;
         AllObject removea = null;
 
-        for (AllObject a : objectStorage){
+        for (AllObject a : objectStorage) {
 
-            if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1){
-                if (a instanceof Fishes||a.getType() == Type.Mine||a.getType() == Type.Food){
-                    if (user.getSize() == a.getSize()){
-                        health -= 1;
-                    }else if(user.getSize() < a.getSize()){
-                        health -= (a.getSize() - user.getSize());
-                    }else if(user.getSize() > a.getSize()){
+            if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1) {
+                if (a instanceof Fishes || a.getType() == Type.Mine || a.getType() == Type.Food) {
+                    if (user.getSize() == a.getSize()) {
+                        health.set(health.get() - 1);
+                    } else if (user.getSize() < a.getSize()) {
+                        health.set(health.get() - (a.getSize() - user.getSize()));
+                    } else if (user.getSize() > a.getSize()) {
                         idToDelete = (user.Usereat(a).getId());
                         removea = a;
-                        System.out.print("ssssssssssssssssssssssssssssss\n");
                     }
                 }
             }
         }
-        if (FishGame.health < 1){
-            System.out.print("TTTTTTTTTTTTTTTTTTTTTTTT\n");
-            FishGame.life -= 1;
+        if (FishGame.health.get() < 1) {
+            FishGame.life.set(FishGame.life.get() - 1);
             // fish heal become 5
-            FishGame.health = 5;
+            FishGame.health.set(5);
         }
-        if (FishGame.life < 1){
-            System.out.print("SDSDSDSDSDSDSDSDS\n");
-            if (isCheatModeOn = false){
+        if (FishGame.life.get() < 1) {
+            if (isCheatModeOn = false) {
                 isGameOver = true;
             }
         }
         objectStorage.remove(removea);
-        System.out.print("FFFFFFFFFFFFFFFFFF\n");
         return idToDelete;
     }
 
-    public static int circleChecking(int[] circle1, int[] circle2){
-        int dispostion = (circle1[0] - circle2[0])*(circle1[0] - circle2[0]) + (circle1[1] -circle2[1]) *  (circle1[1] -circle2[1]);
+    public static int circleChecking(int[] circle1, int[] circle2) {
+        int dispostion = (circle1[0] - circle2[0]) * (circle1[0] - circle2[0])
+                + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]);
         int radiussum = (circle1[2] + circle2[2]) * (circle1[2] + circle2[2]);
-        if (dispostion == radiussum){
+        if (dispostion == radiussum) {
             return 1;
-        }else if(dispostion > radiussum){
+        } else if (dispostion > radiussum) {
             return -1;
-        }else{
+        } else {
             return 0;
         }
     }
     // handle all kinds of situation while different things met
-    // return        first object eat second object
-    // return        second object eat first object
-    // return        first object is obstacles and second object is not fish
-    // return        seoncond object is obstacles and first object is not fish
+    // return first object eat second object
+    // return second object eat first object
+    // return first object is obstacles and second object is not fish
+    // return seoncond object is obstacles and first object is not fish
     // else do nothing
 
-    public static AllObject[] situationHandle(AllObject firstobject, AllObject secondObject){
-        AllObject[] eaten = new AllObject[]{};
-        if (firstobject.getType() == Type.Shark){
-            if (secondObject.getType() != Type.Obstacles){
+    public static AllObject[] situationHandle(AllObject firstobject, AllObject secondObject) {
+        AllObject[] eaten = new AllObject[] {};
+        if (firstobject.getType() == Type.Shark) {
+            if (secondObject.getType() != Type.Obstacles) {
                 eaten = ((Shark) firstobject).Sharkeat(secondObject);
             }
-        }
-        else if(secondObject.getType() == Type.Shark){
-            if (firstobject.getType() != Type.Obstacles){
+        } else if (secondObject.getType() == Type.Shark) {
+            if (firstobject.getType() != Type.Obstacles) {
                 eaten = ((Shark) secondObject).Sharkeat(firstobject);
             }
-        }
-        else if (
-            (firstobject.getSize() > secondObject.getSize()||
-            (firstobject instanceof Fishes && secondObject.getType() == Type.Food))){
-                eaten = ((Fishes) firstobject).eat(secondObject);
-        }else if(
-            (secondObject.getSize() > firstobject.getSize()||
-            (secondObject instanceof Fishes && firstobject.getType() == Type.Food))){
-                eaten = ((Fishes) secondObject).eat(firstobject);
-        }else if(
-            (firstobject.getType() == Type.Obstacles) && (secondObject instanceof Fishes == false) && (secondObject.getType() != Type.Shark)
-        ){
+        } else if ((firstobject.getSize() > secondObject.getSize()
+                || (firstobject instanceof Fishes && secondObject.getType() == Type.Food))) {
+            eaten = ((Fishes) firstobject).eat(secondObject);
+        } else if ((secondObject.getSize() > firstobject.getSize()
+                || (secondObject instanceof Fishes && firstobject.getType() == Type.Food))) {
+            eaten = ((Fishes) secondObject).eat(firstobject);
+        } else if ((firstobject.getType() == Type.Obstacles) && (secondObject instanceof Fishes == false)
+                && (secondObject.getType() != Type.Shark)) {
             secondObject.setSpeed(0);
-        }else if(
-            (secondObject.getType() == Type.Obstacles) && (firstobject instanceof Fishes)
-        ){
+        } else if ((secondObject.getType() == Type.Obstacles) && (firstobject instanceof Fishes)) {
             firstobject.ChangeSpeedAndDirection();
         }
         return eaten;
     }
 
-    public void increaseSize(){
-        if (FishGame.points == 10){
-            user.setSize(user.getSize()+1);
-            user.setImageSize(user.getImageSize()+30);
-        }else if(FishGame.points == 40){
-            user.setSize(user.getSize()+1);
-            user.setImageSize(user.getImageSize()+30);
-        }else if(FishGame.points == 80){
-            user.setSize(user.getSize()+1);
-            user.setImageSize(user.getImageSize()+30);
-        }else if(FishGame.points == 110){
-            user.setSize(user.getSize()+1);
-            user.setImageSize(user.getImageSize()+30);
+    public void increaseSize() {
+        if (FishGame.points.get() == 10) {
+            user.setSize(user.getSize() + 1);
+            user.setImageSize(user.getImageSize() + 30);
+        } else if (FishGame.points.get() == 40) {
+            user.setSize(user.getSize() + 1);
+            user.setImageSize(user.getImageSize() + 30);
+        } else if (FishGame.points.get() == 80) {
+            user.setSize(user.getSize() + 1);
+            user.setImageSize(user.getImageSize() + 30);
+        } else if (FishGame.points.get() == 110) {
+            user.setSize(user.getSize() + 1);
+            user.setImageSize(user.getImageSize() + 30);
         }
     }
-
 
     // block the area that fish can't go cross, will not use in early level,
     // lt can work on later of the project.
     public void blockingArea() {
     }
 
-    public void add(AllObject a){
+    public void add(AllObject a) {
         objectStorage.add(a);
     }
 
-    
-    public void remove(AllObject a){
+    public void remove(AllObject a) {
         objectStorage.remove(a);
     }
 
-    //turns cheat mode on
-    public void enableCheatMode(){
-        if(isCheatModeOn == false) {
+    // turns cheat mode on
+    public void enableCheatMode() {
+        if (isCheatModeOn == false) {
             isCheatModeOn = true;
         }
     }
-    //turns cheat mode off
-    public void disableCheatMode(){
-        if(isCheatModeOn == true) {
+
+    // turns cheat mode off
+    public void disableCheatMode() {
+        if (isCheatModeOn == true) {
             isCheatModeOn = false;
         }
     }
 
-    //add shark into fishGame list 
-    public void addShark(){
+    // add shark into fishGame list
+    public void addShark() {
         objectStorage.add(new Shark());
     }
 
-    public void updata(){
-        for (AllObject a: objectStorage){
+    public void updata() {
+        for (AllObject a : objectStorage) {
             a.updatePosition();
         }
     }
 
-    //load and save, I don't know yet
-    public void load(){
-        // A loop through the save file which will spawn all the objects contained within
+    // load and save, I don't know yet
+    public void load() {
+        // A loop through the save file which will spawn all the objects contained
+        // within
 
     }
 
@@ -356,8 +302,8 @@ public class FishGame {
                 writer.append("\n");
             }
             writer.close();
-            } catch (Exception e) {
-                throw new Exception("Save crashed in FishGame.java");
+        } catch (Exception e) {
+            throw new Exception("Save crashed in FishGame.java");
         }
     }
 
@@ -402,28 +348,28 @@ public class FishGame {
         this.objectStorage = objectStorage;
     }
 
-    public int getLife() {
-        return this.life;
+    public static IntegerProperty getlife() {
+        return life;
     }
 
-    public void setLife(int life) {
-        this.life = life;
+    public static void setLife(int life) {
+        FishGame.life = new SimpleIntegerProperty(life);
     }
 
-    public int getPoints() {
-        return this.points;
+    public static IntegerProperty getPoints() {
+        return points;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public static void setPoints(int points) {
+        FishGame.points = new SimpleIntegerProperty(points);
     }
 
-    public int getHealth() {
-        return this.health;
+    public static IntegerProperty getHealth() {
+        return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public static void setHealth(int health) {
+        FishGame.health = new SimpleIntegerProperty(health);
     }
 
     public boolean getIsCheatModeOn() {
@@ -441,4 +387,53 @@ public class FishGame {
     public void setIsGameOver(boolean isGameOver) {
         this.isGameOver = isGameOver;
     }
+
+    public int getLimitOfType1Fish() {
+        return this.limitOfType1Fish;
+    }
+
+    public void setLimitOfType1Fish(int limitOfType1Fish) {
+        this.limitOfType1Fish = limitOfType1Fish;
+    }
+
+    public int getLimitOfType2Fish() {
+        return this.limitOfType2Fish;
+    }
+
+    public void setLimitOfType2Fish(int limitOfType2Fish) {
+        this.limitOfType2Fish = limitOfType2Fish;
+    }
+
+    public int getLimitOfType3Fish() {
+        return this.limitOfType3Fish;
+    }
+
+    public void setLimitOfType3Fish(int limitOfType3Fish) {
+        this.limitOfType3Fish = limitOfType3Fish;
+    }
+
+    public int getLimitOfPoisonFish() {
+        return this.limitOfPoisonFish;
+    }
+
+    public void setLimitOfPoisonFish(int limitOfPoisonFish) {
+        this.limitOfPoisonFish = limitOfPoisonFish;
+    }
+
+    public int getLimitOfFood() {
+        return this.limitOfFood;
+    }
+
+    public void setLimitOfFood(int limitOfFood) {
+        this.limitOfFood = limitOfFood;
+    }
+
+    public Userfish getUser() {
+        return this.user;
+    }
+
+    public void setUser(Userfish user) {
+        this.user = user;
+    }
+
 }
