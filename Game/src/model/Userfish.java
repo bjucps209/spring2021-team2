@@ -81,6 +81,10 @@ public class Userfish extends Fishes{
         return stor;
     }
 
+    public void beeaten(){
+
+    }
+
 
         // if up press and down press do nothing
     // if right press and left press do nothing

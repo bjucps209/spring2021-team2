@@ -5,7 +5,11 @@ import javafx.beans.property.SetPropertyBase;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import model.AllObject;
 import model.Direction;
@@ -60,7 +64,26 @@ public class GameWindow {
 
     @FXML
     Pane pane;
-    
+
+    @FXML
+    Label point;
+
+    @FXML
+    Label life;
+
+    @FXML
+    Label health;
+
+    @FXML
+    HBox hbox;
+
+    @FXML
+    HBox hbox2;
+
+    @FXML
+    VBox vbox;
+
+
     static Timeline timer1;
     static Timeline timer2;
     static Timeline timer3;
@@ -73,6 +96,23 @@ public class GameWindow {
         System.out.println("111111111");
 
         start = new FishGame(1, 1, 1, 1, 1, 1, 1);
+        ((Label)hbox.getChildren().get(0)).setFont(new Font("Arial", 30));
+        ((Label)hbox.getChildren().get(0)).setTextFill(Color.web("#FF0000"));
+        point.setFont(new Font("Arial", 30));
+        point.setTextFill(Color.web("#FF0000"));
+
+        ((Label)hbox.getChildren().get(3)).setFont(new Font("Arial", 30));
+        ((Label)hbox.getChildren().get(3)).setTextFill(Color.web("#FF0000"));
+        ((Label)hbox.getChildren().get(3)).relocate(650, 0);
+
+        life.setFont(new Font("Arial", 30));
+        life.setTextFill(Color.web("#FF0000"));
+
+        ((Label)hbox2.getChildren().get(1)).setFont(new Font("Arial", 30));
+        ((Label)hbox2.getChildren().get(1)).setTextFill(Color.web("#FF0000"));
+        health.setFont(new Font("Arial", 30));
+        health.setTextFill(Color.web("#FF0000"));
+
 
         ImageView image =  new ImageView(User_fishl);
         image.layoutXProperty().bind(start.getUser().getX());
