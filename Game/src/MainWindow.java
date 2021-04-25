@@ -87,8 +87,8 @@ public class MainWindow {
 
     @FXML
     void onLoadClicked(ActionEvent event) throws IOException {
-        Loading.setLoading(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
+        Loading.setLoading(true);
 
         Stage gameWindow = new Stage();
 

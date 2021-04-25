@@ -124,13 +124,18 @@ public class FishGame {
 
     //constructor for passing soft coded game files into the model
     public FishGame(File file) {
+        isCheatModeOn = false;
+        isGameOver = false;
+        objectStorage = new ArrayList<AllObject>();
+        user = new Userfish(Type.FishType2, 5, 2, 73);
         // trying to read the file we are given
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             //Read the first line, this should contain information about the level, difficulty and how many objects we need to import
             String currentLine = reader.readLine();
+            System.out.println(currentLine);
             String[] splitString = currentLine.split(":");
-            this.level = Integer.parseInt(splitString[0]);
+            //this.level = Integer.parseInt(splitString[0]);
             int objectCount = Integer.parseInt(splitString[2]);
             for (int i = 0; i != objectCount; ++i) {
                 currentLine = reader.readLine();
@@ -139,6 +144,7 @@ public class FishGame {
                 Fishes fish;
                 switch (splitString[0]) {
                     case "FishType1":
+                        System.out.println("Found one FishType1");
                         fish = new Fishes(Type.FishType1, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
                         fish.setDirection(Integer.parseInt(splitString[3]));
                         fish.setX(Integer.parseInt(coords[0]));
@@ -147,6 +153,8 @@ public class FishGame {
                         break;
 
                     case "FishType2":
+                    System.out.println("Found one FishType2");
+
                         fish = new Fishes(Type.FishType2, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
                         fish.setDirection(Integer.parseInt(splitString[3]));
                         fish.setX(Integer.parseInt(coords[0]));
@@ -155,6 +163,8 @@ public class FishGame {
                         break;
                     
                     case "FishType3":
+                    System.out.println("Found one FishType3");
+
                         fish = new Fishes(Type.FishType3, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
                         fish.setDirection(Integer.parseInt(splitString[3]));
                         fish.setX(Integer.parseInt(coords[0]));
@@ -163,6 +173,8 @@ public class FishGame {
                         break;
 
                     case "PoisonFish":
+                    System.out.println("Found one PoisonFish");
+
                         fish = new Fishes(Type.PoisonFish, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
                         fish.setDirection(Integer.parseInt(splitString[3]));
                         fish.setX(Integer.parseInt(coords[0]));
@@ -173,6 +185,7 @@ public class FishGame {
                     default:
                         break;
                 }
+                reader.close();
             }
 
         } catch (Exception e) {
@@ -405,7 +418,7 @@ public class FishGame {
 
     public void save() throws Exception {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("/src/save.game", true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("save.game", true));
             writer.append("Level:Difficulty:" + Integer.toString(objectStorage.size()));
             writer.append("\n");
             for (AllObject item : objectStorage) {

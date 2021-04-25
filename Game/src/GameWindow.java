@@ -60,7 +60,8 @@ public class GameWindow {
     static FishGame start;
     static Boolean amILoading = false;
     final File saveGame = new File("/save.game");
-
+    final Boolean isLoading = Loading.getState();
+    
     @FXML
     Pane pane;
     
@@ -73,10 +74,9 @@ public class GameWindow {
 
     public void initialize() {
 
-        
-
-        if (Loading.getState() == true) {
+        if (isLoading) {
             System.out.println("REEEEEEEEEEEEE!!!!!!!!!!!!!");
+            Thread t = new Thread( (FishGame start) -> { start = new FishGame(saveGame); } );
             start = new FishGame(saveGame);
         }
         else {
