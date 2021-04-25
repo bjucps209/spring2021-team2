@@ -1,0 +1,1 @@
+L The Tank,/images/somepath,20,0 

@@ -5,10 +5,12 @@ public class AllObject {
     
     //from class we learn this week those variable may change to intproperty in oder to bind
     public String type;
+    public boolean flipped;
     int x;
     int y;
     int speed;
     int size;
+    
     public String getType() {
         return type;
     }
@@ -28,6 +30,8 @@ public class AllObject {
         y += speed * Math.sin(direction * Math.PI / 180);
     }
 
+
+  
 
     public int getX() {
         return this.x;
