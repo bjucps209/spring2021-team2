@@ -1,6 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
@@ -79,6 +82,80 @@ public class FishGame {
         objectStorage = new ArrayList<AllObject>();
         user = new Userfish(Type.FishType1, 5, 1, 30);
         FishGame.points = new SimpleIntegerProperty(0);
+    }
+
+    //constructor for passing soft coded game files into the model
+    public FishGame(File file) {
+
+        System.out.println("File read state: " + file.canRead());
+
+        isCheatModeOn = false;
+        isGameOver = false;
+        objectStorage = new ArrayList<AllObject>();
+        user = new Userfish(Type.FishType2, 5, 2, 73);
+        // trying to read the file we are given
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            //Read the first line, this should contain information about the level, difficulty and how many objects we need to import
+            String currentLine = reader.readLine();
+            System.out.println(currentLine);
+            String[] splitString = currentLine.split(":");
+            //this.level = Integer.parseInt(splitString[0]);
+            int objectCount = Integer.parseInt(splitString[2]);
+            for (int i = 0; i != objectCount; ++i) {
+                currentLine = reader.readLine();
+                splitString = currentLine.split(":");
+                String[] coords = splitString[1].split(",");
+                Fishes fish;
+                switch (splitString[0]) {
+                    case "FishType1":
+                        System.out.println("Found one FishType1");
+                        fish = new Fishes(Type.FishType1, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
+                        fish.setDirection(Integer.parseInt(splitString[3]));
+                        fish.setX(Integer.parseInt(coords[0]));
+                        fish.setY(Integer.parseInt(coords[1]));
+                        objectStorage.add(fish);
+                        break;
+
+                    case "FishType2":
+                    System.out.println("Found one FishType2");
+
+                        fish = new Fishes(Type.FishType2, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
+                        fish.setDirection(Integer.parseInt(splitString[3]));
+                        fish.setX(Integer.parseInt(coords[0]));
+                        fish.setY(Integer.parseInt(coords[1]));
+                        objectStorage.add(fish);
+                        break;
+                    
+                    case "FishType3":
+                    System.out.println("Found one FishType3");
+
+                        fish = new Fishes(Type.FishType3, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
+                        fish.setDirection(Integer.parseInt(splitString[3]));
+                        fish.setX(Integer.parseInt(coords[0]));
+                        fish.setY(Integer.parseInt(coords[1]));
+                        objectStorage.add(fish);
+                        break;
+
+                    case "PoisonFish":
+                    System.out.println("Found one PoisonFish");
+
+                        fish = new Fishes(Type.PoisonFish, 4, Integer.parseInt(splitString[2]), Integer.parseInt(splitString[4]));
+                        fish.setDirection(Integer.parseInt(splitString[3]));
+                        fish.setX(Integer.parseInt(coords[0]));
+                        fish.setY(Integer.parseInt(coords[1]));
+                        objectStorage.add(fish);
+                        break;
+                
+                    default:
+                        break;
+                }
+                reader.close();
+            }
+
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
     }
 
     // constructor while game start, model will recieve different value from
@@ -177,6 +254,7 @@ public class FishGame {
                     } else if (user.getSize() > a.getSize()) {
                         idToDelete = (user.Usereat(a).getId());
                         removea = a;
+
                         if (a.getType() == Type.Food){
                             numberOfFood -= 1;
                         }else if (a.getType() == Type.FishType1){
@@ -188,17 +266,21 @@ public class FishGame {
                         }else if (a.getType() == Type.PoisonFish){
                             numberOfPoisonFish -= 1;
                         }
+
                     }
                 }
             }
         }
+
         if (FishGame.health.get() < 1) {
             FishGame.life.set(FishGame.life.get() - 1);
             // fish heal become 5
             FishGame.health.set(5);
         }
+
         if (FishGame.life.get() < 1) {
             if (isCheatModeOn = false) {
+
                 isGameOver = true;
             }
         }

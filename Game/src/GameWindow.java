@@ -30,6 +30,7 @@ import model.*;
 
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoublePredicate;
@@ -71,7 +72,10 @@ public class GameWindow {
     // final Image swim_cycle6 = new Image("/FishPicture/Fish/Fish1/swim_cycle.6.png");
     
     static FishGame start;
-
+    static Boolean amILoading = false;
+    final File saveGame = new File("P:\\Team Project\\spring2021-team2\\Game");
+    final Boolean isLoading = Loading.getState();
+    
     @FXML
     Pane pane;
 
@@ -100,34 +104,41 @@ public class GameWindow {
 
     static boolean isPaused = false;
 
-    // main cord for action, becasue we first working on mousement user fish
-    public void initialize(){
+    public void initialize() {
 
-        System.out.println("111111111");
+        if (isLoading) {
+            System.out.println("REEEEEEEEEEEEE!!!!!!!!!!!!!");
+            start = new FishGame(saveGame);
+        }
+        else {
+            start = new FishGame(1, 1, 0, 1, 1, 1, 1);
+            System.out.println("111111111");
         
-        // StringConverter<Number> converter = new NumberStringConverter();
+            // StringConverter<Number> converter = new NumberStringConverter();
 
-        start = new FishGame(1, 1, 3, 3, 2, 1, 1);
-        ((Label)hbox.getChildren().get(0)).setFont(new Font("Arial", 30));
-        ((Label)hbox.getChildren().get(0)).setTextFill(Color.web("#FF0000"));
-        point.setFont(new Font("Arial", 30));
-        point.setTextFill(Color.web("#FF0000"));
+            start = new FishGame(1, 1, 3, 3, 2, 1, 1);
+            ((Label)hbox.getChildren().get(0)).setFont(new Font("Arial", 30));
+            ((Label)hbox.getChildren().get(0)).setTextFill(Color.web("#FF0000"));
+            point.setFont(new Font("Arial", 30));
+            point.setTextFill(Color.web("#FF0000"));
 
-        ((Label)hbox.getChildren().get(3)).setFont(new Font("Arial", 30));
-        ((Label)hbox.getChildren().get(3)).setTextFill(Color.web("#FF0000"));
-        ((Label)hbox.getChildren().get(3)).relocate(650, 0);
+            ((Label)hbox.getChildren().get(3)).setFont(new Font("Arial", 30));
+            ((Label)hbox.getChildren().get(3)).setTextFill(Color.web("#FF0000"));
+            ((Label)hbox.getChildren().get(3)).relocate(650, 0);
 
-        life.setFont(new Font("Arial", 30));
-        life.setTextFill(Color.web("#FF0000"));
+            life.setFont(new Font("Arial", 30));
+            life.setTextFill(Color.web("#FF0000"));
 
-        ((Label)hbox2.getChildren().get(1)).setFont(new Font("Arial", 30));
-        ((Label)hbox2.getChildren().get(1)).setTextFill(Color.web("#FF0000"));
-        health.setFont(new Font("Arial", 30));
-        health.setTextFill(Color.web("#FF0000"));
+            ((Label)hbox2.getChildren().get(1)).setFont(new Font("Arial", 30));
+            ((Label)hbox2.getChildren().get(1)).setTextFill(Color.web("#FF0000"));
+            health.setFont(new Font("Arial", 30));
+            health.setTextFill(Color.web("#FF0000"));
 
-        point.textProperty().bind(FishGame.getPoints().asString());
-        health.textProperty().bind(FishGame.getHealth().asString());
-        life.textProperty().bind(FishGame.getlife().asString());
+            point.textProperty().bind(FishGame.getPoints().asString());
+            health.textProperty().bind(FishGame.getHealth().asString());
+            life.textProperty().bind(FishGame.getlife().asString());
+        }
+
 
         ImageView image =  new ImageView(User_fishl);
         image.layoutXProperty().bind(start.getUser().getX());
@@ -136,6 +147,7 @@ public class GameWindow {
         image.setFitHeight(80);
         image.setFitWidth(80);
         pane.getChildren().add(image);
+        
 
         for (AllObject a : start.getObjectStorage()){
             imagePutting(a);
@@ -151,7 +163,7 @@ public class GameWindow {
         timer2.setCycleCount(-1);
         timer2.setDelay(Duration.millis(3));
         timer2.play();
-        
+
         KeyFrame timerF3 = new KeyFrame(Duration.millis(1000), e -> updatanum());
         timer3 = new Timeline(timerF3);
         timer3.setCycleCount(-1);
@@ -184,7 +196,12 @@ public class GameWindow {
 
         // timer2.play();
         // timer3.play();
+        
     }
+
+
+
+
 
     //When the user presses P, it will pause the timelines, upon re-entry it will resume the timelines
     //While the timelines are paused the user will be able to save by pressing the ESC key
@@ -210,6 +227,7 @@ public class GameWindow {
     //while isPaused is true, the user can save by pressing the ESC key
     public static void onESCPress() throws Exception {
         if (isPaused == true) {
+            System.out.println("The game has been saved.");
             start.save();
         }
     }
@@ -415,6 +433,14 @@ public class GameWindow {
         //         pane.getChildren().removeIf((e) -> Integer.parseInt(e.getId()) == i);
         //     }
         // };
+    }
+
+
+
+
+
+    public static void setLoading() {
+        amILoading = true;
     }
 
     // void ImageChange(){

@@ -41,6 +41,7 @@ public class MainWindow {
 
         Scene scene = new Scene(loader.load());
 
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -96,10 +97,83 @@ public class MainWindow {
                 }
             }
         });
-
         gameWindow.setScene(scene);
 
         gameWindow.show();
+
+
+    }
+
+    @FXML
+    void onLoadClicked(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
+        Loading.setLoading(true);
+
+        Stage gameWindow = new Stage();
+
+        Scene scene = new Scene(loader.load());
+
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+                    switch (event.getCode()) {
+                    case W:
+                        Userfish.Up.set(true);
+                        break;
+                    case D:
+                        Userfish.Right.set(true);
+                        break;
+                    case S:
+                        Userfish.Down.set(true);
+                        break;
+                    case A:
+                        Userfish.Left.set(true);
+                        break;
+                    case ESCAPE:
+                        try {
+                            GameWindow.onESCPress();
+                        } catch (Exception e) {
+
+                        }
+                        break;
+                    case P:
+                        GameWindow.onPKeyPress();
+                        break;
+                    }
+                    Userfish.facingDirection();
+                }
+            }
+        });
+
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+                    switch (event.getCode()) {
+                    case W:
+                        Userfish.Up.set(false);
+                        break;
+                    case D:
+                        Userfish.Right.set(false);
+                        break;
+                    case S:
+                        Userfish.Down.set(false);
+                        break;
+                    case A:
+                        Userfish.Left.set(false);
+                        break;
+                    }
+                    Userfish.facingDirection();
+                }
+            }
+        });
+        gameWindow.setScene(scene);
+        gameWindow.show();
+
+
+
 
     }
 
