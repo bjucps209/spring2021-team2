@@ -12,6 +12,7 @@ public class Fish extends AllObject {
 
     //initialdirction of fish final?
     private int initialDirection;
+    private boolean flipped;
     
 
     public int getInitialDirection() {
@@ -38,9 +39,16 @@ public class Fish extends AllObject {
 
     // remember limitation of dirction number;
 
-    public Fish(String type){
+    public Fish(String type,boolean flipped,int x,int y){
        
         this.type=type;
+        this.flipped=flipped;
+        this.x=x;
+        this.y=y;
+    }
+
+    public boolean getflipped() {
+        return flipped;
     }
         
 }

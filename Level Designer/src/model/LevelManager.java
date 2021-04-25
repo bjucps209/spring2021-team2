@@ -24,7 +24,8 @@ public class LevelManager {
      */
     
     public GameLevel load(String filename) throws IOException {
-        GameLevel level=new GameLevel("","", 0, false, null);
+        ArrayList<AllObject> levelObjects = new ArrayList<AllObject>();
+        GameLevel level=new GameLevel("","", 0, false,levelObjects );
         
         System.out.println(filename);
 
@@ -47,7 +48,9 @@ public class LevelManager {
             }
    
      String[] lines =levelDetails.split("\\r?\\n");
+    
   for (String line : lines) {
+      System.out.println(line);
       if (!(line.isBlank())){
 
          if(line.charAt(0)=='L'){
@@ -58,14 +61,48 @@ public class LevelManager {
             level.levelName=values[0];
             level.levelPhotoPath=values[1];
             level.numFish=Integer.parseInt(values[2]);
-            System.out.println(level.levelName);
-            System.out.println(level.numFish);
-
+           
 
 
       }
       else if((line.charAt(0)=='O')){
-          System.out.println("Object Found");
+          System.out.println("object");
+        String object=line.substring(1,line.length());
+      
+         
+
+         String[] objDetails=object.split(",");
+         String objtype=objDetails[0];
+         int objx=Integer.parseInt(objDetails[1]);
+         int objy=Integer.parseInt(objDetails[2]);
+         System.out.println(objtype);
+         
+        if(objtype.contains("Fish")){
+           
+            Fish fish=new Fish(objtype, false,objx,objy);
+            level.objects.add(fish);
+
+
+
+            
+
+        }else if(objtype.contains("Rock") || objtype.contains("Concrete")) {
+            System.out.println("O");
+            Obstacle obstacle=new Obstacle(objtype, false,objx,objy);
+            level.objects.add(obstacle);
+
+
+        
+    }else if(objtype.contains("Algae") || objtype.contains("Kelp")) {
+        System.out.println("F");
+        Food food=new Food(objtype, false,objx,objy);
+        level.objects.add(food);
+
+
+    }
+
+          
+        
             
         }
  
@@ -94,7 +131,7 @@ public class LevelManager {
                 String save=String.format("L %s,%s,%d,%d \n",level.levelName,level.levelPhotoPath,level.numFish,levelBossFish);
                
                 for(AllObject obj: level.objects){
-                save+=obj.getType()+ ","+obj.getX()+","+obj.getY()+"\n";
+                save+="O"+obj.getType()+ ","+obj.getX()+","+obj.getY()+"\n";
                 //rewrite this 4/18^
 
                 }
@@ -111,8 +148,18 @@ public class LevelManager {
         }
                     
                  
-                       
-      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     public ArrayList<GameLevel> getLevelArray() {

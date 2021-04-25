@@ -8,6 +8,7 @@ public class Food extends AllObject{
     
     private int imageSize = 68;
     private String type;
+    private boolean flipped;
 
 
 
@@ -19,11 +20,11 @@ public class Food extends AllObject{
         this.type = type;
     }
 
-    public Food(String type){
-        this.speed = 10;
-        this.size = 1;
-        this.direction = 270;
+    public Food(String type,boolean flipped,int x,int y){
+        this.flipped=flipped;
         this.type=type;
+        this.x=x;
+        this.y=y;
     }
 
     //falling change moving speed

@@ -3,6 +3,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 
 
 public class GUIApplication extends Application{
@@ -20,6 +22,9 @@ public class GUIApplication extends Application{
         stage.setScene(scene);
         stage.setTitle("Level Builder"); // Title of main window
         stage.show();
-    }
+   
+    
 
+        
+    }
 }
