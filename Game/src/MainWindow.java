@@ -87,10 +87,8 @@ public class MainWindow {
 
     @FXML
     void onLoadClicked(ActionEvent event) throws IOException {
+        Loading.setLoading(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
-
-        GameWindow controller = (GameWindow) loader.getController();
-
 
         Stage gameWindow = new Stage();
 
@@ -153,8 +151,6 @@ public class MainWindow {
             }
         });
         gameWindow.setScene(scene);
-        controller.setLoading();
-
         gameWindow.show();
 
 

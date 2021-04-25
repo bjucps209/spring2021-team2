@@ -64,6 +64,7 @@ public class GameWindow {
     @FXML
     Pane pane;
     
+    
     static Timeline timer1;
     static Timeline timer2;
     static Timeline timer3;
@@ -71,9 +72,10 @@ public class GameWindow {
     static boolean isPaused = false;
 
     public void initialize() {
-        System.out.println("111111111");
 
-        if (amILoading) {
+        
+
+        if (Loading.getState() == true) {
             System.out.println("REEEEEEEEEEEEE!!!!!!!!!!!!!");
             start = new FishGame(saveGame);
         }
@@ -173,6 +175,7 @@ public class GameWindow {
     //while isPaused is true, the user can save by pressing the ESC key
     public static void onESCPress() throws Exception {
         if (isPaused == true) {
+            System.out.println("The game has been saved.");
             start.save();
         }
     }

@@ -274,25 +274,21 @@ public class FishGame {
                     }else if(user.getSize() > a.getSize()){
                         idToDelete = (user.Usereat(a).getId());
                         removea = a;
-                        System.out.print("ssssssssssssssssssssssssssssss\n");
                     }
                 }
             }
         }
         if (FishGame.health < 1){
-            System.out.print("TTTTTTTTTTTTTTTTTTTTTTTT\n");
             FishGame.life -= 1;
             // fish heal become 5
             FishGame.health = 5;
         }
         if (FishGame.life < 1){
-            System.out.print("SDSDSDSDSDSDSDSDS\n");
             if (isCheatModeOn = false){
                 isGameOver = true;
             }
         }
         objectStorage.remove(removea);
-        System.out.print("FFFFFFFFFFFFFFFFFF\n");
         return idToDelete;
     }
 
@@ -409,7 +405,7 @@ public class FishGame {
 
     public void save() throws Exception {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("save.game", true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("/src/save.game", true));
             writer.append("Level:Difficulty:" + Integer.toString(objectStorage.size()));
             writer.append("\n");
             for (AllObject item : objectStorage) {
