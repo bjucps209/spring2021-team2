@@ -426,7 +426,7 @@ public class GameWindow {
 	// 		while(true) {
     //             start.filpimage( (int id) -> {imageflip(id);});
 	// 			try {
-	// 				Thread.sleep(30);//ÿ��50�����ػ�һ��
+	// 				Thread.sleep(30);
 	// 			} catch (InterruptedException e) {
 	// 				e.printStackTrace();
 	// 			}
