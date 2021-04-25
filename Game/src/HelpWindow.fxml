@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="HelpWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
+    spacing="10" prefHeight="700" prefWidth="700">
+
+    <VBox alignment="CENTER" prefHeight="700" style="-fx-background-color:white">
+        <Label text="" fx:id="helpLabel" /> 
+
+        <VBox fx:id="help">
+            <Label fx:id="one" text="1) To play the game, you may use either your mouse or the W, A, S, D to control the moving direction." />
+            <Label fx:id="two" text="2) Navigate across the ocean and try to avoid the opnonents as they will look to eat you." />
+            <Label fx:id="three" text="3) Do your best to become the biggest fish in the ocean." />
+            <Label fx:id="four" text="4) If you are the biggest fish, you will move on to the next level." />
+            <Label fx:id="five" text="5) There are three levels. Each level progresses to be more difficult than the previous level." />
+        </VBox>
+
+
+    </VBox>
+
+
+</VBox>

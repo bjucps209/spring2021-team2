@@ -6,13 +6,32 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.effect.InnerShadow;
 import javafx.stage.Stage;
 import model.Userfish;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.event.EventHandler;
 
 public class MainWindow {
+
+    @FXML
+    Label title;
+
+    public void initialize() {
+        InnerShadow innerShadow = new InnerShadow();
+        innerShadow.setOffsetX(4);
+        innerShadow.setOffsetY(4);
+        innerShadow.setColor(Color.web("black"));
+       
+        title.setEffect(innerShadow);
+        title.setText("fish.io");
+        title.setTextFill(Color.color(0.2, .7, 1));
+        title.setFont(Font.font("Verdana", FontWeight.BOLD, 55));
+    }
 
     @FXML
     void onStartClicked(ActionEvent event) throws IOException {
@@ -93,6 +112,20 @@ public class MainWindow {
         HighScoresWindow.setScene(new Scene(loader.load()));
 
         HighScoresWindow.show();
+
+    }
+
+
+
+    @FXML
+    void onHelpClicked(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("HelpWindow.fxml"));
+
+        Stage Help = new Stage();
+
+        Help.setScene(new Scene(loader.load()));
+
+        Help.show();
 
     }
 }

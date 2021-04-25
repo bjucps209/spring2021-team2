@@ -4,9 +4,26 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
-    spacing="10" prefHeight="719" prefWidth="1366" style="-fx-background-image: url(FishPicture/Background.jpg);" >
+    spacing="10" prefHeight="719" prefWidth="1366" style="-fx-background-image: url(FishPicture/Background.jpg);" fx:id = "vbox">
     
-    <Pane fx:id="pane" prefHeight="1000" prefWidth="1000" />
+    <HBox spacing="10" fx:id = "hbox">
+        <Label text="Point: "/>
+        <Label text="0" fx:id = "point"/>
+
+        <Region prefWidth="500" HBox.hgrow="ALWAYS" />
+        
+        <Label text= "Life:   "/>
+        <Label text="3" fx:id = "life"/>
+    </HBox>
+
+    <HBox spacing="10" fx:id = "hbox2">
+        <Region prefWidth="630" HBox.hgrow="ALWAYS" />
+        <Label text= "Health: "/>
+        <Label text="5" fx:id = "health"/>
+    </HBox>
+    <Pane fx:id="pane" prefHeight="719" prefWidth="1366" />
+
+
 
 
 </VBox>
