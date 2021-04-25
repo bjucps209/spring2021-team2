@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="MainWindow">
+<VBox fx:id="Screen" alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="MainWindow">
    
     <HBox  fx:id="tools" />
     
@@ -23,6 +23,22 @@
           
           
         </HBox>
+      
+        <VBox>
+            <Label text="Selected Item Details"/>
+            <Label  fx:id="LblSelected" text="X,Y"/>
+            <HBox spacing="10">
+           
+            <Button fx:id="flip" />
+            <Button fx:id="copy" />
+            <Button fx:id="delete"/>
+            </HBox>
+            
+            
+
+           
+            
+        </VBox>
       
     </HBox>
 

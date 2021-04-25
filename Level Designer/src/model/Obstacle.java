@@ -2,16 +2,20 @@ package model;
 
 import java.util.Random;
 
-import javafx.scene.image.Image;
+
 
 public class Obstacle extends AllObject {
     private int imageSize = 317;
     private String type;
+    public  boolean flipped;
 
-    public Obstacle(String type) {
+    public Obstacle(String type,boolean flipped,int x,int y) {
         this.speed = 0;
         this.size = 3;
         this.type=type;
+        this.flipped=flipped;
+        this.x=x;
+        this.y=y;
 
         // random the inital direction.
         var rand = new Random();

@@ -9,6 +9,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Fishes extends AllObject {
 
+
+
     //initialdirction of fish final?
     private int initialDirection;
 
@@ -41,26 +43,24 @@ public class Fishes extends AllObject {
         this.size = size;
         this.objtype = objType;
         this.imageSize = imageSize;
-        id = FishGame.id;
-        FishGame.id += 1;
 
         // random the inital direction.
         //inital x, intial y, intial initalDirection, intial direction
         var rand = new Random();
         int ran = rand.nextInt(2);
         if (ran == 0) {
-            // remember import from left edge of screen
-            initialDirection = 0 + rand.nextInt(5);
-            x = new SimpleIntegerProperty(1-imageSize);
-            int yuse = rand.nextInt(1000);
+            // remember import from right edge of screen
+            initialDirection = 180 + rand.nextInt(5);
+            int yuse = rand.nextInt(750);
+            x = new SimpleIntegerProperty(1366);
             y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         } else {
-            // remember import from right edge of screen
-            initialDirection = 180 + rand.nextInt(5);
-            y = new SimpleIntegerProperty();
-            int yuse = rand.nextInt(1000);
-            x = new SimpleIntegerProperty(yuse);
+            // remember import from left edge of screen
+            initialDirection = 0 + rand.nextInt(10);
+            int yuse = rand.nextInt(700);
+            y = new SimpleIntegerProperty(yuse);
+            x = new SimpleIntegerProperty(0-imageSize);
             direction = initialDirection;
         }
         id = FishGame.id;
@@ -77,7 +77,7 @@ public class Fishes extends AllObject {
     public void randDirection() {
         var rand = new Random();
         var ran = rand.nextInt(3);
-        var ran2 = rand.nextInt(5);
+        var ran2 = rand.nextInt(10);
         var ran3 = rand.nextInt(2);
         switch (ran) {
         case 0:
@@ -89,6 +89,7 @@ public class Fishes extends AllObject {
             break;
         case 1:
         case 2:
+            direction = initialDirection + rand.nextInt(10);
             break;
         }
 
@@ -167,4 +168,7 @@ public class Fishes extends AllObject {
          
         return dataString;
     }
+
+
 }
+    

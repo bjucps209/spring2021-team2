@@ -1,0 +1,4 @@
+L Test,/images/ocean.png,1,0 
+Kelp,137,49
+algae,429,159
+Concrete,250,267

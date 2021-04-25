@@ -6,9 +6,14 @@
 <VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
     spacing="10" prefHeight="480" prefWidth="852" alignment="CENTER">
     
-
+    <Label fx:id="title" text=""/>
 
     <Button onAction="#onStartClicked" text="Start" alignment = "CENTER"/>
     <Button onAction="#onHighScoresClicked" text="High Scores"  alignment = "CENTER"/>
+
     <Button onAction="#onLoadClicked" text="Load" alignment="CENTER" />
+
+    <Button onAction="#onHelpClicked" text="Help"  alignment = "CENTER"/>
+
+
 </VBox>

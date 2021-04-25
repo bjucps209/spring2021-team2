@@ -1,11 +1,20 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SetPropertyBase;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Screen;
 import model.AllObject;
 import model.Direction;
@@ -15,9 +24,14 @@ import model.Food;
 import model.Type;
 import model.Userfish;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
+import model.*;
+
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoublePredicate;
 
@@ -64,8 +78,26 @@ public class GameWindow {
     
     @FXML
     Pane pane;
-    
-    
+
+    @FXML
+    Label point;
+
+    @FXML
+    Label life;
+
+    @FXML
+    Label health;
+
+    @FXML
+    HBox hbox;
+
+    @FXML
+    HBox hbox2;
+
+    @FXML
+    VBox vbox;
+
+
     static Timeline timer1;
     static Timeline timer2;
     static Timeline timer3;
@@ -80,7 +112,33 @@ public class GameWindow {
         }
         else {
             start = new FishGame(1, 1, 0, 1, 1, 1, 1);
+            System.out.println("111111111");
+        
+            // StringConverter<Number> converter = new NumberStringConverter();
+
+            start = new FishGame(1, 1, 3, 3, 2, 1, 1);
+            ((Label)hbox.getChildren().get(0)).setFont(new Font("Arial", 30));
+            ((Label)hbox.getChildren().get(0)).setTextFill(Color.web("#FF0000"));
+            point.setFont(new Font("Arial", 30));
+            point.setTextFill(Color.web("#FF0000"));
+
+            ((Label)hbox.getChildren().get(3)).setFont(new Font("Arial", 30));
+            ((Label)hbox.getChildren().get(3)).setTextFill(Color.web("#FF0000"));
+            ((Label)hbox.getChildren().get(3)).relocate(650, 0);
+
+            life.setFont(new Font("Arial", 30));
+            life.setTextFill(Color.web("#FF0000"));
+
+            ((Label)hbox2.getChildren().get(1)).setFont(new Font("Arial", 30));
+            ((Label)hbox2.getChildren().get(1)).setTextFill(Color.web("#FF0000"));
+            health.setFont(new Font("Arial", 30));
+            health.setTextFill(Color.web("#FF0000"));
+
+            point.textProperty().bind(FishGame.getPoints().asString());
+            health.textProperty().bind(FishGame.getHealth().asString());
+            life.textProperty().bind(FishGame.getlife().asString());
         }
+
 
         ImageView image =  new ImageView(User_fishl);
         image.layoutXProperty().bind(start.getUser().getX());
@@ -90,7 +148,6 @@ public class GameWindow {
         image.setFitWidth(80);
         pane.getChildren().add(image);
         
-
 
         for (AllObject a : start.getObjectStorage()){
             imagePutting(a);
@@ -104,8 +161,9 @@ public class GameWindow {
         KeyFrame timerF2 = new KeyFrame(Duration.millis(2000), e -> updataDS());
         timer2 = new Timeline(timerF2);
         timer2.setCycleCount(-1);
+        timer2.setDelay(Duration.millis(3));
         timer2.play();
-    
+
         KeyFrame timerF3 = new KeyFrame(Duration.millis(1000), e -> updatanum());
         timer3 = new Timeline(timerF3);
         timer3.setCycleCount(-1);
@@ -116,11 +174,6 @@ public class GameWindow {
         // timer3 = new Timeline(timerF3);
         // timer3.setCycleCount(-1);
         // timer3.play();
-
-
-
-
-
 
         // System.out.println("111111111");
         // id = 0;
@@ -186,28 +239,35 @@ public class GameWindow {
                 System.out.println("X:"+ a.getX().get()+ " Y:" + a.getY().get() + " Speed:" + a.getSpeed() + " Direction" + a.getDirection());
             }
         }
+
+        imageflipAndDeleting();
     }
 
     public void updatanum(){
         for (int i = 0; i < start.getLimitOfFood() - start.getNumberOfFood(); i++){
             Food currentAdding = new Food();
             start.getObjectStorage().add(currentAdding);
+            start.setNumberOfFood(start.getNumberOfFood() + 1);
             imagePutting(currentAdding);
         }for (int i = 0; i < start.getLimitOfType1Fish() - start.getNumberOfType1Fish(); i++){
             Fishes currentAdding = new Fishes(Type.FishType1, 7, 1, 50);
             start.getObjectStorage().add(currentAdding);
+            start.setNumberOfType1Fish(start.getNumberOfType1Fish() + 1);
             imagePutting(currentAdding);
         }for (int i = 0; i < start.getLimitOfType2Fish() - start.getNumberOfType2Fish(); i++){
             Fishes currentAdding = new Fishes(Type.FishType2, 6, 2, 100);
             start.getObjectStorage().add(currentAdding);
+            start.setNumberOfType2Fish(start.getNumberOfType2Fish() + 1);
             imagePutting(currentAdding);
         }for (int i = 0; i < start.getLimitOfType3Fish() - start.getNumberOfType3Fish(); i++){
             Fishes currentAdding = new Fishes(Type.FishType3, 10, 3, 150);
             start.getObjectStorage().add(currentAdding);
+            start.setNumberOfType3Fish(start.getNumberOfType3Fish() + 1);
             imagePutting(currentAdding);
         }for (int i = 0; i <  start.getLimitOfPoisonFish() - start.getNumberOfPoisonFish(); i++){
             Fishes currentAdding = new Fishes(Type.PoisonFish, 7, 1, 50);
             start.getObjectStorage().add(currentAdding);
+            start.setNumberOfPoisonFish(start.getNumberOfPoisonFish() + 1);
             imagePutting(currentAdding);
         }
     }
@@ -223,8 +283,64 @@ public class GameWindow {
         }
     }
 
-    public void fishchecking(){
+    public void userfishimagechecking(){
+        if (start.getUser().getDirectionenum() == Direction.Left || start.getUser().getDirectionenum() == Direction.LeftUp||start.getUser().getDirectionenum() == Direction.LeftDown){
+            ((ImageView) pane.getChildren().get(0)).setImage(User_fishl);
+        }else if (start.getUser().getDirectionenum() == Direction.Right || start.getUser().getDirectionenum() == Direction.RightUp||start.getUser().getDirectionenum() == Direction.RightDown){
+            ((ImageView) pane.getChildren().get(0)).setImage(User_fishr);
+        }
 
+    }
+
+    public void imageflipAndDeleting(){
+        // ArrayList<AllObject> removeobjs = new ArrayList<>();
+        for (AllObject a :start.getObjectStorage()){
+            if (a.getX().get() < -200 || a.getY().get() < -200){
+                pane.getChildren().removeIf((removeobj) -> Integer.parseInt(removeobj.getId()) == a.getId());
+                // removeobjs.add(a);
+                Type curr = a.getType();
+                if (curr == Type.Food){
+                    start.setNumberOfFood(start.getNumberOfFood() - 1);
+                }else if(curr == Type.FishType1){
+                    start.setNumberOfType1Fish(start.getNumberOfType1Fish() - 1);
+                }else if(curr == Type.FishType2){
+                    start.setNumberOfType2Fish(start.getNumberOfType2Fish() - 1);
+                }else if(curr == Type.FishType3){
+                    start.setNumberOfType3Fish(start.getNumberOfType3Fish() - 1);
+                }else if(curr == Type.PoisonFish){
+                    start.setNumberOfPoisonFish(start.getNumberOfPoisonFish() - 1);
+                //TODO: mine need to be here
+                }
+                start.getObjectStorage().remove(a);
+            }
+            else if (a instanceof Fishes){
+                for(int i =0; i < pane.getChildren().size(); i++){
+                    if (a.getId() == Integer.parseInt(pane.getChildren().get(i).getId())){
+                        if (a.getDirection() > 90 && a.getDirection()  < 270){
+                            if (a.getType() == Type.FishType1){
+                                ((ImageView)pane.getChildren().get(i)).setImage(IMG_Fish1l);
+                            }else if (a.getType() == Type.FishType2){
+                                ((ImageView)pane.getChildren().get(i)).setImage(IMG_Fish2l);
+                            }else if (a.getType() == Type.FishType3){
+                                ((ImageView)pane.getChildren().get(i)).setImage(IMG_Fish3l);
+                            }else if (a.getType() == Type.PoisonFish){
+                                ((ImageView)pane.getChildren().get(i)).setImage(IMG_PoisonFish);
+                            }
+                        }else{
+                            if (a.getType() == Type.FishType1){
+                                ((ImageView)pane.getChildren().get(i)).setImage(IMG_Fish1r);
+                            }else if (a.getType() == Type.FishType2){
+                                ((ImageView)pane.getChildren().get(i)).setImage(IMG_Fish2r);
+                            }else if (a.getType() == Type.FishType3){
+                                ((ImageView)pane.getChildren().get(i)).setImage(IMG_Fish3r);
+                            }else if (a.getType() == Type.PoisonFish){
+                                ((ImageView)pane.getChildren().get(i)).setImage(IMG_PoisonFish);
+                            }
+                        }   
+                    }
+                }
+            }
+        }
     }
 
     @FXML
@@ -243,26 +359,50 @@ public class GameWindow {
             image = new ImageView(IMG_Food);
             image.setFitHeight(25);
             image.setFitWidth(25);
+            // image.setRotationAxis(Rotate.Y_AXIS);
+            // image.setRotate(0);
         }else if (a.getType() == Type.FishType1){
-            image = new ImageView(IMG_Fish1l);
+            if (a.getDirection() > 90 && a.getDirection()  < 270){
+                image = new ImageView(IMG_Fish1l);
+            }else{
+                image = new ImageView(IMG_Fish1r);
+            }
             image.setFitHeight(50);
             image.setFitWidth(50);
+            // image.setRotationAxis(Rotate.Y_AXIS);
+            // image.setRotate(0);
         }else if (a.getType() == Type.FishType2){
-            image = new ImageView(IMG_Fish2l);
+            if (a.getDirection() > 90 && a.getDirection()  < 270){
+                image = new ImageView(IMG_Fish2l);
+            }else{
+                image = new ImageView(IMG_Fish2r);
+            }
             image.setFitHeight(80);
             image.setFitWidth(80);
+            // image.setRotationAxis(Rotate.Y_AXIS);
+            // image.setRotate(0);
         }else if (a.getType() == Type.FishType3){
-            image = new ImageView(IMG_Fish3l);
+            if (a.getDirection() > 90 && a.getDirection()  < 270){
+                image = new ImageView(IMG_Fish3l);
+            }else{
+                image = new ImageView(IMG_Fish3r);
+            }
             image.setFitHeight(110);
             image.setFitWidth(110);
+            // image.setRotationAxis(Rotate.Y_AXIS);
+            // image.setRotate(0);
         }else if (a.getType() == Type.Mine){
             image = new ImageView(IMG_Mine);
             image.setFitHeight(35);
             image.setFitWidth(35);
+            // image.setRotationAxis(Rotate.Y_AXIS);
+            // image.setRotate(0);
         }else if (a.getType() == Type.PoisonFish){
             image = new ImageView(IMG_PoisonFish);
             image.setFitHeight(50);
             image.setFitWidth(50);
+            // image.setRotationAxis(Rotate.Y_AXIS);
+            // image.setRotate(0);
         }else{image = new ImageView();};
         image.layoutXProperty().bind(a.getX());
         image.layoutYProperty().bind(a.getY());
@@ -279,14 +419,13 @@ public class GameWindow {
         //      pane.getChildren().removeIf((i) -> Integer.parseInt(i.getId()) == a);
         // }
 
-
-
         int idNeedDelete = start.userfishcollision();
         if (idNeedDelete != 0){
             pane.getChildren().removeIf((e) -> Integer.parseInt(e.getId()) == idNeedDelete);
         }
-
-
+        userfishimagechecking();
+        updatanum();
+        System.out.println(FishGame.getPoints().get());
 
 
         // if (start.userfishcollision().size() != 0){
@@ -307,4 +446,17 @@ public class GameWindow {
     // void ImageChange(){
     //     ((ImageView) pane.getChildren().get(0)).setImage(swim_cycle1);
     // }
+
+    // class RepaintThread implements Runnable{
+	// 	public void run() {
+	// 		while(true) {
+    //             start.filpimage( (int id) -> {imageflip(id);});
+	// 			try {
+	// 				Thread.sleep(30);
+	// 			} catch (InterruptedException e) {
+	// 				e.printStackTrace();
+	// 			}
+	// 		}
+	// 	}
+	// }
 }

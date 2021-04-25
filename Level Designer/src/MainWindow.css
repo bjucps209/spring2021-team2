@@ -1,5 +1,6 @@
 .root {
     -fx-padding: 10; /* Add a small padding around the window */
+    -fx-effect: dropshadow(three-pass-box, rgba(12, 74, 207, 0.8), 10, 0, 0, 0);
 }
 
 .leftbutton {
@@ -12,5 +13,9 @@
 }
 
 .current {
-    -fx-effect: dropshadow(three-pass-box, rgba(255,0,0,0.8), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(12, 235, 23, 0.8), 10, 0, 0, 0);
+ }
+ .blue{
+    -fx-effect: dropshadow(three-pass-box, rgba(12, 21, 136, 0.8), 10, 0, 0, 0);
+
  }

@@ -9,11 +9,7 @@
 
     <VBox alignment="CENTER" prefHeight="460" style="-fx-background-color:#97D1EA">
 
-        <ImageView fx:id="imageHS" fitWidth="250" fitHeight="100">
-            <image>
-                <Image url="highscores.png" />
-            </image>
-        </ImageView>
+        <Label text="" fx:id="hiScore" />
 
         <HBox alignment="CENTER">
             <VBox style="-fx-padding: 10" fx:id="rank" >

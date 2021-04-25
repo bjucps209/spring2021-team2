@@ -15,8 +15,8 @@ public class Userfish extends Fishes{
 
     Userfish(Type objType, int speed, int size, int imageSize) {
         super(objType, speed, size, imageSize);
-        this.x = new SimpleIntegerProperty(250);
-        this.y = new SimpleIntegerProperty(250);
+        this.x = new SimpleIntegerProperty(450);
+        this.y = new SimpleIntegerProperty(300);
         setInitialDirection(0);
         setDirection(0);
         
@@ -64,25 +64,30 @@ public class Userfish extends Fishes{
         AllObject stor;
         stor = a;
         if (a.getType() == Type.PoisonFish||a.getType() == Type.Mine){
-            FishGame.life -= 1;
-            FishGame.health = 5;
+            FishGame.setLife(FishGame.getlife().get()-1);
+            FishGame.health = new SimpleIntegerProperty(5);
             //TODO: user fish need to show some thing to user if he lose a life.
         }else if((a instanceof Fishes) && (a.getType() != Type.PoisonFish)||(a.getType() == Type.Food)){
             if (a.getType() == Type.Food){
-                FishGame.points += 1;
+                FishGame.setPoints(FishGame.getPoints().get()+1);
             }else if(a.getType() == Type.FishType1){
-                FishGame.points += 2;
+                FishGame.setPoints(FishGame.getPoints().get()+2);
             }else if(a.getType() == Type.FishType2){
-                FishGame.points += 4;
+                FishGame.setPoints(FishGame.getPoints().get()+4);
             }else if(a.getType() == Type.FishType3){
-                FishGame.points += 8;
+                FishGame.setPoints(FishGame.getPoints().get()+8);;
             }
+            System.out.println(FishGame.getPoints().get());
         }
         return stor;
     }
 
+    public void beeaten(){
+        
+    }
 
-        // if up press and down press do nothing
+
+    // if up press and down press do nothing
     // if right press and left press do nothing
     // if right press and up press move up right
     public static void facingDirection() {
