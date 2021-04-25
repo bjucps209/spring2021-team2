@@ -87,7 +87,7 @@ public class Userfish extends Fishes{
     }
 
 
-        // if up press and down press do nothing
+    // if up press and down press do nothing
     // if right press and left press do nothing
     // if right press and up press move up right
     public static void facingDirection() {

@@ -8,12 +8,28 @@ import java.util.Random;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+
+
 public class FishGame {
 
     // the storage of all things in the sceen.
     // first element of list will be user's fish;
     // while using for loops don't cover first element.
     ArrayList<AllObject> objectStorage;
+
+    Filps imagess;
+
+    public Filps getImagess() {
+        return this.imagess;
+    }
+
+    public void setImagess(Filps imagess) {
+        this.imagess = imagess;
+    }
+
+    public void filpimage(Filps imagess){
+        this.imagess = imagess;
+    }
 
     // three basic value for the game
     // from class we learn this week those variable may change to intproperty in
@@ -39,14 +55,6 @@ public class FishGame {
     int numberOfType2Fish;
     int numberOfType3Fish;
     int numberOfPoisonFish;
-
-    public int getNumberOfPoisonFish() {
-        return this.numberOfPoisonFish;
-    }
-
-    public void setNumberOfPoisonFish(int numberOfPoisonFish) {
-        this.numberOfPoisonFish = numberOfPoisonFish;
-    }
 
     // make sure there is not too many food on the screen
     int limitOfFood;
@@ -169,6 +177,17 @@ public class FishGame {
                     } else if (user.getSize() > a.getSize()) {
                         idToDelete = (user.Usereat(a).getId());
                         removea = a;
+                        if (a.getType() == Type.Food){
+                            numberOfFood -= 1;
+                        }else if (a.getType() == Type.FishType1){
+                            numberOfType1Fish-= 1;
+                        }else if (a.getType() == Type.FishType2){
+                            numberOfType2Fish-= 1;
+                        }else if (a.getType() == Type.FishType3){
+                            numberOfType3Fish-= 1;
+                        }else if (a.getType() == Type.PoisonFish){
+                            numberOfPoisonFish -= 1;
+                        }
                     }
                 }
             }
@@ -436,4 +455,12 @@ public class FishGame {
         this.user = user;
     }
 
+    public int getNumberOfPoisonFish() {
+        return this.numberOfPoisonFish;
+    }
+
+    public void setNumberOfPoisonFish(int numberOfPoisonFish) {
+        this.numberOfPoisonFish = numberOfPoisonFish;
+    }
+    
 }
