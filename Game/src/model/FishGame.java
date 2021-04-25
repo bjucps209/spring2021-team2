@@ -192,6 +192,7 @@ public class FishGame {
                 }
             }
         }
+        increaseSize();
         if (FishGame.health.get() < 1) {
             FishGame.life.set(FishGame.life.get() - 1);
             // fish heal become 5
@@ -251,18 +252,19 @@ public class FishGame {
     }
 
     public void increaseSize() {
-        if (FishGame.points.get() == 10) {
+        if (FishGame.points.get() > 40 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
-            user.setImageSize(user.getImageSize() + 30);
-        } else if (FishGame.points.get() == 40) {
+            user.setImageSize(user.getImageSize() + 15);
+            isGameOver = true;
+        } else if (FishGame.points.get() > 20 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
-            user.setImageSize(user.getImageSize() + 30);
-        } else if (FishGame.points.get() == 80) {
+            user.setImageSize(user.getImageSize() + 15);
+        } else if (FishGame.points.get() > 10  && user.getSize() == 2) {
             user.setSize(user.getSize() + 1);
-            user.setImageSize(user.getImageSize() + 30);
-        } else if (FishGame.points.get() == 110) {
+            user.setImageSize(user.getImageSize() + 15);
+        } else if (FishGame.points.get() > 5 && user.getSize() == 1) {
             user.setSize(user.getSize() + 1);
-            user.setImageSize(user.getImageSize() + 30);
+            user.setImageSize(user.getImageSize() + 15);
         }
     }
 

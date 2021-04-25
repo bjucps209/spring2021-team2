@@ -223,6 +223,8 @@ public class GameWindow {
         }
 
         imageflipAndDeleting();
+        updatanum();
+        sizeOfUserFishUpdata();
     }
 
     public void updatanum(){
@@ -393,6 +395,21 @@ public class GameWindow {
         System.out.println("X:" + a.getX().get() + " Y:" + a.getY().get() + " ID:"+ a.getId());
     }
 
+    void sizeOfUserFishUpdata(){
+        if (start.getUser().getImageSize() == 25){
+            ((ImageView)pane.getChildren().get(0)).setFitHeight(50);
+            ((ImageView)pane.getChildren().get(0)).setFitWidth(50);
+        }else if (start.getUser().getImageSize() == 40){
+            ((ImageView)pane.getChildren().get(0)).setFitHeight(80);
+            ((ImageView)pane.getChildren().get(0)).setFitWidth(80);
+        }else if (start.getUser().getImageSize() == 55){
+            ((ImageView)pane.getChildren().get(0)).setFitHeight(110);
+            ((ImageView)pane.getChildren().get(0)).setFitWidth(110);
+        }else if (start.getUser().getImageSize() == 70){
+            ((ImageView)pane.getChildren().get(0)).setFitHeight(140);
+            ((ImageView)pane.getChildren().get(0)).setFitWidth(140);
+        }
+    }
 
     void updata(){
         start.getUser().updatePosition();
@@ -406,7 +423,7 @@ public class GameWindow {
             pane.getChildren().removeIf((e) -> Integer.parseInt(e.getId()) == idNeedDelete);
         }
         userfishimagechecking();
-        updatanum();
+
         System.out.println(FishGame.getPoints().get());
 
 
