@@ -275,11 +275,11 @@ public class GameWindow {
     }
 
     public void imageflipAndDeleting(){
-        ArrayList<AllObject> removeobjs = new ArrayList<>();
+        // ArrayList<AllObject> removeobjs = new ArrayList<>();
         for (AllObject a :start.getObjectStorage()){
             if (a.getX().get() < -200 || a.getY().get() < -200){
                 pane.getChildren().removeIf((removeobj) -> Integer.parseInt(removeobj.getId()) == a.getId());
-                removeobjs.add(a);
+                // removeobjs.add(a);
                 Type curr = a.getType();
                 if (curr == Type.Food){
                     start.setNumberOfFood(start.getNumberOfFood() - 1);
@@ -293,6 +293,7 @@ public class GameWindow {
                     start.setNumberOfPoisonFish(start.getNumberOfPoisonFish() - 1);
                 //TODO: mine need to be here
                 }
+                start.getObjectStorage().remove(a);
             }
             else if (a instanceof Fishes){
                 for(int i =0; i < pane.getChildren().size(); i++){
