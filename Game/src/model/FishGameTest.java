@@ -14,10 +14,10 @@ public class FishGameTest {
     public void FishmeetTest(){
         FishGame a = new FishGame(3, 5, 20, 15, 10, 5, 3);
         ArrayList<AllObject> b = a.getObjectStorage();
-        b.get(0).setX(new SimpleIntegerProperty(11) );
-        b.get(1).setX(new SimpleIntegerProperty(11));
-        b.get(0).setY(new SimpleIntegerProperty(11));
-        b.get(1).setY(new SimpleIntegerProperty(11));
+        b.get(0).setX(11);
+        b.get(1).setX(11);
+        b.get(0).setY(11);
+        b.get(1).setY(11);
         assertEquals(b.get(0).getX(), b.get(1).getX());
         assertEquals(b.get(0).getY(), b.get(1).getY());
         a.Fishmeet();
@@ -85,8 +85,8 @@ public class FishGameTest {
     @Test
     public void userfishcollisionTest(){
         FishGame a = new FishGame(3, 5, 20, 15, 10, 5, 3);
-        a.getObjectStorage().get(a.getObjectStorage().size()-1).setX(new SimpleIntegerProperty(450));
-        a.getObjectStorage().get(a.getObjectStorage().size()-1).setY(new SimpleIntegerProperty(450));
+        a.getObjectStorage().get(a.getObjectStorage().size()-1).setX(450);
+        a.getObjectStorage().get(a.getObjectStorage().size()-1).setY(450);
         a.setLife(1);
         a.userfishcollision();
         assertEquals(a.getIsGameOver(), false);

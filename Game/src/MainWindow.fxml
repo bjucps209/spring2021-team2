@@ -10,6 +10,10 @@
 
     <Button onAction="#onStartClicked" text="Start" alignment = "CENTER"/>
     <Button onAction="#onHighScoresClicked" text="High Scores"  alignment = "CENTER"/>
+
+    <Button onAction="#onLoadClicked" text="Load" alignment="CENTER" />
+
     <Button onAction="#onHelpClicked" text="Help"  alignment = "CENTER"/>
+
 
 </VBox>

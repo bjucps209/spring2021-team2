@@ -15,8 +15,8 @@ public class AllObjectTest {
 
      public void updatePositionTest(){
         AllObject a = new Fishes(Type.FishType1, 5, 10, 70);
-        a.setX(new SimpleIntegerProperty(100));
-        a.setY(new SimpleIntegerProperty(100));
+        a.setX(100);
+        a.setY(100);
         a.setDirection(180);
         a.updatePosition();
         assertEquals(new SimpleIntegerProperty(95), a.getX());
@@ -25,8 +25,8 @@ public class AllObjectTest {
     @Test
     public void drawCircleTest(){
         AllObject a = new Fishes(Type.FishType1, 5, 10, 70);
-        a.setX(new SimpleIntegerProperty(100));
-        a.setY(new SimpleIntegerProperty(100));
+        a.setX(100);
+        a.setY(100);
         a.drawCircle();
         int[] b = new int[]{85, 85, 35};
         assertThat((a.drawCircle()), is(b));

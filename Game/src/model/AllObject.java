@@ -13,6 +13,13 @@ public class AllObject {
 
     int id;
 
+    public void setX(int x) {
+        this.x.set(x);
+    }
+
+    public void setY(int y) {
+        this.y.set(y);
+    }
 
     public int getId() {
         return this.id;
@@ -73,16 +80,8 @@ public class AllObject {
         return this.x;
     }
 
-    public void setX(IntegerProperty x) {
-        this.x = x;
-    }
-
     public IntegerProperty getY() {
         return this.y;
-    }
-
-    public void setY(IntegerProperty y) {
-        this.y = y;
     }
 
     public int getSpeed() {
