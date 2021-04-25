@@ -59,7 +59,7 @@ public class GameWindow {
     
     static FishGame start;
     static Boolean amILoading = false;
-    final File saveGame = new File("/save.game");
+    final File saveGame = new File("P:\\Team Project\\spring2021-team2\\Game");
     final Boolean isLoading = Loading.getState();
     
     @FXML
@@ -76,7 +76,6 @@ public class GameWindow {
 
         if (isLoading) {
             System.out.println("REEEEEEEEEEEEE!!!!!!!!!!!!!");
-            Thread t = new Thread( (FishGame start) -> { start = new FishGame(saveGame); } );
             start = new FishGame(saveGame);
         }
         else {

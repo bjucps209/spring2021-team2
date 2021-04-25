@@ -124,6 +124,9 @@ public class FishGame {
 
     //constructor for passing soft coded game files into the model
     public FishGame(File file) {
+
+        System.out.println("File read state: " + file.canRead());
+
         isCheatModeOn = false;
         isGameOver = false;
         objectStorage = new ArrayList<AllObject>();
