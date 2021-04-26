@@ -117,7 +117,6 @@ public class GameWindow {
             start = new FishGame(saveGame);
         } else {
             start = new FishGame(1, 1, 0, 1, 1, 1, 1);
-            System.out.println("111111111");
 
             // StringConverter<Number> converter = new NumberStringConverter();
 
@@ -468,7 +467,7 @@ public class GameWindow {
     void updata() {
         // userfishimagechecking();
         if (!start.getUser().isStateOfLosingHealth() && !start.getUser().isStateOflosingLife()) {
-            if (current != null) {
+            if (((ImageView) pane.getChildren().get(0)).getImage() != null) {
                 current = ((ImageView) pane.getChildren().get(0)).getImage();
             }
         }

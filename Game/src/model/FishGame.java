@@ -258,14 +258,13 @@ public class FishGame {
                         } else if (a.getType() == Type.PoisonFish) {
                             numberOfPoisonFish -= 1;
                         }
-
                     }
                 }
             }
         }
         objectStorage.remove(removea);
-        increaseSizeChecker();
         healthAndLifeChecker();
+        increaseSizeChecker();
         try {
             Thread.sleep(30);
         } catch (InterruptedException e) {
