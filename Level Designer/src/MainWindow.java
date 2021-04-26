@@ -488,8 +488,9 @@ Bindings.createStringBinding(
             Fish fish =new Fish("Fish Type "+String.valueOf(filenumber),false,x,y);
           
             final Image fishImage=new Image(String.format("/images/Fish/Fishhudimage.png%s%s.png",filenumberString,filename));
-           
+           if(!b){
            currentState.getObjects().add(fish);
+           }
           
            var img = new ImageView();
            img.setImage(fishImage);
@@ -528,8 +529,9 @@ Bindings.createStringBinding(
         if(!dragging || b){
             Image imgtouse=IMG_ROCK;
             Obstacle obstacle=new Obstacle(type,false,x,y);
-            
+            if(!b){
             currentState.getObjects().add(obstacle);
+            }
             if(type.contains("Concrete")){
                  imgtouse= IMG_CONCRETE;
             }else if(type.contains("Rock")){
@@ -560,10 +562,11 @@ Bindings.createStringBinding(
         if(!dragging || b){
             Image imgtouse=IMG_KELP;
             Food food=new Food(type,false,x,y);
-            
+            if(!b){
             currentState.getObjects().add(food);
+            }
             if(type.contains("Algae")){
-                System.out.println("A");
+               
                  imgtouse= IMG_ALGAE;
             }else if(type.contains("Kelp")){
                 imgtouse= IMG_KELP;
@@ -652,12 +655,15 @@ Bindings.createStringBinding(
         
         try {
          currentState= manager.load(file.getName());
+         System.out.println(currentState.getObjects().size());
+      //   System.exit(0);
+
       
          
-     for(int i=0;i<currentState.getObjects().size();i++){
+     for(int icounter=0;icounter<currentState.getObjects().size();icounter++){
 
             
-             AllObject object=currentState.getObjects().get(i);
+             AllObject object=currentState.getObjects().get(icounter);
              System.out.println(object.getType());
              if(object.getType().contains("Fish")){
                 String numberOnly= object.getType().replaceAll("[^0-9]", "");
@@ -702,6 +708,7 @@ Bindings.createStringBinding(
 
 
              }
+             System.out.println("I am the bug. Kill me");
             }
              
             
