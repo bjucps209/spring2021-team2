@@ -87,13 +87,13 @@ public class Userfish extends Fishes {
         for (int i = 0; i < 10; i++) {
             stateOflosingLife = true;
             try {
-                Thread.sleep(150);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             stateOflosingLife = false;
             try {
-                Thread.sleep(150);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -105,13 +105,13 @@ public class Userfish extends Fishes {
             for (int i = 0; i < 10; i++) {
                 stateOfLosingHealth = true;
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 stateOfLosingHealth = false;
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -119,16 +119,14 @@ public class Userfish extends Fishes {
         }
     }
 
-    public void beeaten(AllObject a) {
+    public boolean beeaten(AllObject a) {
         FishGame.setHealth(FishGame.getHealth().get() - (a.getSize() - size));
-        stateOfLosingHealthHandle();
+        return true;
     }
 
-    public void sameSize() {
+    public boolean sameSize() {
         FishGame.setHealth(FishGame.getHealth().get() - 1);
-        if (FishGame.getHealth().get() > 0) {
-            stateOfLosingHealthHandle();
-        }
+        return true;
     }
 
     // if up press and down press do nothing

@@ -116,7 +116,7 @@ public class GameWindow {
             System.out.println("REEEEEEEEEEEEE!!!!!!!!!!!!!");
             start = new FishGame(saveGame);
         } else {
-            start = new FishGame(1, 1, 0, 1, 1, 1, 1);
+            // start = new FishGame(1, 1, 0, 1, 1, 1, 1);
 
             // StringConverter<Number> converter = new NumberStringConverter();
 
@@ -137,10 +137,6 @@ public class GameWindow {
             ((Label) hbox2.getChildren().get(1)).setTextFill(Color.web("#FF0000"));
             health.setFont(new Font("Arial", 30));
             health.setTextFill(Color.web("#FF0000"));
-
-            point.textProperty().bind(FishGame.getPoints().asString());
-            health.textProperty().bind(FishGame.getHealth().asString());
-            life.textProperty().bind(FishGame.getlife().asString());
         }
 
         // initial putting of image
@@ -170,6 +166,8 @@ public class GameWindow {
         timer1 = new Timeline(timerF1);
         timer1.setCycleCount(-1);
         timer1.play();
+
+        // new Thread(() -> updata());
 
         // KeyFrame timerF2 = new KeyFrame(Duration.millis(2000), e -> updataDS());
         // timer2 = new Timeline(timerF2);
@@ -279,72 +277,71 @@ public class GameWindow {
     // }
     // }
 
-    public void updataCollison() {
-        start.getUser().updatePosition();
-        for (AllObject current : start.getObjectStorage()) {
-            current.updatePosition();
-        }
-        for (int a : start.Fishmeet()) {
-            pane.getChildren().removeIf((i) -> Integer.parseInt(i.getId()) == a);
-        }
-    }
+    // public void updataCollison() {
+    // start.getUser().updatePosition();
+    // for (AllObject current : start.getObjectStorage()) {
+    // current.updatePosition();
+    // }
+    // for (int a : start.Fishmeet()) {
+    // pane.getChildren().removeIf((i) -> Integer.parseInt(i.getId()) == a);
+    // }
+    // }
 
-    public void imageflipAndDeleting() {
-        // ArrayList<AllObject> removeobjs = new ArrayList<>();
-        for (AllObject a : start.getObjectStorage()) {
-            if (a.getX().get() < -200 || a.getY().get() < -200) {
-                pane.getChildren().removeIf((removeobj) -> Integer.parseInt(removeobj.getId()) == a.getId());
-                // removeobjs.add(a);
-                Type curr = a.getType();
-                if (curr == Type.Food) {
-                    start.setNumberOfFood(start.getNumberOfFood() - 1);
-                } else if (curr == Type.FishType1) {
-                    start.setNumberOfType1Fish(start.getNumberOfType1Fish() - 1);
-                } else if (curr == Type.FishType2) {
-                    start.setNumberOfType2Fish(start.getNumberOfType2Fish() - 1);
-                } else if (curr == Type.FishType3) {
-                    start.setNumberOfType3Fish(start.getNumberOfType3Fish() - 1);
-                } else if (curr == Type.PoisonFish) {
-                    start.setNumberOfPoisonFish(start.getNumberOfPoisonFish() - 1);
-                    // TODO: mine need to be here
-                }
-                start.getObjectStorage().remove(a);
-            } else if (a instanceof Fishes) {
-                for (int i = 0; i < pane.getChildren().size(); i++) {
-                    if (a.getId() == Integer.parseInt(pane.getChildren().get(i).getId())) {
-                        if (a.getDirection() > 90 && a.getDirection() < 270) {
-                            if (a.getType() == Type.FishType1) {
-                                ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish1l);
-                            } else if (a.getType() == Type.FishType2) {
-                                ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish2l);
-                            } else if (a.getType() == Type.FishType3) {
-                                ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish3l);
-                            } else if (a.getType() == Type.PoisonFish) {
-                                ((ImageView) pane.getChildren().get(i)).setImage(IMG_PoisonFish);
-                            }
-                        } else {
-                            if (a.getType() == Type.FishType1) {
-                                ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish1r);
-                            } else if (a.getType() == Type.FishType2) {
-                                ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish2r);
-                            } else if (a.getType() == Type.FishType3) {
-                                ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish3r);
-                            } else if (a.getType() == Type.PoisonFish) {
-                                ((ImageView) pane.getChildren().get(i)).setImage(IMG_PoisonFish);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    // public void imageflipAndDeleting() {
+    // // ArrayList<AllObject> removeobjs = new ArrayList<>();
+    // for (AllObject a : start.getObjectStorage()) {
+    // if (a.getX().get() < -400 || a.getY().get() < -200) {
+    // pane.getChildren().removeIf((removeobj) ->
+    // Integer.parseInt(removeobj.getId()) == a.getId());
+    // // removeobjs.add(a);
+    // Type curr = a.getType();
+    // if (curr == Type.Food) {
+    // start.setNumberOfFood(start.getNumberOfFood() - 1);
+    // } else if (curr == Type.FishType1) {
+    // start.setNumberOfType1Fish(start.getNumberOfType1Fish() - 1);
+    // } else if (curr == Type.FishType2) {
+    // start.setNumberOfType2Fish(start.getNumberOfType2Fish() - 1);
+    // } else if (curr == Type.FishType3) {
+    // start.setNumberOfType3Fish(start.getNumberOfType3Fish() - 1);
+    // } else if (curr == Type.PoisonFish) {
+    // start.setNumberOfPoisonFish(start.getNumberOfPoisonFish() - 1);
+    // }
+    // }
+    // // TODO: mine need to be here
+    // }
+    // start.getObjectStorage().remove(a);
+    // } else if (a instanceof Fishes) {
+    // for (int i = 0; i < pane.getChildren().size(); i++) {
+    // if (a.getId() == Integer.parseInt(pane.getChildren().get(i).getId())) {
+    // if (a.getDirection() > 90 && a.getDirection() < 270) {
+    // if (a.getType() == Type.FishType1) {
+    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish1l);
+    // } else if (a.getType() == Type.FishType2) {
+    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish2l);
+    // } else if (a.getType() == Type.FishType3) {
+    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish3l);
+    // } else if (a.getType() == Type.PoisonFish) {
+    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_PoisonFish);
+    // }
+    // } else {
+    // if (a.getType() == Type.FishType1) {
+    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish1r);
+    // } else if (a.getType() == Type.FishType2) {
+    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish2r);
+    // } else if (a.getType() == Type.FishType3) {
+    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish3r);
+    // } else if (a.getType() == Type.PoisonFish) {
+    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_PoisonFish);
+    // }
+    // }
+    // }
+    // }
+    // }
+    // }
+    // }
 
     @FXML
     public void isGameOver() {
-
-    }
-
-    public void loseLife() {
 
     }
 
@@ -448,21 +445,21 @@ public class GameWindow {
         pane.getChildren().add(image);
     }
 
-    void sizeOfUserFishUpdata() {
-        if (start.getUser().getImageSize() == 25) {
-            ((ImageView) pane.getChildren().get(0)).setFitHeight(50);
-            ((ImageView) pane.getChildren().get(0)).setFitWidth(50);
-        } else if (start.getUser().getImageSize() == 40) {
-            ((ImageView) pane.getChildren().get(0)).setFitHeight(80);
-            ((ImageView) pane.getChildren().get(0)).setFitWidth(80);
-        } else if (start.getUser().getImageSize() == 55) {
-            ((ImageView) pane.getChildren().get(0)).setFitHeight(110);
-            ((ImageView) pane.getChildren().get(0)).setFitWidth(110);
-        } else if (start.getUser().getImageSize() == 70) {
-            ((ImageView) pane.getChildren().get(0)).setFitHeight(140);
-            ((ImageView) pane.getChildren().get(0)).setFitWidth(140);
-        }
-    }
+    // void sizeOfUserFishUpdata() {
+    // if (start.getUser().getImageSize() == 25) {
+    // ((ImageView) pane.getChildren().get(0)).setFitHeight(50);
+    // ((ImageView) pane.getChildren().get(0)).setFitWidth(50);
+    // } else if (start.getUser().getImageSize() == 40) {
+    // ((ImageView) pane.getChildren().get(0)).setFitHeight(80);
+    // ((ImageView) pane.getChildren().get(0)).setFitWidth(80);
+    // } else if (start.getUser().getImageSize() == 55) {
+    // ((ImageView) pane.getChildren().get(0)).setFitHeight(110);
+    // ((ImageView) pane.getChildren().get(0)).setFitWidth(110);
+    // } else if (start.getUser().getImageSize() == 70) {
+    // ((ImageView) pane.getChildren().get(0)).setFitHeight(140);
+    // ((ImageView) pane.getChildren().get(0)).setFitWidth(140);
+    // }
+    // }
 
     void updata() {
         // userfishimagechecking();
@@ -476,6 +473,10 @@ public class GameWindow {
         for (AllObject a : start.getObjectStorage()) {
             imagePutting(a);
         }
+
+        point.setText(String.valueOf(start.getPoints().get()));
+        life.setText(String.valueOf(start.getlife().get()));
+        health.setText(String.valueOf(start.getHealth().get()));
 
     }
 

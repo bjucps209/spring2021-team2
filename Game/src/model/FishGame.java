@@ -233,37 +233,52 @@ public class FishGame {
     }
 
     public void userfishcollision() {
-
-        AllObject removea = null;
+        boolean loseHealthCheck = false;
+        ArrayList<AllObject> removea = new ArrayList<>();
 
         for (AllObject a : objectStorage) {
-
             if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1) {
                 if (a instanceof Fishes || a.getType() == Type.Mine || a.getType() == Type.Food) {
                     if (user.getSize() == a.getSize()) {
-                        user.sameSize();
+                        loseHealthCheck = user.sameSize();
                     } else if (user.getSize() < a.getSize()) {
-                        user.beeaten(a);
+                        loseHealthCheck = user.beeaten(a);
                     } else if (user.getSize() > a.getSize()) {
                         user.Usereat(a);
-                        removea = a;
-                        if (a.getType() == Type.Food) {
-                            numberOfFood -= 1;
-                        } else if (a.getType() == Type.FishType1) {
-                            numberOfType1Fish -= 1;
-                        } else if (a.getType() == Type.FishType2) {
-                            numberOfType2Fish -= 1;
-                        } else if (a.getType() == Type.FishType3) {
-                            numberOfType3Fish -= 1;
-                        } else if (a.getType() == Type.PoisonFish) {
-                            numberOfPoisonFish -= 1;
-                        }
+                        removea.add(a);
                     }
                 }
             }
+            if (a.getX().get() < -400 || a.getY().get() < -400 || a.getX().get() > 1600 || a.getY().get() > 900) {
+                removea.add(a);
+            }
         }
-        objectStorage.remove(removea);
-        healthAndLifeChecker();
+        if (removea.size() != 0) {
+            for (AllObject b : removea) {
+                objectStorage.remove(b);
+            }
+        }
+        if (removea.size() != 0) {
+            for (AllObject b : removea) {
+                if (b.getType() == Type.Food) {
+                    numberOfFood -= 1;
+                } else if (b.getType() == Type.FishType1) {
+                    numberOfType1Fish -= 1;
+                } else if (b.getType() == Type.FishType2) {
+                    numberOfType2Fish -= 1;
+                } else if (b.getType() == Type.FishType3) {
+                    numberOfType3Fish -= 1;
+                } else if (b.getType() == Type.PoisonFish) {
+                    numberOfPoisonFish -= 1;
+                }
+            }
+        }
+
+        if (!healthAndLifeChecker()) {
+            if (loseHealthCheck) {
+                user.stateOfLosingHealthHandle();
+            }
+        }
         increaseSizeChecker();
         try {
             Thread.sleep(30);
@@ -334,19 +349,21 @@ public class FishGame {
         }
     }
 
-    public void healthAndLifeChecker() {
-
+    public boolean healthAndLifeChecker() {
         if (FishGame.health.get() < 1) {
             FishGame.setLife(FishGame.getlife().get() - 1);
             // fish heal become 5
             FishGame.health.set(5);
             user.stateOfLosingLifeHandle();
-        }
-        if (FishGame.life.get() < 1) {
-            if (isCheatModeOn = false) {
-                isGameOver = true;
+            if (FishGame.life.get() < 1) {
+                if (isCheatModeOn = false) {
+                    isGameOver = true;
+                }
+                return true;
             }
+            return true;
         }
+        return false;
     }
 
     // block the area that fish can't go cross, will not use in early level,
