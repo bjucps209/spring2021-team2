@@ -78,7 +78,7 @@ public class GameWindow {
 
     static FishGame start;
     static Boolean amILoading = false;
-    final File saveGame = new File("P:\\Team Project\\spring2021-team2\\Game");
+    final File saveGame = new File("C:\\.FishGame\\SaveData\\save.game");
     final Boolean isLoading = Loading.getState();
 
     @FXML
