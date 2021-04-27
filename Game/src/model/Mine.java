@@ -55,10 +55,9 @@ public class Mine extends AllObject {
         String dataString = "";
         dataString += this.type.toString();
         dataString += ":";
-        dataString += x.toString() + "," + y.toString();
+        dataString += x.get() + "," + y.get();
         dataString += ":";
         dataString += Integer.toString(direction);
-        dataString += ":";
 
         return dataString;
     }
