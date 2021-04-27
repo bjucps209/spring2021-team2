@@ -61,7 +61,7 @@ public class GameWindow {
     final Image IMG_Fish3l = new Image("/FishPicture/Fish/fish3_l.gif");
     final Image IMG_Fish3r = new Image("/FishPicture/Fish/fish3_r.gif");
     final Image IMG_Food = new Image("/FishPicture/FirstStageUsage/foodnoback.png");
-    final Image IMG_Mine = new Image("/FishPicture/FirstStageUsage/mine0.jpg");
+    final Image IMG_Mine = new Image("/FishPicture/mine.png");
     final Image IMG_PoisonFish = new Image("/FishPicture/FirstStageUsage/PoisonFish.png");
     // final Image swim_cycle1 = new
     // Image("/FishPicture/Fish/Fish1/swim_cycle1.jpg");
@@ -102,9 +102,12 @@ public class GameWindow {
     @FXML
     VBox vbox;
 
+    static Thread thread1;
+    static Thread thread2;
+    static Thread thread3;
+    static Thread thread4;
+
     static Timeline timer1;
-    static Timeline timer2;
-    static Timeline timer3;
 
     static boolean isPaused = false;
 
@@ -162,71 +165,37 @@ public class GameWindow {
         image.setId("" + start.getUser().getId());
         pane.getChildren().add(image);
 
+        thread1 = new Thread(() -> start.updataEveryseocnds());
+        thread2 = new Thread(() -> start.updataEach3seconds());
+        thread3 = new Thread(() -> start.collisonHandler());
+        thread4 = new Thread(() -> start.updataMine());
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+
         KeyFrame timerF1 = new KeyFrame(Duration.millis(10), e -> updata());
         timer1 = new Timeline(timerF1);
         timer1.setCycleCount(-1);
         timer1.play();
-
-        // new Thread(() -> updata());
-
-        // KeyFrame timerF2 = new KeyFrame(Duration.millis(2000), e -> updataDS());
-        // timer2 = new Timeline(timerF2);
-        // timer2.setCycleCount(-1);
-        // timer2.setDelay(Duration.millis(3));
-        // timer2.play();
-
-        // KeyFrame timerF3 = new KeyFrame(Duration.millis(1000), e -> updatanum());
-        // timer3 = new Timeline(timerF3);
-        // timer3.setCycleCount(-1);
-        // timer3.play();
-        ///////////////////////////////
-
-        // Userfish.Up.get() +" " + Userfish.Right.get() + " " + Userfish.Down.get() + "
-        // "+ Userfish.Left.get() + " " + Userfish.getDirectionenum()));
-        // timer3 = new Timeline(timerF3);
-        // timer3.setCycleCount(-1);
-        // timer3.play();
-
-        // System.out.println("111111111");
-        // id = 0;
-
-        // start = new FishGame(3, 5, 20, 15, 10, 5, 3);
-        // imagePutting(start.getUser());
-        // for (AllObject a : start.getObjectStorage()){
-        // imagePutting(a);
-        // }
-        // updataCollison();
-
-        // KeyFrame timerF2 = new KeyFrame(Duration.seconds(10), e -> updatanum());
-        // timer2 = new Timeline(timerF2);
-        // KeyFrame timerF3 = new KeyFrame(Duration.millis(100), e -> updataCollison());
-        // timer3 = new Timeline(timerF3);
-        // timer1.setCycleCount(-1);
-        // timer2.setCycleCount(-1);
-        // timer3.setCycleCount(-1);
-
-        // timer2.play();
-        // timer3.play();
-
     }
 
     // When the user presses P, it will pause the timelines, upon re-entry it will
     // resume the timelines
     // While the timelines are paused the user will be able to save by pressing the
     // ESC key
-    public static void onPKeyPress() {
+    public static void onPKeyPress() throws InterruptedException {
         if (isPaused == true) {
+            start.continous();
             timer1.play();
-            timer2.play();
-            // timer3.play();
             isPaused = false;
             System.out.println("Game is unpaused");
         }
 
         else if (isPaused == false) {
             timer1.pause();
-            timer2.pause();
-            // timer3.pause();
+            start.pause();
             isPaused = true;
             System.out.println("Game is paused");
         }
@@ -239,106 +208,6 @@ public class GameWindow {
             start.save();
         }
     }
-
-    // public void updatanum() {
-    // for (int i = 0; i < start.getLimitOfFood() - start.getNumberOfFood(); i++) {
-    // Food currentAdding = new Food();
-    // start.getObjectStorage().add(currentAdding);
-    // start.setNumberOfFood(start.getNumberOfFood() + 1);
-    // imagePutting(currentAdding);
-    // }
-    // for (int i = 0; i < start.getLimitOfType1Fish() -
-    // start.getNumberOfType1Fish(); i++) {
-    // Fishes currentAdding = new Fishes(Type.FishType1, 7, 1, 50);
-    // start.getObjectStorage().add(currentAdding);
-    // start.setNumberOfType1Fish(start.getNumberOfType1Fish() + 1);
-    // imagePutting(currentAdding);
-    // }
-    // for (int i = 0; i < start.getLimitOfType2Fish() -
-    // start.getNumberOfType2Fish(); i++) {
-    // Fishes currentAdding = new Fishes(Type.FishType2, 6, 2, 100);
-    // start.getObjectStorage().add(currentAdding);
-    // start.setNumberOfType2Fish(start.getNumberOfType2Fish() + 1);
-    // imagePutting(currentAdding);
-    // }
-    // for (int i = 0; i < start.getLimitOfType3Fish() -
-    // start.getNumberOfType3Fish(); i++) {
-    // Fishes currentAdding = new Fishes(Type.FishType3, 10, 3, 150);
-    // start.getObjectStorage().add(currentAdding);
-    // start.setNumberOfType3Fish(start.getNumberOfType3Fish() + 1);
-    // imagePutting(currentAdding);
-    // }
-    // for (int i = 0; i < start.getLimitOfPoisonFish() -
-    // start.getNumberOfPoisonFish(); i++) {
-    // Fishes currentAdding = new Fishes(Type.PoisonFish, 7, 1, 50);
-    // start.getObjectStorage().add(currentAdding);
-    // start.setNumberOfPoisonFish(start.getNumberOfPoisonFish() + 1);
-    // imagePutting(currentAdding);
-    // }
-    // }
-
-    // public void updataCollison() {
-    // start.getUser().updatePosition();
-    // for (AllObject current : start.getObjectStorage()) {
-    // current.updatePosition();
-    // }
-    // for (int a : start.Fishmeet()) {
-    // pane.getChildren().removeIf((i) -> Integer.parseInt(i.getId()) == a);
-    // }
-    // }
-
-    // public void imageflipAndDeleting() {
-    // // ArrayList<AllObject> removeobjs = new ArrayList<>();
-    // for (AllObject a : start.getObjectStorage()) {
-    // if (a.getX().get() < -400 || a.getY().get() < -200) {
-    // pane.getChildren().removeIf((removeobj) ->
-    // Integer.parseInt(removeobj.getId()) == a.getId());
-    // // removeobjs.add(a);
-    // Type curr = a.getType();
-    // if (curr == Type.Food) {
-    // start.setNumberOfFood(start.getNumberOfFood() - 1);
-    // } else if (curr == Type.FishType1) {
-    // start.setNumberOfType1Fish(start.getNumberOfType1Fish() - 1);
-    // } else if (curr == Type.FishType2) {
-    // start.setNumberOfType2Fish(start.getNumberOfType2Fish() - 1);
-    // } else if (curr == Type.FishType3) {
-    // start.setNumberOfType3Fish(start.getNumberOfType3Fish() - 1);
-    // } else if (curr == Type.PoisonFish) {
-    // start.setNumberOfPoisonFish(start.getNumberOfPoisonFish() - 1);
-    // }
-    // }
-    // // TODO: mine need to be here
-    // }
-    // start.getObjectStorage().remove(a);
-    // } else if (a instanceof Fishes) {
-    // for (int i = 0; i < pane.getChildren().size(); i++) {
-    // if (a.getId() == Integer.parseInt(pane.getChildren().get(i).getId())) {
-    // if (a.getDirection() > 90 && a.getDirection() < 270) {
-    // if (a.getType() == Type.FishType1) {
-    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish1l);
-    // } else if (a.getType() == Type.FishType2) {
-    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish2l);
-    // } else if (a.getType() == Type.FishType3) {
-    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish3l);
-    // } else if (a.getType() == Type.PoisonFish) {
-    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_PoisonFish);
-    // }
-    // } else {
-    // if (a.getType() == Type.FishType1) {
-    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish1r);
-    // } else if (a.getType() == Type.FishType2) {
-    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish2r);
-    // } else if (a.getType() == Type.FishType3) {
-    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_Fish3r);
-    // } else if (a.getType() == Type.PoisonFish) {
-    // ((ImageView) pane.getChildren().get(i)).setImage(IMG_PoisonFish);
-    // }
-    // }
-    // }
-    // }
-    // }
-    // }
-    // }
 
     @FXML
     public void isGameOver() {
@@ -392,8 +261,6 @@ public class GameWindow {
             image = new ImageView(IMG_Food);
             image.setFitHeight(25);
             image.setFitWidth(25);
-            // image.setRotationAxis(Rotate.Y_AXIS);
-            // image.setRotate(0);
         } else if (a.getType() == Type.FishType1) {
             if (a.getDirection() > 90 && a.getDirection() < 270) {
                 image = new ImageView(IMG_Fish1l);
@@ -402,8 +269,6 @@ public class GameWindow {
             }
             image.setFitHeight(50);
             image.setFitWidth(50);
-            // image.setRotationAxis(Rotate.Y_AXIS);
-            // image.setRotate(0);
         } else if (a.getType() == Type.FishType2) {
             if (a.getDirection() > 90 && a.getDirection() < 270) {
                 image = new ImageView(IMG_Fish2l);
@@ -412,8 +277,6 @@ public class GameWindow {
             }
             image.setFitHeight(80);
             image.setFitWidth(80);
-            // image.setRotationAxis(Rotate.Y_AXIS);
-            // image.setRotate(0);
         } else if (a.getType() == Type.FishType3) {
             if (a.getDirection() > 90 && a.getDirection() < 270) {
                 image = new ImageView(IMG_Fish3l);
@@ -422,20 +285,14 @@ public class GameWindow {
             }
             image.setFitHeight(110);
             image.setFitWidth(110);
-            // image.setRotationAxis(Rotate.Y_AXIS);
-            // image.setRotate(0);
         } else if (a.getType() == Type.Mine) {
             image = new ImageView(IMG_Mine);
             image.setFitHeight(35);
             image.setFitWidth(35);
-            // image.setRotationAxis(Rotate.Y_AXIS);
-            // image.setRotate(0);
         } else if (a.getType() == Type.PoisonFish) {
             image = new ImageView(IMG_PoisonFish);
             image.setFitHeight(50);
             image.setFitWidth(50);
-            // image.setRotationAxis(Rotate.Y_AXIS);
-            // image.setRotate(0);
         } else {
             image = new ImageView();
         }
@@ -444,22 +301,6 @@ public class GameWindow {
         image.setId("" + a.getId());
         pane.getChildren().add(image);
     }
-
-    // void sizeOfUserFishUpdata() {
-    // if (start.getUser().getImageSize() == 25) {
-    // ((ImageView) pane.getChildren().get(0)).setFitHeight(50);
-    // ((ImageView) pane.getChildren().get(0)).setFitWidth(50);
-    // } else if (start.getUser().getImageSize() == 40) {
-    // ((ImageView) pane.getChildren().get(0)).setFitHeight(80);
-    // ((ImageView) pane.getChildren().get(0)).setFitWidth(80);
-    // } else if (start.getUser().getImageSize() == 55) {
-    // ((ImageView) pane.getChildren().get(0)).setFitHeight(110);
-    // ((ImageView) pane.getChildren().get(0)).setFitWidth(110);
-    // } else if (start.getUser().getImageSize() == 70) {
-    // ((ImageView) pane.getChildren().get(0)).setFitHeight(140);
-    // ((ImageView) pane.getChildren().get(0)).setFitWidth(140);
-    // }
-    // }
 
     void updata() {
         // userfishimagechecking();
@@ -483,21 +324,4 @@ public class GameWindow {
     public static void setLoading() {
         amILoading = true;
     }
-
-    // void ImageChange(){
-    // ((ImageView) pane.getChildren().get(0)).setImage(swim_cycle1);
-    // }
-
-    // class RepaintThread implements Runnable{
-    // public void run() {
-    // while(true) {
-    // start.filpimage( (int id) -> {imageflip(id);});
-    // try {
-    // Thread.sleep(30);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
-    // }
 }

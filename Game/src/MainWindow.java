@@ -26,7 +26,7 @@ public class MainWindow {
         innerShadow.setOffsetX(4);
         innerShadow.setOffsetY(4);
         innerShadow.setColor(Color.web("black"));
-       
+
         title.setEffect(innerShadow);
         title.setText("fish.io");
         title.setTextFill(Color.color(0.2, .7, 1));
@@ -41,7 +41,6 @@ public class MainWindow {
 
         Scene scene = new Scene(loader.load());
 
-
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -63,11 +62,16 @@ public class MainWindow {
                         try {
                             GameWindow.onESCPress();
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
                         break;
                     case P:
-                        GameWindow.onPKeyPress();
+                        try {
+                            GameWindow.onPKeyPress();
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
                         break;
                     }
                     Userfish.facingDirection();
@@ -100,7 +104,6 @@ public class MainWindow {
         gameWindow.setScene(scene);
 
         gameWindow.show();
-
 
     }
 
@@ -113,7 +116,6 @@ public class MainWindow {
 
         Scene scene = new Scene(loader.load());
 
-
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -139,7 +141,12 @@ public class MainWindow {
                         }
                         break;
                     case P:
-                        GameWindow.onPKeyPress();
+                        try {
+                            GameWindow.onPKeyPress();
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
                         break;
                     }
                     Userfish.facingDirection();
@@ -171,9 +178,6 @@ public class MainWindow {
         });
         gameWindow.setScene(scene);
         gameWindow.show();
-
-
-
 
     }
 
@@ -188,8 +192,6 @@ public class MainWindow {
         HighScoresWindow.show();
 
     }
-
-
 
     @FXML
     void onHelpClicked(ActionEvent event) throws IOException {
