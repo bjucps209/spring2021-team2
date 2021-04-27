@@ -30,9 +30,21 @@ public class Food extends AllObject {
         int ran = rand.nextInt(2);
         int ran2 = rand.nextInt(3);
         if (ran == 0) {
-            this.speed -= ran2;
+            if (speed < 3) {
+                this.speed += ran2;
+            } else if (speed > 10) {
+                this.speed -= ran2;
+            } else {
+                this.speed -= ran2;
+            }
         } else {
-            this.speed += ran2;
+            if (speed < 3) {
+                this.speed += ran2;
+            } else if (speed > 11) {
+                this.speed -= ran2;
+            } else {
+                this.speed += ran2;
+            }
         }
     }
 
