@@ -56,8 +56,6 @@ public class Food extends AllObject {
         dataString += Integer.toString(x.get()) + "," + Integer.toString(y.get());
         dataString += ":";
         dataString += Integer.toString(direction);
-        dataString += ":";
-
         return dataString;
     }
 }

@@ -116,8 +116,15 @@ public class GameWindow {
     public void initialize() {
 
         if (isLoading) {
-            System.out.println("REEEEEEEEEEEEE!!!!!!!!!!!!!");
-            start = new FishGame(saveGame);
+            if (saveGame.exists() && saveGame.canRead()) {
+                start = new FishGame(saveGame);
+            }
+            
+            else {
+                Alert loadError = new Alert(AlertType.WARNING, "There are no save games to load");
+                loadError.show();
+            }
+            
         } else {
             // start = new FishGame(1, 1, 0, 1, 1, 1, 1);
 
