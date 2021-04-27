@@ -26,6 +26,8 @@ public class FishGame {
     // userfish
     Userfish user;
 
+    boolean pause = false;
+
     static IntegerProperty life;
     static IntegerProperty points;
     static IntegerProperty health;
@@ -171,65 +173,21 @@ public class FishGame {
             numberOfFood += 1;
         }
         for (int i = 0; i < limitOfType1Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 25));
+            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 24));
             numberOfType1Fish += 1;
         }
         for (int i = 0; i < limitOfType2Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 40));
+            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 38));
             numberOfType2Fish += 1;
         }
         for (int i = 0; i < limitOfType3Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 55));
+            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 51));
             numberOfType3Fish += 1;
         }
         for (int i = 0; i < limitOfPoisonFish; i++) {
-            objectStorage.add(new Fishes(Type.PoisonFish, 4, 1, 25));
+            objectStorage.add(new Fishes(Type.PoisonFish, 4, 1, 24));
             numberOfPoisonFish += 1;
         }
-        new Thread(() -> updata()).start();
-        new Thread(() -> updataEach3seconds()).start();
-        new Thread(() -> collisonHandler()).start();
-    }
-
-    // from x and y we know image position, from image size we know how much it
-    // covers
-    // x and y + size x size we can get the area of fish that other fish can't
-    // touches.
-    // remind and undeterming, size of the fish will be grow, we need careful about
-    // this.
-    public ArrayList<Integer> Fishmeet() {
-        ArrayList<Integer> idToRemove = new ArrayList<Integer>();
-        ArrayList<AllObject> removeList = new ArrayList<>();
-        for (int i = 0; i < objectStorage.size(); i++) {
-            for (int o = 0; o < objectStorage.size(); o++) {
-                if (i != o) {
-                    if (FishGame.circleChecking(objectStorage.get(i).drawCircle(),
-                            objectStorage.get(o).drawCircle()) != -1) {
-                        if (situationHandle(objectStorage.get(i), objectStorage.get(o)).length != 0) {
-                            for (AllObject a : situationHandle(objectStorage.get(i), objectStorage.get(o))) {
-                                idToRemove.add(a.getId());
-                                removeList.add(a);
-                                if ((a.getType() == Type.Food)) {
-                                    numberOfFood -= 1;
-                                } else if ((a.getType() == Type.FishType1)) {
-                                    numberOfType1Fish -= 1;
-                                } else if ((a.getType() == Type.FishType2)) {
-                                    numberOfType2Fish -= 1;
-                                } else if ((a.getType() == Type.FishType3)) {
-                                    numberOfType3Fish -= 1;
-                                } else if (a.getType() == Type.PoisonFish) {
-                                    numberOfPoisonFish -= 1;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        for (AllObject needRmove : removeList) {
-            objectStorage.remove(needRmove);
-        }
-        return idToRemove;
     }
 
     public void userfishcollision() {
@@ -333,19 +291,20 @@ public class FishGame {
     }
 
     public void increaseSizeChecker() {
-        if (FishGame.points.get() > 40 && user.getSize() == 3) {
+        if (FishGame.points.get() > 80 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
-            isGameOver = true;
-        } else if (FishGame.points.get() > 20 && user.getSize() == 3) {
+        } else if (FishGame.points.get() > 40 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
-        } else if (FishGame.points.get() > 10 && user.getSize() == 2) {
+        } else if (FishGame.points.get() > 20 && user.getSize() == 2) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
         } else if (FishGame.points.get() > 5 && user.getSize() == 1) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+        } else if (FishGame.points.get() > 100) {
+            isGameOver = true;
         }
     }
 
@@ -369,6 +328,17 @@ public class FishGame {
     // block the area that fish can't go cross, will not use in early level,
     // lt can work on later of the project.
     public void blockingArea() {
+    }
+
+    public void mineImport() {
+        while (!pause) {
+            objectStorage.add(new Mine());
+            try {
+                Thread.sleep(6000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void add(AllObject a) {
@@ -399,7 +369,7 @@ public class FishGame {
     }
 
     public void updata() {
-        while (true) {
+        while (!pause) {
             user.updatePosition();
             for (AllObject a : objectStorage) {
                 a.updatePosition();
@@ -413,7 +383,7 @@ public class FishGame {
     }
 
     public void collisonHandler() {
-        while (true) {
+        while (!pause) {
             userfishcollision();
             try {
                 Thread.sleep(30);
@@ -461,7 +431,7 @@ public class FishGame {
     }
 
     public void updataEach3seconds() {
-        while (true) {
+        while (!pause) {
             updatanum();
             updataDS();
             try {
@@ -471,7 +441,6 @@ public class FishGame {
                 e.printStackTrace();
             }
         }
-
     }
 
     // load and save, I don't know yet
@@ -494,6 +463,14 @@ public class FishGame {
         } catch (Exception e) {
             throw new Exception("Save crashed in FishGame.java");
         }
+    }
+
+    public void pause() {
+        this.pause = true;
+    }
+
+    public void continous() {
+        this.pause = false;
     }
 
     // all getters and setters

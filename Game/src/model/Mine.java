@@ -6,15 +6,16 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 
 //For this class it might not useful for current usage, but will be usefull for later level
-public class Mine extends AllObject{
+public class Mine extends AllObject {
 
-    Type type = Type.Mine;
-    
-    Mine(){
-        this.speed = 10;
-        this.size = 1;
-        this.direction = 270;
-        this.imageSize = 31;
+    Type type;
+
+    Mine() {
+        type = Type.Mine;
+        this.speed = 7;
+        this.size = 0;
+        this.direction = 90;
+        this.imageSize = 17;
         var rand = new Random();
         int xUse = rand.nextInt(1000);
         x = new SimpleIntegerProperty(xUse);
@@ -22,21 +23,21 @@ public class Mine extends AllObject{
         id = FishGame.id;
         FishGame.id += 1;
     }
-    
-    //falling change moving speed
+
+    // falling change moving speed
     @Override
     public void ChangeSpeedAndDirection() {
         var rand = new Random();
         int ran = rand.nextInt(2);
         int ran2 = rand.nextInt(3);
-        if(ran == 0){
+        if (ran == 0) {
             this.speed -= ran2;
-        }else{
+        } else {
             this.speed += ran2;
         }
     }
 
-    //TODO: figure out how mine serializatoin works
+    // TODO: figure out how mine serializatoin works
     @Override
     public String serialize() {
         String dataString = "";
@@ -46,7 +47,7 @@ public class Mine extends AllObject{
         dataString += ":";
         dataString += Integer.toString(direction);
         dataString += ":";
-         
+
         return dataString;
     }
 }
