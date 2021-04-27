@@ -238,12 +238,6 @@ public class FishGame {
             }
         }
         increaseSizeChecker();
-        try {
-            Thread.sleep(30);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     public static int circleChecking(int[] circle1, int[] circle2) {
@@ -331,14 +325,7 @@ public class FishGame {
     }
 
     public void mineImport() {
-        while (!pause) {
-            objectStorage.add(new Mine());
-            try {
-                Thread.sleep(6000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        objectStorage.add(new Mine());
     }
 
     public void add(AllObject a) {
@@ -369,16 +356,9 @@ public class FishGame {
     }
 
     public void updata() {
-        while (!pause) {
-            user.updatePosition();
-            for (AllObject a : objectStorage) {
-                a.updatePosition();
-            }
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        user.updatePosition();
+        for (AllObject a : objectStorage) {
+            a.updatePosition();
         }
     }
 
@@ -430,6 +410,28 @@ public class FishGame {
         }
     }
 
+    public void updataMine() {
+        while (!pause) {
+            mineImport();
+            try {
+                Thread.sleep(6000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updataEveryseocnds() {
+        while (!pause) {
+            updata();
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void updataEach3seconds() {
         while (!pause) {
             updatanum();
@@ -437,7 +439,6 @@ public class FishGame {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

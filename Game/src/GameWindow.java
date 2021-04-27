@@ -165,10 +165,10 @@ public class GameWindow {
         image.setId("" + start.getUser().getId());
         pane.getChildren().add(image);
 
-        thread1 = new Thread(() -> start.updata());
+        thread1 = new Thread(() -> start.updataEveryseocnds());
         thread2 = new Thread(() -> start.updataEach3seconds());
         thread3 = new Thread(() -> start.collisonHandler());
-        thread4 = new Thread(() -> start.mineImport());
+        thread4 = new Thread(() -> start.updataMine());
 
         thread1.start();
         thread2.start();
