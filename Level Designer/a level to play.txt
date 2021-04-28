@@ -1,4 +1,0 @@
-L a level to play,/images/ocean.png,42,1 
-Type 1,290,306
-Concrete,182,187
-algae,562,188

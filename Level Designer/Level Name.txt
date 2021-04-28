@@ -1,5 +1,0 @@
-L Level Name,/images/ocean.png,1,0 
-OConcrete,292,132
-OConcrete,496,143
-OAlgae,174,83
-OKelp,151,283

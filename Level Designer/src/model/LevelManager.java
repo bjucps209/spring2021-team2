@@ -1,4 +1,11 @@
+/*
+LevelManager.java
+Level Manager functions as the manager for the levels. It has the save and load methods that Main Window
+makes use of. to load and save the objects.
+
+*/
 package model;
+
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -66,7 +73,7 @@ public class LevelManager {
 
       }
       else if((line.charAt(0)=='O')){
-          System.out.println("object");
+      
         String object=line.substring(1,line.length());
       
          
@@ -74,9 +81,9 @@ public class LevelManager {
          String[] objDetails=object.split(",");
          String objtype=objDetails[0];
          int objx=Integer.parseInt(objDetails[1]);
+        
          int objy=Integer.parseInt(objDetails[2]);
-         System.out.println(objtype);
-         
+        
         if(objtype.contains("Fish")){
            
             Fish fish=new Fish(objtype, false,objx,objy);
@@ -94,7 +101,6 @@ public class LevelManager {
 
         
     }else if(objtype.contains("Algae") || objtype.contains("Kelp")) {
-        System.out.println("F");
         Food food=new Food(objtype, false,objx,objy);
         level.objects.add(food);
 
@@ -116,6 +122,11 @@ public class LevelManager {
  return level;
 }
     }
+    /**
+     * Save
+     * @param GameLevel level
+     * Takes in a level and converts into a text file for loading either into the game or the loader 
+     */
     
     public void save(GameLevel level) throws FileNotFoundException {
         try{
@@ -132,7 +143,7 @@ public class LevelManager {
                
                 for(AllObject obj: level.objects){
                 save+="O"+obj.getType()+ ","+obj.getX()+","+obj.getY()+"\n";
-                //rewrite this 4/18^
+              
 
                 }
                 writer.writeBytes(save);

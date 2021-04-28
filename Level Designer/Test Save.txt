@@ -1,2 +1,0 @@
-L Test Save,/images/ocean.png,1,0 
-OFish Type 1,109,46

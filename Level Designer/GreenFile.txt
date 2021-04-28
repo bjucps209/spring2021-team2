@@ -1,2 +1,0 @@
-L GreenFile,/images/ocean.png,0,0 
-Concrete,240,418
