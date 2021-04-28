@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import model.Userfish;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -21,6 +22,9 @@ public class MainWindow {
     @FXML
     Label title;
 
+    @FXML
+    VBox buttons;
+
     public void initialize() {
         InnerShadow innerShadow = new InnerShadow();
         innerShadow.setOffsetX(4);
@@ -30,7 +34,7 @@ public class MainWindow {
         title.setEffect(innerShadow);
         title.setText("fish.io");
         title.setTextFill(Color.color(0.2, .7, 1));
-        title.setFont(Font.font("Verdana", FontWeight.BOLD, 55));
+        title.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
     }
 
     @FXML
