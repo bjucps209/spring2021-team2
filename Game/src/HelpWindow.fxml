@@ -4,10 +4,12 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="HelpWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
-    spacing="10" prefHeight="700" prefWidth="700">
+    spacing="10" prefHeight="450" prefWidth="700">
 
-    <VBox alignment="CENTER" prefHeight="700" style="-fx-background-color:white">
-        <Label text="" fx:id="helpLabel" /> 
+    <VBox prefHeight="450" style="-fx-background-color:white">
+        <HBox fx:id="howToPlay" alignment="CENTER">
+            <Label text="" fx:id="helpLabel" /> 
+        </HBox>
 
         <VBox fx:id="help">
             <Label fx:id="one" text="1) To play the game, you may use either your mouse or the W, A, S, D to control the moving direction." />
@@ -16,6 +18,17 @@
             <Label fx:id="four" text="4) If you are the biggest fish, you will move on to the next level." />
             <Label fx:id="five" text="5) There are three levels. Each level progresses to be more difficult than the previous level." />
         </VBox>
+
+        <VBox fx:id="creditBox">
+            <Label text="CREDITS" fx:id="credits"/>
+                <Label text="   Designers:" fx:id="designers"/>
+                    <Label text="       Blake Alexander" />
+                    <Label text="       Gunnar Funderburg" />
+                    <Label text="       Patrick Menking" />
+                    <Label text="       Shubin Yuan" />
+                <Label text="   Sources:" fx:id="sources"/>
+        </VBox>
+
 
 
     </VBox>

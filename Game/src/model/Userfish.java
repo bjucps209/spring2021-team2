@@ -17,8 +17,8 @@ public class Userfish extends Fishes {
 
     Userfish(Type objType, int speed, int size, int imageSize) {
         super(objType, speed, size, imageSize);
-        this.x = new SimpleIntegerProperty(450);
-        this.y = new SimpleIntegerProperty(300);
+        this.x = new SimpleIntegerProperty(615);
+        this.y = new SimpleIntegerProperty(180);
         setInitialDirection(0);
         setDirection(0);
 
@@ -66,8 +66,7 @@ public class Userfish extends Fishes {
     public void Usereat(AllObject a) {
         if (a.getType() == Type.PoisonFish || a.getType() == Type.Mine) {
             FishGame.setLife(FishGame.getlife().get() - 1);
-            FishGame.health = new SimpleIntegerProperty(5);
-            stateOfLosingLifeHandle();
+            FishGame.setHealth(FishGame.getHealth().get() - 5);
             // TODO: user fish need to show some thing to user if he lose a life.
         } else if ((a instanceof Fishes) && (a.getType() != Type.PoisonFish) || (a.getType() == Type.Food)) {
             if (a.getType() == Type.Food) {
@@ -83,164 +82,51 @@ public class Userfish extends Fishes {
     }
 
     public void stateOfLosingLifeHandle() {
-        this.getX().set(450);
-        this.getX().set(300);
-        stateOflosingLife = true;
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-
-            e.printStackTrace();
+        this.getX().set(615);
+        this.getY().set(180);
+        for (int i = 0; i < 10; i++) {
+            stateOflosingLife = true;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            stateOflosingLife = false;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        stateOflosingLife = false;
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-
-            e.printStackTrace();
-        }
-        stateOflosingLife = true;
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        stateOflosingLife = false;
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        stateOflosingLife = true;
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        stateOflosingLife = false;
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        stateOflosingLife = true;
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        stateOflosingLife = false;
     }
 
     public void stateOfLosingHealthHandle() {
         if (FishGame.getHealth().get() > 0) {
-            stateOfLosingHealth = true;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-
-                e.printStackTrace();
+            for (int i = 0; i < 10; i++) {
+                stateOfLosingHealth = true;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                stateOfLosingHealth = false;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            stateOfLosingHealth = false;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = true;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = false;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = true;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = false;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = true;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = false;
         }
     }
 
-    public void beeaten(AllObject a) {
+    public boolean beeaten(AllObject a) {
         FishGame.setHealth(FishGame.getHealth().get() - (a.getSize() - size));
-        stateOfLosingHealthHandle();
+        return true;
     }
 
-    public void sameSize() {
+    public boolean sameSize() {
         FishGame.setHealth(FishGame.getHealth().get() - 1);
-        if (FishGame.getHealth().get() > 0) {
-            stateOfLosingHealth = true;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = false;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = true;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = false;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = true;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = false;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = true;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            stateOfLosingHealth = false;
-        }
+        return true;
     }
 
     // if up press and down press do nothing
@@ -266,7 +152,6 @@ public class Userfish extends Fishes {
         } else {
             direction = Direction.STOP;
         }
-
     }
 
     public static void setDirectionenum(Direction direction) {

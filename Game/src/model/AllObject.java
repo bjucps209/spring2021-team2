@@ -3,8 +3,9 @@ package model;
 import javafx.beans.property.IntegerProperty;
 
 public class AllObject {
-    
-    //from class we learn this week those variable may change to intproperty in oder to bind
+
+    // from class we learn this week those variable may change to intproperty in
+    // oder to bind
     IntegerProperty x;
     IntegerProperty y;
     int speed;
@@ -29,16 +30,17 @@ public class AllObject {
         this.id = id;
     }
 
-    int imageSize = 115;
+    int imageSize;
 
     Type objtype;
 
-    AllObject(){
+    AllObject() {
         ;
     }
 
-    //override by chrildren
-    public void ChangeSpeedAndDirection() {}
+    // override by chrildren
+    public void ChangeSpeedAndDirection() {
+    }
 
     public String serialize() throws Exception {
         throw new Exception("Method cannot serialize");
@@ -48,24 +50,43 @@ public class AllObject {
         return this.objtype;
     }
 
-    public void setType(Type objtype){
+    public void setType(Type objtype) {
         this.objtype = objtype;
     }
 
     public void updatePosition() {
-        int xpostion = (int) (x.get()+(speed * Math.cos(direction * Math.PI / 180)));
-        int ypostion = (int) (y.get()+(speed * Math.sin(direction * Math.PI / 180)));
+        int xpostion = (int) (x.get() + (speed * Math.cos(direction * Math.PI / 180)));
+        int ypostion = (int) (y.get() + (speed * Math.sin(direction * Math.PI / 180)));
         x.set(xpostion);
         y.set(ypostion);
 
     }
 
-    public int[] drawCircle(){
+    public int[] drawCircle() {
         int[] circle = new int[3];
-        circle[0] = (x.get()+imageSize)/2;
-        circle[1] = (y.get()+imageSize)/2;
-        circle[2] = imageSize/2;
+        if (size == 1 || size == 0) {
+            circle[0] = ((x.get() + imageSize) / 2);
+            circle[1] = ((y.get() + imageSize) / 2);
+            circle[2] = imageSize / 2;
+        } else if (size == 2) {
+            circle[0] = ((x.get() + imageSize) / 2) + 3;
+            circle[1] = ((y.get() + imageSize) / 2) + 3;
+            circle[2] = imageSize / 2;
+        } else if (size == 3) {
+            circle[0] = ((x.get() + imageSize) / 2) + 7;
+            circle[1] = ((y.get() + imageSize) / 2) + 7;
+            circle[2] = imageSize / 2;
+        } else if (size == 4) {
+            circle[0] = ((x.get() + imageSize) / 2) + 15;
+            circle[1] = ((y.get() + imageSize) / 2) + 15;
+            circle[2] = imageSize / 2;
+        } else if (size == 5) {
+            circle[0] = ((x.get() + imageSize) / 2) + 25;
+            circle[1] = ((y.get() + imageSize) / 2) + 25;
+            circle[2] = imageSize / 2;
+        }
         return circle;
+
     }
 
     public int getImageSize() {
@@ -108,5 +129,4 @@ public class AllObject {
         this.direction = direction;
     }
 
-    
 }
