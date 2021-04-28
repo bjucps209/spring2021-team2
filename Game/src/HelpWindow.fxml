@@ -6,7 +6,7 @@
 <VBox fx:controller="HelpWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
     spacing="10" prefHeight="450" prefWidth="700">
 
-    <VBox prefHeight="450" style="-fx-background-color:white">
+    <VBox prefHeight="450" style="-fx-background-color:rgba(255, 255, 255, 0.85)">
         <HBox fx:id="howToPlay" alignment="CENTER">
             <Label text="" fx:id="helpLabel" /> 
         </HBox>
