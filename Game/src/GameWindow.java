@@ -28,10 +28,12 @@ import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 import model.*;
+import HighScores.*;
 
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.List;
@@ -184,7 +186,14 @@ public class GameWindow implements GameOverEvent {
         image.setId("" + start.getUser().getId());
         pane.getChildren().add(image);
 
-        KeyFrame timerF1 = new KeyFrame(Duration.millis(30), e -> updata());
+        KeyFrame timerF1 = new KeyFrame(Duration.millis(30), e -> {
+            try {
+                updata();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
         timer1 = new Timeline(timerF1);
         timer1.setCycleCount(-1);
         timer1.play();
@@ -326,7 +335,7 @@ public class GameWindow implements GameOverEvent {
         pane.getChildren().add(image);
     }
 
-    void updata() {
+    void updata() throws IOException {
         // userfishimagechecking();
         start.updata();
         start.userFishOutOfScreenChecker();
@@ -362,6 +371,10 @@ public class GameWindow implements GameOverEvent {
         health.setText(String.valueOf(start.getHealth().get()));
         if (isGameOver) {
             imageputtingGameOver();
+            HighScoreManager man = new HighScoreManager();
+            man.load();
+            man.addScore(new HighScore(start.name, start.getPoints().get()));
+            man.save();
             point.setText(String.valueOf(start.getPoints().get()));
             life.setText(String.valueOf(0));
             health.setText(String.valueOf(0));

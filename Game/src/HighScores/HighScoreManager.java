@@ -41,7 +41,7 @@ public class HighScoreManager {
             FileWriter fw = new FileWriter("highscores.txt", false);
             for (int i = 0; i < allScores.size(); i++) {
                 String stringScore = allScores.get(i).stringer();
-                fw.write(stringScore);
+                fw.write(stringScore + "\n");
             }
             fw.flush();
             fw.close();
