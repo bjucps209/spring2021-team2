@@ -114,6 +114,8 @@ public class GameWindow implements GameOverEvent {
     static boolean isPaused = false;
     boolean isinblinkstate = false;
 
+    boolean isGameOver = false;
+
     long timercount = 0;
     long imageblinkCount = 0;
     // boolean GameOver = false;
@@ -121,9 +123,6 @@ public class GameWindow implements GameOverEvent {
     Image currentuserUsing;
 
     public void initialize() throws Exception {
-
-        
-        
 
         if (isLoading) {
             if (saveGame.exists() && saveGame.canRead()) {
@@ -355,7 +354,9 @@ public class GameWindow implements GameOverEvent {
         point.setText(String.valueOf(start.getPoints().get()));
         life.setText(String.valueOf(start.getlife().get()));
         health.setText(String.valueOf(start.getHealth().get()));
-        System.out.println("" + isinblinkstate);
+        if (isGameOver) {
+            imageputtingGameOver();
+        }
     }
 
     void imageblink() {
@@ -375,10 +376,15 @@ public class GameWindow implements GameOverEvent {
     }
 
     @FXML
+    void imageputtingGameOver() {
+        ImageView image = new ImageView(GameOver);
+        image.relocate(283, 0);
+        pane.getChildren().add(image);
+    }
+
     @Override
     public void gameOver() {
         timer1.stop();
-        ImageView gameover = new ImageView(User_fishl);
-        pane.getChildren().add(gameover);
+        isGameOver = true;
     }
 }
