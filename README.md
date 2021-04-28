@@ -6,15 +6,10 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 
 ## Issues
 
-* High Scores does not take from the txt file and show it into the GUI yet
-* Model - points did not show on the screen
-* Model - When bigger fish touches user fish, health or life do minus but it keep minusing every second.
-* Model - Not action happens when bigger fish eat small fish.
 * Model - tracker do not works.
 * Model - auto import fish have small problem.
 * Model - no game end events.
 * Model - cheat model do not work.
-* Model - side or userfish all increase size at background, but do not increase at GUI.
 
 ## Screen Recording Link
 
