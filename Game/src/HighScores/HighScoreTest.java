@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 import org.junit.Test;
 
 public class HighScoreTest {
+
+    //tests adding scores and making sure they are in the correct order
     @Test
     public void testaddScore_TestAddingScore_ResultCorrect() throws IOException {
         HighScoreManager score = new HighScoreManager();
@@ -34,6 +36,7 @@ public class HighScoreTest {
         assertTrue(f.exists() && !f.isDirectory());
     }
 
+    //tests the load feature of high scores to make sure it correctly reads from the txt file
     @Test
     public void testLoad_TestFileExists_ResultLoadData() throws IOException {
         HighScoreManager score = new HighScoreManager();
@@ -47,7 +50,7 @@ public class HighScoreTest {
         
         FileWriter fw = new FileWriter("highscores.txt", false);
 
-        // write test data to file using fw
+        // writes test data to file using fw
         fw.write("Bob 150");
         fw.flush();
 
@@ -58,6 +61,7 @@ public class HighScoreTest {
 
     }
 
+    //tests the save feature of high scores to make sure the scores save with the correct name properly
     @Test
     public void testSave_TestScore_Result() {
         HighScoreManager score = new HighScoreManager();
