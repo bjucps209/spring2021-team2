@@ -11,14 +11,14 @@
 }
 
 :flash-highlight{
-    -fx-background-color:rgb(0, 0, 0);
+    -fx-background-color:rgb(0, 0, 0)
 }
 
 Button{
     -fx-padding: 10 15 10 15;
     -fx-font-family: 'Helvetica', Arial, sans-serif;
-    -fx-background-color:rgba(61, 155, 209, 0.808);
+    -fx-background-color:rgba(157, 212, 247, 0.808);
     -fx-text-fill: black;
-    -fx-text-effect: bold;
+    -fx-font-weight: bold;
 }
 
