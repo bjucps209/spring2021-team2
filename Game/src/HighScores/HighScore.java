@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   HighScore.java
+//Desc:   High Scores class holds variables for name and score, including getters and setters as well
+//-----------------------------------------------------------
+
 package HighScores;
 
 public class HighScore {

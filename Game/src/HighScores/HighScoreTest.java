@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   HighScoreTest.java
+//Desc:   This file includes all the tests to ensure High Scores section is properly working
+//-----------------------------------------------------------
+
+
 package HighScores;
 
 import static org.junit.Assert.assertEquals;
