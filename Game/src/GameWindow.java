@@ -113,7 +113,7 @@ public class GameWindow {
 
     Image current;
 
-    public void initialize() {
+    public void initialize() throws Exception {
 
         if (isLoading) {
             if (saveGame.exists() && saveGame.canRead()) {
@@ -121,7 +121,7 @@ public class GameWindow {
             }
             
             else {
-                Alert loadError = new Alert(AlertType.WARNING, "There are no save games to load");
+                Alert loadError = new Alert(AlertType.ERROR, "There are no save games to load");
                 loadError.show();
             }
             
@@ -194,17 +194,20 @@ public class GameWindow {
     // ESC key
     public static void onPKeyPress() throws InterruptedException {
         if (isPaused == true) {
-            start.continous();
-            timer1.play();
-            isPaused = false;
-            System.out.println("Game is unpaused");
+                start.continous();
+                timer1.play();
+                isPaused = false;
+                System.out.println("Game is unpaused");
+          
+            
         }
 
         else if (isPaused == false) {
-            timer1.pause();
             start.pause();
+            timer1.pause();
             isPaused = true;
             System.out.println("Game is paused");
+            
         }
     }
 

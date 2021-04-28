@@ -71,6 +71,7 @@ public class HighScoreManager {
         return allScores;
     }
 
+    //converts score into a integer and adds it to the variables in the HighScore class
     public String lowStringer(String lowString) {
         String[] lowScore = lowString.split(" ");
         HighScore hs = new HighScore(lowScore[0], Integer.parseInt(lowScore[1]));

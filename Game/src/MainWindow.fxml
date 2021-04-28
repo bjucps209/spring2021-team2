@@ -8,12 +8,12 @@
     
     <Label fx:id="title" text=""/>
 
-    <Button onAction="#onStartClicked" text="Start" alignment = "CENTER"/>
-    <Button onAction="#onHighScoresClicked" text="High Scores"  alignment = "CENTER"/>
+    <Button onAction="#onStartClicked" text="Start" alignment = "CENTER" prefWidth="150" />
+    <Button onAction="#onHighScoresClicked" text="High Scores"  alignment = "CENTER" prefWidth="150"/>
 
-    <Button onAction="#onLoadClicked" text="Load" alignment="CENTER" />
+    <Button onAction="#onLoadClicked" text="Load" alignment="CENTER" prefWidth="150"/>
 
-    <Button onAction="#onHelpClicked" text="Help"  alignment = "CENTER"/>
+    <Button onAction="#onHelpClicked" text="Help" alignment = "CENTER" prefWidth="150"/>
 
 
 </VBox>

@@ -7,20 +7,21 @@
 <VBox fx:controller="HighScoresWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
     spacing="10" prefHeight="470" prefWidth="500" alignment="CENTER">
 
-    <VBox alignment="CENTER" prefHeight="460" style="-fx-background-color:#97D1EA">
+    <VBox prefHeight="460" style="-fx-background-color:rgba(255, 255, 255, 0.85)">
+        <HBox alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+            <Label text="" fx:id="hiScore" />
+        </HBox>
 
-        <Label text="" fx:id="hiScore" />
-
-        <HBox alignment="CENTER">
-            <VBox style="-fx-padding: 10" fx:id="rank" >
+        <HBox alignment="CENTER" prefWidth="400" style="-fx-padding: 8 0 0 0;">
+            <VBox style="-fx-padding: 10; -fx-font: 14pt Arial;" fx:id="rank" alignment="CENTER">
                 <Label text="Rank" />
             </VBox>
 
-            <VBox style="-fx-padding: 10" fx:id="name">
+            <VBox style="-fx-padding: 10; -fx-font: 14pt Arial;" fx:id="name" alignment="CENTER">
                 <Label text="Name" />
             </VBox>
 
-            <VBox style="-fx-padding: 10" fx:id="score">
+            <VBox style="-fx-padding: 10; -fx-font: 14pt Arial;" fx:id="score" alignment="CENTER">
                 <Label text="Points" />
             </VBox>
         </HBox>

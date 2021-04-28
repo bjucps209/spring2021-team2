@@ -1,3 +1,10 @@
-James 250
 Bob 150
-Jerry 75
+Jerry 149
+Him 148
+Her 147
+Robert 145
+Blake 130
+Peyton 125
+Jerry 120
+Mom 100
+Jeff 95

@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -37,6 +38,9 @@ public class HighScoresWindow {
     @FXML
     Label hiScore;
 
+    // @FXML
+    // HBox horizontal;
+
     public void initialize() {
         // BackgroundFill backgroundFill = new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY);
         // Background background = new Background(backgroundFill);
@@ -58,7 +62,7 @@ public class HighScoresWindow {
         for (int i = 0; i < scores.getAllScores().size(); i++) {
             HighScore currentScore = scores.getAllScores().get(i);
             count++;
-            Label lblRank = new Label(count + ")");
+            Label lblRank = new Label(count + "");
             rank.getChildren().add(lblRank);
             Label lblName = new Label(currentScore.getName());
             name.getChildren().add(lblName);
