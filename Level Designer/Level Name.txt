@@ -1,0 +1,7 @@
+L Level Name,/images/ocean.png,1,0 
+OFish Type 0,0,0
+OFish Type 2,204,92
+OFish Type 0,127,236
+OFish Type 2,4,285
+OFish Type 4,431,44
+OFish Type 3,272,54

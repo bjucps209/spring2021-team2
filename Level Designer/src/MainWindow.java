@@ -100,7 +100,7 @@ public class MainWindow {
         // BACKGROUND MUSIC
         AudioClip music = new AudioClip(Paths.get("music.mp3").toUri().toString());
         music.setCycleCount(Timeline.INDEFINITE);
-        music.play();
+    // music.play();
 
         // FLIP
         Image flipimg = new Image("images/flip.jpg");
@@ -189,10 +189,11 @@ public class MainWindow {
                 if (Files.isDirectory(e) == false) {
                     if (e.getFileName().toString().contains("flip") == false) {
                         String filenamewithextension = e.getFileName().toString();
+                        System.out.println(filenamewithextension);
                         String filenamewithoutextension = filenamewithextension.substring(0,
                                 filenamewithextension.lastIndexOf("."));
                         String filenamewithnumber = filenamewithoutextension.substring(
-                                filenamewithoutextension.lastIndexOf(".png") + 4, filenamewithoutextension.length());
+                                filenamewithoutextension.lastIndexOf(".gif") + 4, filenamewithoutextension.length());
                         int filenumber;
                                 
                         try {
@@ -206,6 +207,7 @@ public class MainWindow {
                         //This capatalizes the fish names by taking out the first character and capataliazing it, ensuring the rest of the string is lowercase and then combining the two fragments into
                         //a capatalized word.
                         String filename = filenamewithnumber.substring(1, 2).toUpperCase()+ filenamewithnumber.substring(2, filenamewithnumber.length()).toLowerCase();
+
                         fishTypes.add(filename);
 
                         
@@ -318,21 +320,31 @@ public class MainWindow {
     void onFlipClicked(ActionEvent e) {
         if (Objects.isNull(selected) == false) {
             ImageView img = (ImageView) selected;
-            // add if fish logic to put the flip is true
+            
 
             String filename = img.getImage().getUrl();
 
-            if (filename.contains("flip") == false) {
-                String filewithoutExtension = filename.substring(0, filename.lastIndexOf(".png"));
+            if(filename.contains("Fish")){
 
-                Image flippedimage = new Image(filewithoutExtension + "flip.png");
+            if (filename.contains("flipped") == false) {
+                String filewithoutExtension = filename.substring(0, filename.lastIndexOf(".gif"));
+
+                Image flippedimage = new Image(filewithoutExtension + "flipped.gif");
                 img.setImage(flippedimage);
 
             } else {
-                String filewithoutflip = filename.substring(0, filename.lastIndexOf("flip.png"));
+                String filewithoutflip = filename.substring(0, filename.lastIndexOf("flipped.gif"));
 
-                Image flippedimage = new Image(filewithoutflip + ".png");
+                Image flippedimage = new Image(filewithoutflip + ".gif");
+                System.out.println("Filename");
+                System.out.println(filewithoutflip);
                 img.setImage(flippedimage);
+
+            }
+            }else{
+                var alert = new Alert(AlertType.WARNING, "Non-Fish may not be flipped!");
+                alert.setHeaderText(null);
+                alert.show();
 
             }
         }
@@ -352,7 +364,7 @@ public class MainWindow {
             Fish fish = new Fish("Fish Type " + String.valueOf(filenumber), false, x, y);
 
             final Image fishImage = new Image(
-                    String.format("/images/Fish/Fishhudimage.png%s%s.png", filenumberString, filename));
+                    String.format("/images/Fish/fish.gif%s%s.gif", filenumberString, filename));
             if (!b) {
                 currentState.getObjects().add(fish);
             }
@@ -643,17 +655,41 @@ public class MainWindow {
             node.getScene().setCursor(Cursor.MOVE);
         });
         node.setOnMouseDragged(me -> {
-            if (node.getLayoutX() < 750 && node.getLayoutY() < 450 && node.getLayoutY() > -20
-                    && node.getLayoutX() > 0) {
+            if (node.getLayoutX() < 750 && node.getLayoutY() < 450 && node.getLayoutY() >= -40
+                    && node.getLayoutX() >= -20) {
 
                 node.setLayoutX(node.getLayoutX() + me.getX() - dragDelta.x);
                 node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
 
             } else {
+                if(node.getLayoutX()>=750){
+                node.setLayoutX(node.getLayoutX() -50);
+                var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
+                alert.setHeaderText(null);
+                alert.show();
 
-               // node.setLayoutX((int) ((Math.random() * (700 - 10)) + 10));
-               // node.setLayoutY((int) ((Math.random() * (450 + 20)) - 20));
 
+                }
+                if(node.getLayoutX()>=-20){
+                    node.setLayoutX(node.getLayoutX() + 50);
+                    var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
+                    alert.setHeaderText(null);
+                    alert.show();
+    
+    
+                    }
+                    if(node.getLayoutY()>=450){
+                        node.setLayoutY(node.getLayoutY() -50);
+                        var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
+                        alert.setHeaderText(null);
+                        alert.show();
+        
+        
+                        }
+                node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
+
+
+               
             }
            
             AllObject object = (AllObject) node.getUserData();
