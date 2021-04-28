@@ -1,3 +1,0 @@
-L Two Objects,/images/ocean.png,1,0 
-OConcrete,228,106
-ORock,214,242
