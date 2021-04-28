@@ -1,5 +1,6 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.Animation.Status;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -50,7 +51,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-public class GameWindow {
+public class GameWindow implements GameOverEvent {
 
     final Image User_fishl = new Image("/FishPicture/Fish/userfish_left.gif");
     final Image User_fishr = new Image("/FishPicture/Fish/userfish_right.gif");
@@ -63,6 +64,7 @@ public class GameWindow {
     final Image IMG_Food = new Image("/FishPicture/FirstStageUsage/foodnoback.png");
     final Image IMG_Mine = new Image("/FishPicture/mine.png");
     final Image IMG_PoisonFish = new Image("/FishPicture/FirstStageUsage/PoisonFish.png");
+    final Image GameOver = new Image("/FishPicture/GameOver.jpg");
     // final Image swim_cycle1 = new
     // Image("/FishPicture/Fish/Fish1/swim_cycle1.jpg");
     // final Image swim_cycle2 = new
@@ -110,8 +112,13 @@ public class GameWindow {
     static Timeline timer1;
 
     static boolean isPaused = false;
+    boolean isinblinkstate = false;
 
-    Image current;
+    long timercount = 0;
+    long imageblinkCount = 0;
+    // boolean GameOver = false;
+
+    Image currentuserUsing;
 
     public void initialize() throws Exception {
 
@@ -119,18 +126,18 @@ public class GameWindow {
             if (saveGame.exists() && saveGame.canRead()) {
                 start = new FishGame(saveGame);
             }
-            
+
             else {
                 Alert loadError = new Alert(AlertType.ERROR, "There are no save games to load");
                 loadError.show();
             }
-            
+
         } else {
             // start = new FishGame(1, 1, 0, 1, 1, 1, 1);
 
             // StringConverter<Number> converter = new NumberStringConverter();
 
-            start = new FishGame(1, 1, 3, 3, 2, 1, 1);
+            start = new FishGame(3, 5, 3, 3, 2, 1, 1);
             ((Label) hbox.getChildren().get(0)).setFont(new Font("Arial", 30));
             ((Label) hbox.getChildren().get(0)).setTextFill(Color.web("#FF0000"));
             point.setFont(new Font("Arial", 30));
@@ -172,20 +179,11 @@ public class GameWindow {
         image.setId("" + start.getUser().getId());
         pane.getChildren().add(image);
 
-        thread1 = new Thread(() -> start.updataEveryseocnds());
-        thread2 = new Thread(() -> start.updataEach3seconds());
-        thread3 = new Thread(() -> start.collisonHandler());
-        thread4 = new Thread(() -> start.updataMine());
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-
-        KeyFrame timerF1 = new KeyFrame(Duration.millis(10), e -> updata());
+        KeyFrame timerF1 = new KeyFrame(Duration.millis(30), e -> updata());
         timer1 = new Timeline(timerF1);
         timer1.setCycleCount(-1);
         timer1.play();
+        start.setIsGameOver(this);
     }
 
     // When the user presses P, it will pause the timelines, upon re-entry it will
@@ -194,20 +192,17 @@ public class GameWindow {
     // ESC key
     public static void onPKeyPress() throws InterruptedException {
         if (isPaused == true) {
-                start.continous();
-                timer1.play();
-                isPaused = false;
-                System.out.println("Game is unpaused");
-          
-            
+            timer1.play();
+            isPaused = false;
+            System.out.println("Game is unpaused");
+
         }
 
         else if (isPaused == false) {
-            start.pause();
             timer1.pause();
             isPaused = true;
             System.out.println("Game is paused");
-            
+
         }
     }
 
@@ -231,18 +226,24 @@ public class GameWindow {
             if (start.getUser().getDirectionenum() == Direction.Left
                     || start.getUser().getDirectionenum() == Direction.LeftUp
                     || start.getUser().getDirectionenum() == Direction.LeftDown) {
-                if (!start.getUser().isStateOfLosingHealth() && !start.getUser().isStateOflosingLife()) {
+                if (!isinblinkstate) {
                     image = new ImageView(User_fishl);
+                } else {
+                    image = new ImageView();
                 }
             } else if (start.getUser().getDirectionenum() == Direction.Right
                     || start.getUser().getDirectionenum() == Direction.RightUp
                     || start.getUser().getDirectionenum() == Direction.RightDown) {
-                if (!start.getUser().isStateOfLosingHealth() && !start.getUser().isStateOflosingLife()) {
+                if (!isinblinkstate) {
                     image = new ImageView(User_fishr);
+                } else {
+                    image = new ImageView();
                 }
             } else {
-                if (!start.getUser().isStateOfLosingHealth() && !start.getUser().isStateOflosingLife()) {
-                    image = new ImageView(current);
+                if (!isinblinkstate) {
+                    image = new ImageView(currentuserUsing);
+                } else {
+                    image = new ImageView();
                 }
             }
         }
@@ -314,13 +315,30 @@ public class GameWindow {
 
     void updata() {
         // userfishimagechecking();
-        if (!start.getUser().isStateOfLosingHealth() && !start.getUser().isStateOflosingLife()) {
+        start.updata();
+        if (timercount % 3000 == 0 && timercount != 0) {
+            start.updataEach3seconds();
+            timercount = 0;
+        }
+        if (start.getUser().isStateOfLosingHealth() || start.getUser().isStateOflosingLife()) {
+            imageblink();
+            if (imageblinkCount > 45) {
+                isinblinkstate = false;
+                start.getUser().setStateOfLosingHealth(false);
+                start.getUser().setStateOflosingLife(false);
+            }
+        } else {
+            imageblinkCount = 0;
+            start.userfishcollision();
             if (((ImageView) pane.getChildren().get(0)).getImage() != null) {
-                current = ((ImageView) pane.getChildren().get(0)).getImage();
+                currentuserUsing = ((ImageView) pane.getChildren().get(0)).getImage();
             }
         }
+        timercount += 30;
         pane.getChildren().clear();
+
         imagePuttingForUserFish();
+
         for (AllObject a : start.getObjectStorage()) {
             imagePutting(a);
         }
@@ -328,10 +346,30 @@ public class GameWindow {
         point.setText(String.valueOf(start.getPoints().get()));
         life.setText(String.valueOf(start.getlife().get()));
         health.setText(String.valueOf(start.getHealth().get()));
+        System.out.println("" + isinblinkstate);
+    }
 
+    void imageblink() {
+        if (imageblinkCount % 6 == 0) {
+            isinblinkstate = false;
+            imageblinkCount += 1;
+        } else if (imageblinkCount % 3 == 0) {
+            isinblinkstate = true;
+            imageblinkCount += 1;
+        } else {
+            imageblinkCount += 1;
+        }
     }
 
     public static void setLoading() {
         amILoading = true;
+    }
+
+    @FXML
+    @Override
+    public void gameOver() {
+        timer1.stop();
+        ImageView gameover = new ImageView(User_fishl);
+        pane.getChildren().add(gameover);
     }
 }

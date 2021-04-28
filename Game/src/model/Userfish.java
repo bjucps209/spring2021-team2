@@ -84,38 +84,12 @@ public class Userfish extends Fishes {
     public void stateOfLosingLifeHandle() {
         this.getX().set(615);
         this.getY().set(180);
-        for (int i = 0; i < 10; i++) {
-            stateOflosingLife = true;
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            stateOflosingLife = false;
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        stateOflosingLife = true;
     }
 
     public void stateOfLosingHealthHandle() {
         if (FishGame.getHealth().get() > 0) {
-            for (int i = 0; i < 10; i++) {
-                stateOfLosingHealth = true;
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                stateOfLosingHealth = false;
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+            stateOfLosingHealth = true;
         }
     }
 
