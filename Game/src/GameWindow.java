@@ -115,6 +115,9 @@ public class GameWindow {
 
     public void initialize() throws Exception {
 
+        
+        
+
         if (isLoading) {
             if (saveGame.exists() && saveGame.canRead()) {
                 start = new FishGame(saveGame);
@@ -148,6 +151,12 @@ public class GameWindow {
             health.setFont(new Font("Arial", 30));
             health.setTextFill(Color.web("#FF0000"));
         }
+
+        TextInputDialog td = new TextInputDialog("Please enter your name");
+        td.showAndWait();
+        start.name = td.getResult();
+
+        System.out.println("Our name is " + start.name);
 
         // initial putting of image
         ImageView image = new ImageView();

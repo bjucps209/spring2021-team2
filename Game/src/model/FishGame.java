@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
 
 public class FishGame {
 
@@ -25,6 +26,7 @@ public class FishGame {
 
     // userfish
     Userfish user;
+    public String name;
 
     boolean pause = false;
 
