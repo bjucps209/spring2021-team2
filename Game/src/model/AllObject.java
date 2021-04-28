@@ -69,20 +69,20 @@ public class AllObject {
             circle[1] = ((y.get() + imageSize) / 2);
             circle[2] = imageSize / 2;
         } else if (size == 2) {
-            circle[0] = ((x.get() + imageSize) / 2) + 3;
-            circle[1] = ((y.get() + imageSize) / 2) + 3;
+            circle[0] = ((x.get() + imageSize) / 2);
+            circle[1] = ((y.get() + imageSize) / 2);
             circle[2] = imageSize / 2;
         } else if (size == 3) {
-            circle[0] = ((x.get() + imageSize) / 2) + 7;
-            circle[1] = ((y.get() + imageSize) / 2) + 7;
+            circle[0] = ((x.get() + imageSize) / 2);
+            circle[1] = ((y.get() + imageSize) / 2);
             circle[2] = imageSize / 2;
         } else if (size == 4) {
-            circle[0] = ((x.get() + imageSize) / 2) + 15;
-            circle[1] = ((y.get() + imageSize) / 2) + 15;
+            circle[0] = ((x.get() + imageSize) / 2);
+            circle[1] = ((y.get() + imageSize) / 2);
             circle[2] = imageSize / 2;
         } else if (size == 5) {
-            circle[0] = ((x.get() + imageSize) / 2) + 25;
-            circle[1] = ((y.get() + imageSize) / 2) + 25;
+            circle[0] = ((x.get() + imageSize) / 2);
+            circle[1] = ((y.get() + imageSize) / 2);
             circle[2] = imageSize / 2;
         }
         return circle;

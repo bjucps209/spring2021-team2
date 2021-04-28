@@ -32,6 +32,7 @@ import model.*;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.io.File;
+import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoublePredicate;
@@ -104,11 +105,6 @@ public class GameWindow implements GameOverEvent {
     @FXML
     VBox vbox;
 
-    static Thread thread1;
-    static Thread thread2;
-    static Thread thread3;
-    static Thread thread4;
-
     static Timeline timer1;
 
     static boolean isPaused = false;
@@ -120,6 +116,7 @@ public class GameWindow implements GameOverEvent {
     long imageblinkCount = 0;
     // boolean GameOver = false;
 
+    static boolean isCheatModeOn = false;
     Image currentuserUsing;
 
     public void initialize() throws Exception {
@@ -199,18 +196,26 @@ public class GameWindow implements GameOverEvent {
     // While the timelines are paused the user will be able to save by pressing the
     // ESC key
     public static void onPKeyPress() throws InterruptedException {
-        if (isPaused == true) {
+        if (isPaused) {
             timer1.play();
             isPaused = false;
             System.out.println("Game is unpaused");
 
-        }
-
-        else if (isPaused == false) {
+        } else if (!isPaused) {
             timer1.pause();
             isPaused = true;
             System.out.println("Game is paused");
 
+        }
+    }
+
+    public static void onCKeyPress() {
+        if (isCheatModeOn) {
+            start.setIsCheatModeOn(false);
+            isCheatModeOn = false;
+        } else if (!isCheatModeOn) {
+            start.setIsCheatModeOn(true);
+            isCheatModeOn = true;
         }
     }
 
@@ -324,6 +329,7 @@ public class GameWindow implements GameOverEvent {
     void updata() {
         // userfishimagechecking();
         start.updata();
+        start.userFishOutOfScreenChecker();
         if (timercount % 3000 == 0 && timercount != 0) {
             start.updataEach3seconds();
             timercount = 0;
@@ -356,7 +362,18 @@ public class GameWindow implements GameOverEvent {
         health.setText(String.valueOf(start.getHealth().get()));
         if (isGameOver) {
             imageputtingGameOver();
+            point.setText(String.valueOf(start.getPoints().get()));
+            life.setText(String.valueOf(0));
+            health.setText(String.valueOf(0));
         }
+        if (isCheatModeOn) {
+            ((Label) hbox.getChildren().get(3)).setText("♾Life: ");
+        } else {
+            ((Label) hbox.getChildren().get(3)).setText("Life: ");
+        }
+        // System.out.println("X: " + start.getObjectStorage().get(0).getX().get() + "
+        // Y: "
+        // + start.getObjectStorage().get(0).getY().get());
     }
 
     void imageblink() {

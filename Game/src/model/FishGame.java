@@ -190,21 +190,21 @@ public class FishGame {
         this.limitOfType3Fish = limitOfType3Fish;
         this.limitOfPoisonFish = limitOfPoisonFish;
         objectStorage = new ArrayList<AllObject>();
-        user = new Userfish(Type.UserFish, 5, 2, 50);
+        user = new Userfish(Type.UserFish, 5, 1, 50);
         for (int i = 0; i < limitOfFood; i++) {
             objectStorage.add(new Food());
             numberOfFood += 1;
         }
         for (int i = 0; i < limitOfType1Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 24));
+            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 25));
             numberOfType1Fish += 1;
         }
         for (int i = 0; i < limitOfType2Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 38));
+            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 40));
             numberOfType2Fish += 1;
         }
         for (int i = 0; i < limitOfType3Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 51));
+            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 55));
             numberOfType3Fish += 1;
         }
         for (int i = 0; i < limitOfPoisonFish; i++) {
@@ -230,7 +230,7 @@ public class FishGame {
                     }
                 }
             }
-            if (a.getX().get() < -400 || a.getY().get() < -400 || a.getX().get() > 1600 || a.getY().get() > 900) {
+            if (a.getX().get() < -400 || a.getY().get() < -500 || a.getX().get() > 1600 || a.getY().get() > 900) {
                 removea.add(a);
             }
         }
@@ -412,6 +412,19 @@ public class FishGame {
             numberOfPoisonFish += 1;
         }
 
+    }
+
+    public void userFishOutOfScreenChecker() {
+        if (user.getX().get() < -15) {
+            user.setX(-15);
+        } else if (user.getX().get() > 1280) {
+            user.setX(1280);
+        }
+        if (user.getY().get() < -105) {
+            user.setY(-105);
+        } else if (user.getY().get() > 535) {
+            user.setY(535);
+        }
     }
 
     public void updataDS() {

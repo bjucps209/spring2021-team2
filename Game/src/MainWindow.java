@@ -62,6 +62,8 @@ public class MainWindow {
                     case A:
                         Userfish.Left.set(true);
                         break;
+                    case C:
+                        GameWindow.onCKeyPress();
                     case ESCAPE:
                         try {
                             GameWindow.onESCPress();
