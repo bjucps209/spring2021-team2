@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   HighScoreManager.java
+//Desc:   HighScoreManager class takes the name and score and adds them to a new list. it then adds it to the txt file to be read
+//-----------------------------------------------------------
+
 package HighScores;
 
 import java.io.BufferedReader;
@@ -12,11 +17,11 @@ import java.util.stream.Collectors;
 
 public class HighScoreManager {
 
+    // constructor
     public HighScoreManager() {
-    } // constructor
+    } 
 
-    ArrayList<HighScore> allScores = new ArrayList<HighScore>(); // creates a new list for the high scores to be stored
-                                                                 // in
+    ArrayList<HighScore> allScores = new ArrayList<HighScore>(); // creates a new list for the high scores to be stored in
 
     // adds score to list of high scores if the score is high enough to be in the
     // list
@@ -41,7 +46,7 @@ public class HighScoreManager {
             FileWriter fw = new FileWriter("highscores.txt", false);
             for (int i = 0; i < allScores.size(); i++) {
                 String stringScore = allScores.get(i).stringer();
-                fw.write(stringScore);
+                fw.write(stringScore + "\n");
             }
             fw.flush();
             fw.close();
