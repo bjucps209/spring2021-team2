@@ -48,7 +48,7 @@ public class Fishes extends AllObject {
             initialDirection = 180 + rand.nextInt(5);
             int yuse = rand.nextInt(750);
             x = new SimpleIntegerProperty(1366);
-            y = new SimpleIntegerProperty(yuse - 70);
+            y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         } else {
             // remember import from left edge of screen

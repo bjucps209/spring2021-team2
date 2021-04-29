@@ -18,7 +18,7 @@ public class Food extends AllObject {
         // TODO: figure out how the x and y are generated
         int xUse = rand.nextInt(1000);
         x = new SimpleIntegerProperty(xUse);
-        y = new SimpleIntegerProperty(-15);
+        y = new SimpleIntegerProperty(0);
         id = FishGame.id;
         FishGame.id += 1;
     }
