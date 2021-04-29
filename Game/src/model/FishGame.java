@@ -224,7 +224,7 @@ public class FishGame {
         ArrayList<AllObject> removea = new ArrayList<>();
 
         for (AllObject a : objectStorage) {
-            if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1) {
+            if (user.getRectangle().intersects(a.getRectangle())) {
                 if (a instanceof Fishes || a.getType() == Type.Mine || a.getType() == Type.Food) {
                     if (user.getSize() == a.getSize()) {
                         loseHealthCheck = user.sameSize();
@@ -481,7 +481,8 @@ public class FishGame {
             save.getParentFile().mkdirs();
             BufferedWriter writer = new BufferedWriter(new FileWriter(save, false));
             writer.append("Level:Difficulty:" + Integer.toString(objectStorage.size()));
-            writer.append(":" + this.getPoints().get() + ":" + this.getHealth().get() + ":" + this.getlife().get() + ":" + this.user.getImageSize() + ":" + this.name);
+            writer.append(":" + this.getPoints().get() + ":" + this.getHealth().get() + ":" + this.getlife().get() + ":"
+                    + this.user.getImageSize() + ":" + this.name);
             writer.append("\n");
             for (AllObject item : objectStorage) {
                 writer.append(item.serialize());

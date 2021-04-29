@@ -1,17 +1,22 @@
 package model;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+import javafx.scene.shape.Rectangle;
 
 public class AllObject {
 
-    // from class we learn this week those variable may change to intproperty in
-    // oder to bind
+    // integerproperty direction for x and y
     IntegerProperty x;
     IntegerProperty y;
+
+    // three important value for all object
     int speed;
     int size;
     int direction;
 
+    // id for each object
     int id;
 
     public void setX(int x) {
@@ -62,30 +67,8 @@ public class AllObject {
 
     }
 
-    public int[] drawCircle() {
-        int[] circle = new int[3];
-        if (size == 1 || size == 0) {
-            circle[0] = ((x.get() + imageSize) / 2);
-            circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = (imageSize) / 2;
-        } else if (size == 2) {
-            circle[0] = ((x.get() + imageSize) / 2);
-            circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = (imageSize - 3) / 2;
-        } else if (size == 3) {
-            circle[0] = ((x.get() + imageSize) / 2);
-            circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = (imageSize - 7) / 2;
-        } else if (size == 4) {
-            circle[0] = ((x.get() + imageSize) / 2);
-            circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = (imageSize - 12) / 2;
-        } else if (size == 5) {
-            circle[0] = ((x.get() + imageSize) / 2);
-            circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = (imageSize - 15) / 2;
-        }
-        return circle;
+    public Bounds getRectangle() {
+        return new BoundingBox(x.get(), y.get(), imageSize, imageSize);
 
     }
 
