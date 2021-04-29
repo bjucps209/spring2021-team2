@@ -12,12 +12,19 @@
         </HBox>
 
         <VBox fx:id="help">
-            <Label fx:id="one" text="1) To play the game, you may use either your mouse or the W, A, S, D to control the moving direction." />
-            <Label fx:id="two" text="2) Navigate across the ocean and try to avoid the opnonents as they will look to eat you." />
+            <Label fx:id="one" text="1) To play the game, you to use W, A, S, D to control the moving direction." />
+            <Label text = " "/>
+            <Label fx:id="two"/>
+            <Label fx:id="two2"/>
+            <Label text = " "/>
             <Label fx:id="three" text="3) Do your best to become the biggest fish in the ocean." />
+            <Label text = " "/>
             <Label fx:id="four" text="4) If you are the biggest fish, you will move on to the next level." />
-            <Label fx:id="five" text="5) There are three levels. Each level progresses to be more difficult than the previous level." />
-            <Label fx:id="six" text="6) If your health runs out, you will be terminated and the game will end." />
+            <Label text = " "/>
+            <Label fx:id="five"/>
+            <Label fx:id="five2"/>
+            <Label text = " "/>
+            <Label fx:id="six" text="6) If your life runs out, you will be terminated and the game will end." />
         </VBox>
 
         <VBox fx:id="creditBox">
