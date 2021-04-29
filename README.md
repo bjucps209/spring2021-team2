@@ -2,7 +2,7 @@
 
 ## Instructions
 
-To play the game, you may use either your mouse or the W, A, S, D to control the moving direction. Navigate across the ocean and try to avoid the opnonents as they will look to eat you. Do your best to become the biggest fish in the ocean. If you are the biggest fish, you will move on to the next level.
+To play the game, you may use either your mouse or the W, A, S, D to control the moving direction. Navigate across the ocean and try to avoid the opnonents as they will look to eat you. Do your best to become the biggest fish in the ocean. To win the game, reach over 100 points before you run out of lives. 
 
 ## Issues
 
