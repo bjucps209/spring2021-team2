@@ -8,31 +8,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Fishes extends AllObject {
 
-    // initialdirction of fish final?
+    // initial dirction of fish
+    // it use to descide the initial facing direction of the Fish.
+    // Because fish have random direction, it also serves for fish favor direction
     private int initialDirection;
 
-    public int getInitialDirection() {
-        return this.initialDirection;
-    }
-
-    public void setInitialDirection(int initialDirection) {
-        this.initialDirection = initialDirection;
-    }
-
-    // each fish is on their owe movement.
-    // they will change speed and direction every 3 seconds. It should be called
-    // every 3s in timeline at viewclass
-    // And for speed, there is the limitation,
-    // it can't increasing too much or stop
-    // for direction, we import fish for left edge and right edge of screen.
-    // we purpose want to make fish go cross the screen,
-    // Therefore the random for direction will be 66% go for initial direction,
-    // 33% go for opposite direction.
-    // Also Our fish will not go up and down, we are try to much them slightly go up
-    // and down while they are move cross the creen
-
-    // remember limitation of dirction number;
-
+    // constructot for fish class
+    // give fish type, size, inital speed, and imagesize
+    // it rand the initial postion, inital directon for fish
     public Fishes(Type objType, int speed, int size, int imageSize) {
         this.speed = speed;
         this.size = size;
@@ -44,14 +27,14 @@ public class Fishes extends AllObject {
         var rand = new Random();
         int ran = rand.nextInt(2);
         if (ran == 0) {
-            // remember import from right edge of screen
+            // import from right edge of screen
             initialDirection = 180 + rand.nextInt(5);
             int yuse = rand.nextInt(750);
             x = new SimpleIntegerProperty(1366);
             y = new SimpleIntegerProperty(yuse);
             direction = initialDirection;
         } else {
-            // remember import from left edge of screen
+            // import from left edge of screen
             initialDirection = 0 + rand.nextInt(10);
             int yuse = rand.nextInt(700);
             y = new SimpleIntegerProperty(yuse);
@@ -63,17 +46,22 @@ public class Fishes extends AllObject {
 
     }
 
+    // fish need change both speeed and directon
     @Override
     public void ChangeSpeedAndDirection() {
         randDirection();
         randSpeed();
     }
 
+    // direction change, it can use up rand for 0 - 10;
+    // is change change fish facing side;
     public void randDirection() {
         var rand = new Random();
         var ran = rand.nextInt(3);
         var ran2 = rand.nextInt(10);
         var ran3 = rand.nextInt(2);
+
+        // change facing direction for fish
         switch (ran) {
         case 0:
             if (direction < 180) {
@@ -88,6 +76,7 @@ public class Fishes extends AllObject {
             break;
         }
 
+        // make fish move up or down little bit
         if (direction < 180) {
             if (180 - direction < 5 || (180 - direction < 155 && 180 - direction > 135)) {
                 direction -= ran2;
@@ -120,6 +109,12 @@ public class Fishes extends AllObject {
 
     }
 
+    /**
+     * function called when fish eat happens
+     * 
+     * @param AllObject
+     * @return AllObject that will be remove for the list.
+     */
     public AllObject[] eat(AllObject a) {
         AllObject[] stor = new AllObject[] {};
         if (a.getType() == Type.PoisonFish || a.getType() == Type.Mine) {
@@ -173,6 +168,15 @@ public class Fishes extends AllObject {
         dataString += Integer.toString(this.imageSize);
 
         return dataString;
+    }
+
+    // getters and setters
+    public int getInitialDirection() {
+        return this.initialDirection;
+    }
+
+    public void setInitialDirection(int initialDirection) {
+        this.initialDirection = initialDirection;
     }
 
 }

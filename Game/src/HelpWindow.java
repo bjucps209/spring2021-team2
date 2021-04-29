@@ -37,6 +37,9 @@ public class HelpWindow {
     @FXML 
     Label five;
 
+    @FXML 
+    Label six;
+
     @FXML
     Label designers;
 
@@ -49,7 +52,7 @@ public class HelpWindow {
 
     public void initialize() {
         help.setAlignment(Pos.BASELINE_LEFT);
-        help.setPadding(new Insets(10, 10, 10, 10));
+        help.setPadding(new Insets(10, 10, 110, 10));
 
 
         InnerShadow innerShadow = new InnerShadow();
@@ -67,13 +70,14 @@ public class HelpWindow {
         three.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
         four.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
         five.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
+        six.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
 
 
         creditBox.setPadding(new Insets(30, 10, 10, 10));
         credits.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 16));
         designers.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         designers.setPadding(new Insets(5, 3, 0, 0));
-        sources.setPadding(new Insets(5, 3, 0, 0));
-        sources.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
+        // sources.setPadding(new Insets(5, 3, 0, 0));
+        // sources.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
     }
 }

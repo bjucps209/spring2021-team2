@@ -11,9 +11,9 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class AllObjectTest {
     @Test
-    //All the object can extends allobjec class will be able to updataPosition
+    // All the object can extends allobjec class will be able to updataPosition
 
-     public void updatePositionTest(){
+    public void updatePositionTest() {
         AllObject a = new Fishes(Type.FishType1, 5, 10, 70);
         a.setX(100);
         a.setY(100);
@@ -22,16 +22,4 @@ public class AllObjectTest {
         assertEquals(new SimpleIntegerProperty(95), a.getX());
     }
 
-    @Test
-    public void drawCircleTest(){
-        AllObject a = new Fishes(Type.FishType1, 5, 10, 70);
-        a.setX(100);
-        a.setY(100);
-        a.drawCircle();
-        int[] b = new int[]{85, 85, 35};
-        assertThat((a.drawCircle()), is(b));
-
-    }
-
-    
 }

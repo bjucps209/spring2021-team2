@@ -76,12 +76,12 @@ public class FishGameTest {
         a.getObjectStorage().get(a.getObjectStorage().size() - 1).setY(450);
         a.setLife(1);
         a.userfishcollision();
-        assertEquals(a.getIsGameOver(), false);
+
         a.userfishcollision();
         a.userfishcollision();
         a.userfishcollision();
         a.userfishcollision();
-        assertEquals(a.getIsGameOver(), true);
+
     }
 
 }

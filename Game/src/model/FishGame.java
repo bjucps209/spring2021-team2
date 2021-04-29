@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
 
 public class FishGame {
 
@@ -25,8 +26,7 @@ public class FishGame {
 
     // userfish
     Userfish user;
-
-    boolean pause = false;
+    public String name;
 
     static IntegerProperty life;
     static IntegerProperty points;
@@ -59,13 +59,20 @@ public class FishGame {
     // if isCheatModeOn = true, user fish will not die
     // if isGameGver = true either use win or lose,
     boolean isCheatModeOn;
-    boolean isGameOver;
+    GameEventObserver gameEvent;
+
+    public GameEventObserver getGameEvent() {
+        return this.gameEvent;
+    }
+
+    public void setGameEvent(GameEventObserver gameEvent) {
+        this.gameEvent = gameEvent;
+    }
 
     // basic constructor to start game if there is not input yet, purpose for
     // testing the program.
     public FishGame() {
         isCheatModeOn = false;
-        isGameOver = false;
         objectStorage = new ArrayList<AllObject>();
         user = new Userfish(Type.FishType1, 5, 1, 30);
         FishGame.points = new SimpleIntegerProperty(0);
@@ -76,10 +83,10 @@ public class FishGame {
 
         System.out.println("File read state: " + file.canRead());
         FishGame.points = new SimpleIntegerProperty(0);
-        FishGame.life = new SimpleIntegerProperty(5);
+        FishGame.life = new SimpleIntegerProperty(3);
         FishGame.health = new SimpleIntegerProperty(5);
+        this.limitOfFood = 3;
         isCheatModeOn = false;
-        isGameOver = false;
         objectStorage = new ArrayList<AllObject>();
         user = new Userfish(Type.UserFish, 5, 2, 50);
         // trying to read the file we are given
@@ -91,6 +98,11 @@ public class FishGame {
             System.out.println(currentLine);
             String[] splitString = currentLine.split(":");
             // this.level = Integer.parseInt(splitString[0]);
+            this.points.set(Integer.parseInt(splitString[3]));
+            this.health.set(Integer.parseInt(splitString[4]));
+            this.life.set(Integer.parseInt(splitString[5]));
+            this.user.setImageSize(Integer.parseInt(splitString[6]));
+            this.name = splitString[7];
             int objectCount = Integer.parseInt(splitString[2]);
             System.out.println("We have " + objectCount + " to walk through");
             for (int i = 0; i != objectCount; ++i) {
@@ -100,65 +112,65 @@ public class FishGame {
                 String[] coords = splitString[1].split(",");
                 Fishes fish;
                 switch (splitString[0]) {
-                    case "FishType1":
-                        System.out.println("Found one FishType1");
-                        fish = new Fishes(Type.FishType1, 4, Integer.parseInt(splitString[2]),
-                                Integer.parseInt(splitString[4]));
-                        fish.setDirection(Integer.parseInt(splitString[3]));
-                        fish.setX(Integer.parseInt(coords[0]));
-                        fish.setY(Integer.parseInt(coords[1]));
-                        objectStorage.add(fish);
-                        break;
+                case "FishType1":
+                    System.out.println("Found one FishType1");
+                    fish = new Fishes(Type.FishType1, 4, Integer.parseInt(splitString[2]),
+                            Integer.parseInt(splitString[4]));
+                    fish.setDirection(Integer.parseInt(splitString[3]));
+                    fish.setX(Integer.parseInt(coords[0]));
+                    fish.setY(Integer.parseInt(coords[1]));
+                    objectStorage.add(fish);
+                    break;
 
-                    case "FishType2":
-                        System.out.println("Found one FishType2");
+                case "FishType2":
+                    System.out.println("Found one FishType2");
 
-                        fish = new Fishes(Type.FishType2, 4, Integer.parseInt(splitString[2]),
-                                Integer.parseInt(splitString[4]));
-                        fish.setDirection(Integer.parseInt(splitString[3]));
-                        fish.setX(Integer.parseInt(coords[0]));
-                        fish.setY(Integer.parseInt(coords[1]));
-                        objectStorage.add(fish);
-                        break;
+                    fish = new Fishes(Type.FishType2, 4, Integer.parseInt(splitString[2]),
+                            Integer.parseInt(splitString[4]));
+                    fish.setDirection(Integer.parseInt(splitString[3]));
+                    fish.setX(Integer.parseInt(coords[0]));
+                    fish.setY(Integer.parseInt(coords[1]));
+                    objectStorage.add(fish);
+                    break;
 
-                    case "FishType3":
-                        System.out.println("Found one FishType3");
+                case "FishType3":
+                    System.out.println("Found one FishType3");
 
-                        fish = new Fishes(Type.FishType3, 4, Integer.parseInt(splitString[2]),
-                                Integer.parseInt(splitString[4]));
-                        fish.setDirection(Integer.parseInt(splitString[3]));
-                        fish.setX(Integer.parseInt(coords[0]));
-                        fish.setY(Integer.parseInt(coords[1]));
-                        objectStorage.add(fish);
-                        break;
+                    fish = new Fishes(Type.FishType3, 4, Integer.parseInt(splitString[2]),
+                            Integer.parseInt(splitString[4]));
+                    fish.setDirection(Integer.parseInt(splitString[3]));
+                    fish.setX(Integer.parseInt(coords[0]));
+                    fish.setY(Integer.parseInt(coords[1]));
+                    objectStorage.add(fish);
+                    break;
 
-                    case "PoisonFish":
-                        System.out.println("Found one PoisonFish");
+                case "PoisonFish":
+                    System.out.println("Found one PoisonFish");
 
-                        fish = new Fishes(Type.PoisonFish, 4, Integer.parseInt(splitString[2]),
-                                Integer.parseInt(splitString[4]));
-                        fish.setDirection(Integer.parseInt(splitString[3]));
-                        fish.setX(Integer.parseInt(coords[0]));
-                        fish.setY(Integer.parseInt(coords[1]));
-                        objectStorage.add(fish);
-                        break;
+                    fish = new Fishes(Type.PoisonFish, 4, Integer.parseInt(splitString[2]),
+                            Integer.parseInt(splitString[4]));
+                    fish.setDirection(Integer.parseInt(splitString[3]));
+                    fish.setX(Integer.parseInt(coords[0]));
+                    fish.setY(Integer.parseInt(coords[1]));
+                    objectStorage.add(fish);
+                    break;
 
-                    case "Mine":
-                        Mine mine = new Mine();
-                        mine.setX(Integer.parseInt(coords[0]));
-                        mine.setY(Integer.parseInt(coords[1]));
-                        mine.setDirection(Integer.parseInt(splitString[2]));
-                        objectStorage.add(mine);
-                        break;
+                case "Mine":
+                    Mine mine = new Mine();
+                    mine.setX(Integer.parseInt(coords[0]));
+                    mine.setY(Integer.parseInt(coords[1]));
+                    mine.setDirection(Integer.parseInt(splitString[2]));
+                    objectStorage.add(mine);
+                    break;
 
-                    case "Food":
-                        Food food = new Food();
-                        food.setX(Integer.parseInt(coords[0]));
-                        food.setY(Integer.parseInt(coords[1]));
-                        food.setDirection(Integer.parseInt(splitString[2]));
+                case "Food":
+                    Food food = new Food();
+                    food.setX(Integer.parseInt(coords[0]));
+                    food.setY(Integer.parseInt(coords[1]));
+                    food.setDirection(Integer.parseInt(splitString[2]));
 
-                    default:
-                        break;
+                default:
+                    break;
                 }
             }
             reader.close();
@@ -176,30 +188,29 @@ public class FishGame {
             int limitOfType3Fish, int limitOfPoisonFish) {
         FishGame.points = new SimpleIntegerProperty(0);
         FishGame.life = new SimpleIntegerProperty(life);
-        FishGame.health = new SimpleIntegerProperty(life);
+        FishGame.health = new SimpleIntegerProperty(health);
         isCheatModeOn = false;
-        isGameOver = false;
         this.limitOfFood = limitOfFood;
         this.limitOfType1Fish = limitOfType1Fish;
         this.limitOfType2Fish = limitOfType2Fish;
         this.limitOfType3Fish = limitOfType3Fish;
         this.limitOfPoisonFish = limitOfPoisonFish;
         objectStorage = new ArrayList<AllObject>();
-        user = new Userfish(Type.UserFish, 5, 2, 50);
+        user = new Userfish(Type.UserFish, 5, 1, 50);
         for (int i = 0; i < limitOfFood; i++) {
             objectStorage.add(new Food());
             numberOfFood += 1;
         }
         for (int i = 0; i < limitOfType1Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 24));
+            objectStorage.add(new Fishes(Type.FishType1, 4, 1, 25));
             numberOfType1Fish += 1;
         }
         for (int i = 0; i < limitOfType2Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 38));
+            objectStorage.add(new Fishes(Type.FishType2, 4, 2, 40));
             numberOfType2Fish += 1;
         }
         for (int i = 0; i < limitOfType3Fish; i++) {
-            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 51));
+            objectStorage.add(new Fishes(Type.FishType3, 5, 3, 55));
             numberOfType3Fish += 1;
         }
         for (int i = 0; i < limitOfPoisonFish; i++) {
@@ -213,7 +224,7 @@ public class FishGame {
         ArrayList<AllObject> removea = new ArrayList<>();
 
         for (AllObject a : objectStorage) {
-            if (FishGame.circleChecking(user.drawCircle(), a.drawCircle()) != -1) {
+            if (user.getRectangle().intersects(a.getRectangle())) {
                 if (a instanceof Fishes || a.getType() == Type.Mine || a.getType() == Type.Food) {
                     if (user.getSize() == a.getSize()) {
                         loseHealthCheck = user.sameSize();
@@ -222,10 +233,11 @@ public class FishGame {
                     } else if (user.getSize() > a.getSize()) {
                         user.Usereat(a);
                         removea.add(a);
+                        gameEvent.EatingSound();
                     }
                 }
             }
-            if (a.getX().get() < -400 || a.getY().get() < -400 || a.getX().get() > 1600 || a.getY().get() > 900) {
+            if (a.getX().get() < -400 || a.getY().get() < -500 || a.getX().get() > 1600 || a.getY().get() > 900) {
                 removea.add(a);
             }
         }
@@ -306,17 +318,22 @@ public class FishGame {
         if (FishGame.points.get() > 80 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+            gameEvent.GrowSound();
         } else if (FishGame.points.get() > 40 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+            gameEvent.GrowSound();
         } else if (FishGame.points.get() > 20 && user.getSize() == 2) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+            gameEvent.GrowSound();
         } else if (FishGame.points.get() > 5 && user.getSize() == 1) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+            gameEvent.GrowSound();
         } else if (FishGame.points.get() > 100) {
-            isGameOver = true;
+            gameEvent.gameOver();
+            gameEvent.winSound();
         }
     }
 
@@ -327,8 +344,9 @@ public class FishGame {
             FishGame.health.set(5);
             user.stateOfLosingLifeHandle();
             if (FishGame.life.get() < 1) {
-                if (isCheatModeOn = false) {
-                    isGameOver = true;
+                if (!isCheatModeOn) {
+                    gameEvent.gameOver();
+                    gameEvent.loseSound();
                 }
                 return true;
             }
@@ -380,17 +398,6 @@ public class FishGame {
         }
     }
 
-    public void collisonHandler() {
-        while (!pause) {
-            userfishcollision();
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void updatanum() {
         for (int i = 0; i < limitOfFood - numberOfFood; i++) {
             Food currentAdding = new Food();
@@ -420,6 +427,19 @@ public class FishGame {
 
     }
 
+    public void userFishOutOfScreenChecker() {
+        if (user.getX().get() < -15) {
+            user.setX(-15);
+        } else if (user.getX().get() > 1280) {
+            user.setX(1280);
+        }
+        if (user.getY().get() < -105) {
+            user.setY(-105);
+        } else if (user.getY().get() > 535) {
+            user.setY(535);
+        }
+    }
+
     public void updataDS() {
         for (AllObject a : objectStorage) {
             if (a instanceof Fishes) {
@@ -428,38 +448,24 @@ public class FishGame {
         }
     }
 
-    public void updataMine() {
-        while (!pause) {
-            mineImport();
-            try {
-                Thread.sleep(6000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    // public void updataMine() {
+    // while (!pause) {
+    // mineImport();
+    // try {
+    // Thread.sleep(6000);
+    // } catch (InterruptedException e) {
+    // e.printStackTrace();
+    // }
+    // }
+    // }
 
     public void updataEveryseocnds() {
-        while (!pause) {
-            updata();
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        updata();
     }
 
     public void updataEach3seconds() {
-        while (!pause) {
-            updatanum();
-            updataDS();
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        updatanum();
+        updataDS();
     }
 
     // load and save, I don't know yet
@@ -476,7 +482,8 @@ public class FishGame {
             save.getParentFile().mkdirs();
             BufferedWriter writer = new BufferedWriter(new FileWriter(save, false));
             writer.append("Level:Difficulty:" + Integer.toString(objectStorage.size()));
-            writer.append(":" + this.getPoints().get());
+            writer.append(":" + this.getPoints().get() + ":" + this.getHealth().get() + ":" + this.getlife().get() + ":"
+                    + this.user.getImageSize() + ":" + this.name);
             writer.append("\n");
             for (AllObject item : objectStorage) {
                 
@@ -487,14 +494,6 @@ public class FishGame {
         } catch (Exception e) {
             throw new Exception("Save crashed in FishGame.java");
         }
-    }
-
-    public void pause() {
-        this.pause = true;
-    }
-
-    public void continous() {
-        this.pause = false;
     }
 
     // all getters and setters
@@ -568,14 +567,6 @@ public class FishGame {
 
     public void setIsCheatModeOn(boolean isCheatModeOn) {
         this.isCheatModeOn = isCheatModeOn;
-    }
-
-    public boolean getIsGameOver() {
-        return this.isGameOver;
-    }
-
-    public void setIsGameOver(boolean isGameOver) {
-        this.isGameOver = isGameOver;
     }
 
     public int getLimitOfType1Fish() {
