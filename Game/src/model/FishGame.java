@@ -77,6 +77,7 @@ public class FishGame {
 
     /**
      * This constructor is for loading save files into the model.
+     * 
      * @param file the file object that points to the save game
      */
     public FishGame(File file) {
@@ -462,28 +463,21 @@ public class FishGame {
         }
     }
 
-    // public void updataMine() {
-    // while (!pause) {
-    // mineImport();
-    // try {
-    // Thread.sleep(6000);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
-
+    // updata every 30 milliseconds
     public void updataEveryseocnds() {
         updata();
     }
 
+    // updata every 3 seconds
     public void updataEach3seconds() {
         updatanum();
         updataDS();
     }
 
     /**
-     * this function takes whatever is on the screen and writes it to the path C:\.FishGame\SaveData\save.game
+     * this function takes whatever is on the screen and writes it to the path
+     * C:\.FishGame\SaveData\save.game
+     * 
      * @throws Exception
      */
     public void save() throws Exception {

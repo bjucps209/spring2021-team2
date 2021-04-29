@@ -67,14 +67,13 @@ public class HelpWindow {
         helpLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 55));
 
         two2.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
-        two2.setText("    as they will look to eat you.");
+        two2.setText("     look to eat you, larger fish will make you to lose more health.");
         one.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
         two.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
-        two.setText("2) Navigate across the ocean and try to avoid the opnonents ");
+        two.setText("2) Navigate across the ocean and try to avoid the opnonents as they will");
         three.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
         four.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
         five.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
-        five.setText("5) If your health runs out, you will minus one life, ");
         six.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
 
         creditBox.setPadding(new Insets(30, 10, 10, 10));
