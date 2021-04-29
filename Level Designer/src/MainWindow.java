@@ -653,43 +653,25 @@ public class MainWindow {
             node.getScene().setCursor(Cursor.MOVE);
         });
         node.setOnMouseDragged(me -> {
-            if (node.getLayoutX() < 750&& node.getLayoutX() >= -20) {
+         
 
                 node.setLayoutX(node.getLayoutX() + me.getX() - dragDelta.x);
-                    }else{
-                        if(node.getLayoutX()>=750){
-                            node.setLayoutX(node.getLayoutX() -50);
-                            var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
-                            alert.setHeaderText(null);
-                            alert.show();
-            
-            
-                            }
-                            if(node.getLayoutX()>=-20){
-                                node.setLayoutX(node.getLayoutX() + 50);
-                                var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
-                                alert.setHeaderText(null);
-                                alert.show();
-                    }
-                if(node.getLayoutY() < 450 && node.getLayoutY() >= -40){
-                   node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
-
-            } else {
+                node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
+        }
+                   
                
-                    if(node.getLayoutY()>=450){
-                        node.setLayoutY(node.getLayoutY() -50);
-                        var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
-                        alert.setHeaderText(null);
-                        alert.show();
-        
-        
-                        }
+               
+            
+            
+        );
+
+
              
 
 
                
-            }
-        }
+            
+    
            
             AllObject object = (AllObject) node.getUserData();
             System.out.println(object.getType());
@@ -700,7 +682,7 @@ public class MainWindow {
             System.out.println(object.getY());
             System.out.println((int) node.getLayoutX());
             System.out.println((int) node.getLayoutY());
-        });node.setOnMouseReleased(me->
+            node.setOnMouseReleased(me->
 
     onMouseReleased(me));
 
