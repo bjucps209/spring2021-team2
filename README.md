@@ -16,7 +16,7 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 ## Work Completed
 
 * Blake Alexander - Model code finished for High Scores. FXML started and view code in progress. A txt is able to be created but the View does not read from the txt file to insert the high scores yet.
-* Patrick Menking - Basic serialization completed, still needs implementation in the GUI along with testing.
+* Patrick Menking - Serialization completed, saving and loading from save games as well as saving to high scores
 * Shubin Yuan - Done most part.
 * Gunnar Funderburk- Model Code, FXML in the middle of development, some bugs with saving and loading still under work but mostly complete.
 
