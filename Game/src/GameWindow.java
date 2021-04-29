@@ -152,7 +152,6 @@ public class GameWindow implements GameEventObserver {
             td.showAndWait();
             start.name = td.getResult();
 
-        System.out.println("Our name is " + start.name);
         }
 
         // initial putting of image
@@ -203,12 +202,10 @@ public class GameWindow implements GameEventObserver {
         if (isPaused) {
             timer1.play();
             isPaused = false;
-            System.out.println("Game is unpaused");
 
         } else if (!isPaused) {
             timer1.pause();
             isPaused = true;
-            System.out.println("Game is paused");
 
         }
     }
@@ -226,7 +223,6 @@ public class GameWindow implements GameEventObserver {
     // while isPaused is true, the user can save by pressing the ESC key
     public static void onESCPress() throws Exception {
         if (isPaused == true) {
-            System.out.println("The game has been saved.");
             start.save();
         }
     }
@@ -403,9 +399,7 @@ public class GameWindow implements GameEventObserver {
         } else {
             ((Label) hbox.getChildren().get(3)).setText("Life: ");
         }
-        // System.out.println("X: " + start.getObjectStorage().get(0).getX().get() + "
-        // Y: "
-        // + start.getObjectStorage().get(0).getY().get());
+        
     }
 
     void imageblink() {

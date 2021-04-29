@@ -66,7 +66,7 @@ public class HighScoreManager {
                     lowStringer(line);
                 } while (line != "");
         } catch (Exception e) {
-            System.out.println(e);
+            
         }
 
         return line;
