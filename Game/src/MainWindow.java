@@ -146,6 +146,9 @@ public class MainWindow {
 
                         }
                         break;
+                    case C:
+                        GameWindow.onCKeyPress();
+                        break;
                     case P:
                         try {
                             GameWindow.onPKeyPress();
