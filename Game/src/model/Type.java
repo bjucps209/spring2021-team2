@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------
+//File:   Type.java
+//Desc:   Enum class use to know what kind of fish is this
+//By:     Shubin Yuan
+//-------------------------------------------------------------------
 package model;
 
 public enum Type {

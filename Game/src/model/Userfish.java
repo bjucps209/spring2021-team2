@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------
+//File:   Userfish.java
+//Desc:   Main code to due with userfish action, move, eat and beaten
+//By:     Shubin Yuan
+//-------------------------------------------------------------------
 package model;
 
 import javafx.beans.property.BooleanProperty;
@@ -6,10 +11,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Userfish extends Fishes {
 
+    // diection for fish
     static Direction direction = Direction.STOP;
+
+    // use to konw state for fish
     boolean stateOflosingLife = false;
     boolean stateOfLosingHealth = false;
 
+    // user to know why key pressed pass from view class
     public static BooleanProperty Up = new SimpleBooleanProperty(false);
     public static BooleanProperty Right = new SimpleBooleanProperty(false);
     public static BooleanProperty Down = new SimpleBooleanProperty(false);
@@ -24,6 +33,7 @@ public class Userfish extends Fishes {
 
     }
 
+    // action for userfish updatapostion
     @Override
     public void updatePosition() {
         switch (direction) {
@@ -58,11 +68,13 @@ public class Userfish extends Fishes {
         }
     }
 
+    // userfish will not auto change speed and direction
     @Override
     public void ChangeSpeedAndDirection() {
         ;
     }
 
+    // uses to handle when use fish meet the fish smaller then him.
     public void Usereat(AllObject a) {
         if (a.getType() == Type.PoisonFish || a.getType() == Type.Mine) {
             FishGame.setLife(FishGame.getlife().get() - 1);
@@ -81,23 +93,30 @@ public class Userfish extends Fishes {
         }
     }
 
+    // use to handel the state of losing life, use to blink the image and central
+    // image
     public void stateOfLosingLifeHandle() {
         this.getX().set(615);
         this.getY().set(180);
         stateOflosingLife = true;
     }
 
+    // use to handel the state of losing health, use to blink the image
     public void stateOfLosingHealthHandle() {
         if (FishGame.getHealth().get() > 0) {
             stateOfLosingHealth = true;
         }
     }
 
+    // use to handle when two fish collsion with user fish have larger;
+    // return ture, it user minus health
     public boolean beeaten(AllObject a) {
         FishGame.setHealth(FishGame.getHealth().get() - (a.getSize() - size));
         return true;
     }
 
+    // use to handle when two fish collsion with user fish have same size;
+    // return ture, it user minus health
     public boolean sameSize() {
         FishGame.setHealth(FishGame.getHealth().get() - 1);
         return true;

@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------
+//File:   Mine.java
+//Desc:   Mine class containing it movement
+//By:     Shubin Yuan
+//-------------------------------------------------------------------
 package model;
 
 import java.util.Random;

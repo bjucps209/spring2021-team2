@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------
+//File:   Shark.java
+//Desc:   Not Using class
+//By:     Shubin Yuan
+//-------------------------------------------------------------------
 package model;
 
 import java.util.Random;
@@ -10,7 +15,6 @@ public class Shark extends AllObject {
 
     Type type = Type.Shark;
 
-
     Shark() {
         this.speed = 20;
         this.size = 10;
@@ -20,7 +24,7 @@ public class Shark extends AllObject {
         if (ran == 0) {
             // remember import from left edge of screen
             direction = 0;
-            x = new SimpleIntegerProperty(1-imageSize);
+            x = new SimpleIntegerProperty(1 - imageSize);
             int yUse = rand.nextInt(1000);
             y = new SimpleIntegerProperty(yUse);
         } else {
@@ -35,28 +39,28 @@ public class Shark extends AllObject {
     }
 
     @Override
-    public void ChangeSpeedAndDirection() {;}
+    public void ChangeSpeedAndDirection() {
+        ;
+    }
 
-    //change object to a list and return
-    public AllObject[] Sharkeat(AllObject a){
+    // change object to a list and return
+    public AllObject[] Sharkeat(AllObject a) {
         AllObject[] b = new AllObject[1];
         b[0] = a;
         return b;
-        }
+    }
 
-
-    //TODO: figure out how Shark serializatoin works
+    // TODO: figure out how Shark serializatoin works
     // @Override
     // public String serialize() {
-    //     String dataString = "";
-    //     dataString += this.type.toString();
-    //     dataString += ":";
-    //     dataString += Integer.toString(x) + "," + Integer.toString(y);
-    //     dataString += ":";
-    //     dataString += Integer.toString(direction);
-    //     dataString += ":";
-         
-    //     return dataString;
+    // String dataString = "";
+    // dataString += this.type.toString();
+    // dataString += ":";
+    // dataString += Integer.toString(x) + "," + Integer.toString(y);
+    // dataString += ":";
+    // dataString += Integer.toString(direction);
+    // dataString += ":";
+
+    // return dataString;
     // }
 }
-
