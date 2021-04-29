@@ -27,4 +27,4 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 |Blake Alexander|High Scores|balexander012|43hrs.|7|<https://github.com/bjucps209/spring2021-team2/wiki/Alexander-Journal>|
 |Shubin Yuan|Model Design|ShubinJerry-Yuan|48hrs.|2hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Shubin-Journal>|
 |Gunnar Funderburk|Level Design|gfund|26hrs.|24hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Funderburk-Journal>|
-|Patrick Menking|Serialization|TheWanderingCrow|8hrs.|42hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Menking-Journal>|
+|Patrick Menking|Serialization|TheWanderingCrow|36.9hrs.|13.1hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Menking-Journal>|
