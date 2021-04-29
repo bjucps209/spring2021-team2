@@ -85,6 +85,7 @@ public class FishGame {
         FishGame.points = new SimpleIntegerProperty(0);
         FishGame.life = new SimpleIntegerProperty(3);
         FishGame.health = new SimpleIntegerProperty(5);
+        this.limitOfFood = 3;
         isCheatModeOn = false;
         objectStorage = new ArrayList<AllObject>();
         user = new Userfish(Type.UserFish, 5, 2, 50);
@@ -97,6 +98,11 @@ public class FishGame {
             System.out.println(currentLine);
             String[] splitString = currentLine.split(":");
             // this.level = Integer.parseInt(splitString[0]);
+            this.points.set(Integer.parseInt(splitString[3]));
+            this.health.set(Integer.parseInt(splitString[4]));
+            this.life.set(Integer.parseInt(splitString[5]));
+            this.user.setImageSize(Integer.parseInt(splitString[6]));
+            this.name = splitString[7];
             int objectCount = Integer.parseInt(splitString[2]);
             System.out.println("We have " + objectCount + " to walk through");
             for (int i = 0; i != objectCount; ++i) {
@@ -468,7 +474,7 @@ public class FishGame {
             save.getParentFile().mkdirs();
             BufferedWriter writer = new BufferedWriter(new FileWriter(save, false));
             writer.append("Level:Difficulty:" + Integer.toString(objectStorage.size()));
-            writer.append(":" + this.getPoints().get());
+            writer.append(":" + this.getPoints().get() + ":" + this.getHealth().get() + ":" + this.getlife().get() + ":" + this.user.getImageSize() + ":" + this.name);
             writer.append("\n");
             for (AllObject item : objectStorage) {
                 writer.append(item.serialize());

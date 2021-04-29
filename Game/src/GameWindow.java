@@ -157,11 +157,13 @@ public class GameWindow implements GameOverEvent {
             health.setTextFill(Color.web("#FF0000"));
         }
 
-        TextInputDialog td = new TextInputDialog("Please enter your name");
-        td.showAndWait();
-        start.name = td.getResult();
+        if (!Loading.getState()) {
+            TextInputDialog td = new TextInputDialog("Please enter your name");
+            td.showAndWait();
+            start.name = td.getResult();
 
         System.out.println("Our name is " + start.name);
+        }
 
         // initial putting of image
         ImageView image = new ImageView();
