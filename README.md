@@ -6,11 +6,6 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 
 ## Issues
 
-* Model - tracker do not works.
-* Model - auto import fish have small problem.
-* Model - no game end events.
-* Model - cheat model do not work.
-
 ## Screen Recording Link
 
 * Video Alpha: <https://youtu.be/5-zq1BOOBiM>
