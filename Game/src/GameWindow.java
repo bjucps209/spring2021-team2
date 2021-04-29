@@ -10,20 +10,16 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Screen;
-import model.AllObject;
-import model.Direction;
-import model.FishGame;
-import model.Fishes;
-import model.Food;
-import model.Type;
-import model.Userfish;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
@@ -33,6 +29,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.io.File;
 import java.lang.Thread.State;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoublePredicate;
@@ -52,7 +49,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-public class GameWindow implements GameOverEvent {
+public class GameWindow implements GameEventObserver {
 
     final Image User_fishl = new Image("/FishPicture/Fish/userfish_left.gif");
     final Image User_fishr = new Image("/FishPicture/Fish/userfish_right.gif");
@@ -66,18 +63,11 @@ public class GameWindow implements GameOverEvent {
     final Image IMG_Mine = new Image("/FishPicture/mine.png");
     final Image IMG_PoisonFish = new Image("/FishPicture/FirstStageUsage/PoisonFish.png");
     final Image GameOver = new Image("/FishPicture/GameOver.jpg");
-    // final Image swim_cycle1 = new
-    // Image("/FishPicture/Fish/Fish1/swim_cycle1.jpg");
-    // final Image swim_cycle2 = new
-    // Image("/FishPicture/Fish/Fish1/swim_cycle.2.png");
-    // final Image swim_cycle3 = new
-    // Image("/FishPicture/Fish/Fish1/swim_cycle.3.png");
-    // final Image swim_cycle4 = new
-    // Image("/FishPicture/Fish/Fish1/swim_cycle.4.png");
-    // final Image swim_cycle5 = new
-    // Image("/FishPicture/Fish/Fish1/swim_cycle.5.png");
-    // final Image swim_cycle6 = new
-    // Image("/FishPicture/Fish/Fish1/swim_cycle.6.png");
+    Media background = new Media(Paths.get("track1.mp3").toUri().toString());
+    Media eat = new Media(Paths.get("bite1.mp3").toUri().toString());
+    Media lose = new Media(Paths.get("gameover.mp3").toUri().toString());
+    Media win = new Media(Paths.get("stageclear.mp3").toUri().toString());
+    Media grow = new Media(Paths.get("playergrow.mp3").toUri().toString());
 
     static FishGame start;
     static Boolean amILoading = false;
@@ -184,11 +174,14 @@ public class GameWindow implements GameOverEvent {
         image.setId("" + start.getUser().getId());
         pane.getChildren().add(image);
 
+        MediaPlayer player = new MediaPlayer(background);
+        player.play();
+
         KeyFrame timerF1 = new KeyFrame(Duration.millis(30), e -> updata());
         timer1 = new Timeline(timerF1);
         timer1.setCycleCount(-1);
         timer1.play();
-        start.setIsGameOver(this);
+        start.setGameEvent(this);
     }
 
     // When the user presses P, it will pause the timelines, upon re-entry it will
@@ -230,6 +223,30 @@ public class GameWindow implements GameOverEvent {
     @FXML
     public void isGameOver() {
 
+    }
+
+    @Override
+    public void EatingSound() {
+        MediaPlayer player = new MediaPlayer(eat);
+        player.play();
+    }
+
+    @Override
+    public void GrowSound() {
+        MediaPlayer player = new MediaPlayer(grow);
+        player.play();
+    }
+
+    @Override
+    public void loseSound() {
+        MediaPlayer player = new MediaPlayer(lose);
+        player.play();
+    }
+
+    @Override
+    public void winSound() {
+        MediaPlayer player = new MediaPlayer(win);
+        player.play();
     }
 
     public void imagePuttingForUserFish() {
@@ -404,4 +421,5 @@ public class GameWindow implements GameOverEvent {
         timer1.stop();
         isGameOver = true;
     }
+
 }

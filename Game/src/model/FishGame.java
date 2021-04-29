@@ -59,14 +59,14 @@ public class FishGame {
     // if isCheatModeOn = true, user fish will not die
     // if isGameGver = true either use win or lose,
     boolean isCheatModeOn;
-    GameOverEvent isGameOver;
+    GameEventObserver gameEvent;
 
-    public GameOverEvent getIsGameOver() {
-        return this.isGameOver;
+    public GameEventObserver getGameEvent() {
+        return this.gameEvent;
     }
 
-    public void setIsGameOver(GameOverEvent isGameOver) {
-        this.isGameOver = isGameOver;
+    public void setGameEvent(GameEventObserver gameEvent) {
+        this.gameEvent = gameEvent;
     }
 
     // basic constructor to start game if there is not input yet, purpose for
@@ -227,6 +227,7 @@ public class FishGame {
                     } else if (user.getSize() > a.getSize()) {
                         user.Usereat(a);
                         removea.add(a);
+                        gameEvent.EatingSound();
                     }
                 }
             }
@@ -311,17 +312,22 @@ public class FishGame {
         if (FishGame.points.get() > 80 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+            gameEvent.GrowSound();
         } else if (FishGame.points.get() > 40 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+            gameEvent.GrowSound();
         } else if (FishGame.points.get() > 20 && user.getSize() == 2) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+            gameEvent.GrowSound();
         } else if (FishGame.points.get() > 5 && user.getSize() == 1) {
             user.setSize(user.getSize() + 1);
             user.setImageSize(user.getImageSize() + 15);
+            gameEvent.GrowSound();
         } else if (FishGame.points.get() > 100) {
-            isGameOver.gameOver();
+            gameEvent.gameOver();
+            gameEvent.winSound();
         }
     }
 
@@ -333,7 +339,8 @@ public class FishGame {
             user.stateOfLosingLifeHandle();
             if (FishGame.life.get() < 1) {
                 if (!isCheatModeOn) {
-                    isGameOver.gameOver();
+                    gameEvent.gameOver();
+                    gameEvent.loseSound();
                 }
                 return true;
             }
