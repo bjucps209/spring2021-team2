@@ -17,7 +17,7 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 
 * Blake Alexander - Model code finished for High Scores. FXML started and view code in progress. A txt is able to be created but the View does not read from the txt file to insert the high scores yet.
 * Patrick Menking - Basic serialization completed, still needs implementation in the GUI along with testing.
-* Shubin Yuan - user object can do basic movement and action. All fish able to updata position, direction, speed, flip image. Userfish able to do eat, minus health, life. Fish can be auto import to screen.
+* Shubin Yuan - Done most part.
 * Gunnar Funderburk- Model Code, FXML in the middle of development, some bugs with saving and loading still under work but mostly complete.
 
 ## Expenses
@@ -25,6 +25,6 @@ To play the game, you may use either your mouse or the W, A, S, D to control the
 |Name|Project Section|GitHub Username|Hours Spent|Hours Remaining|Link|
 |-------------|------------|--------------|--------|--------|-------------|
 |Blake Alexander|High Scores|balexander012|32hrs.|18hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Alexander-Journal>|
-|Shubin Yuan|Model Design|ShubinJerry-Yuan|40hrs.|10hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Shubin-Journal>|
+|Shubin Yuan|Model Design|ShubinJerry-Yuan|48hrs.|2hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Shubin-Journal>|
 |Gunnar Funderburk|Level Design|gfund|26hrs.|24hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Funderburk-Journal>|
 |Patrick Menking|Serialization|TheWanderingCrow|8hrs.|42hrs.|<https://github.com/bjucps209/spring2021-team2/wiki/Menking-Journal>|
