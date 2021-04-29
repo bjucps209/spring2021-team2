@@ -19,10 +19,9 @@
             <Label text = " "/>
             <Label fx:id="three" text="3) Do your best to become the biggest fish in the ocean." />
             <Label text = " "/>
-            <Label fx:id="four" text="4) If you are the biggest fish, you will move on to the next level." />
+            <Label fx:id="four" text="4) Watch out for the black mine fish as they will force you to lose a life!" />
             <Label text = " "/>
-            <Label fx:id="five"/>
-            <Label fx:id="five2"/>
+            <Label fx:id="five" text="5) If you reach 100 points, you win!" />
             <Label text = " "/>
             <Label fx:id="six" text="6) If your life runs out, you will be terminated and the game will end." />
         </VBox>

@@ -41,9 +41,6 @@ public class HelpWindow {
     Label six;
 
     @FXML
-    Label five2;
-
-    @FXML
     Label two2;
 
     @FXML
@@ -71,8 +68,6 @@ public class HelpWindow {
 
         two2.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
         two2.setText("    as they will look to eat you.");
-        five2.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
-        five2.setText("     large fish make you lose more health.");
         one.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
         two.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
         two.setText("2) Navigate across the ocean and try to avoid the opnonents ");
