@@ -519,13 +519,16 @@ public class MainWindow {
         // Set a new photo per the user's choice
 
         try {
+            pane.getChildren().clear();
             // clear currentStateObjects
             currentState.getObjects().clear();
 
+         
+          
+
             currentState = manager.load(file.getName());
             // clear the pane
-            pane.getChildren().clear();
-
+            
             System.out.println(currentState.getObjects().size());
             // System.exit(0);
 
@@ -557,6 +560,7 @@ public class MainWindow {
                 }
 
             }
+            dragging=false;
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -657,6 +661,12 @@ public class MainWindow {
 
                 node.setLayoutX(node.getLayoutX() + me.getX() - dragDelta.x);
                 node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
+                 
+                AllObject object = (AllObject) node.getUserData();
+                System.out.println(object.getType());
+
+                object.setX((int) node.getLayoutX());
+                object.setY((int) node.getLayoutY());
         }
                    
                

@@ -60,11 +60,11 @@ public class LevelManager {
       System.out.println(line);
       if (!(line.isBlank())){
 
-         if(line.charAt(0)=='L'){
+         if(line.contains("Level")){
             line=line.substring(1);
            
             System.out.println(line);
-            String[] values = line.split(",");
+            String[] values = line.split(":");
             level.levelName=values[0];
             level.levelPhotoPath=values[1];
             level.numFish=Integer.parseInt(values[2]);
@@ -72,13 +72,13 @@ public class LevelManager {
 
 
       }
-      else if((line.charAt(0)=='O')){
+      else {
       
         String object=line.substring(1,line.length());
       
          
 
-         String[] objDetails=object.split(",");
+         String[] objDetails=object.split(":");
          String objtype=objDetails[0];
          int objx=Integer.parseInt(objDetails[1]);
         
@@ -139,10 +139,10 @@ public class LevelManager {
                     levelBossFish=1;
                 }
 
-                String save=String.format("L %s,%s,%d,%d \n",level.levelName,level.levelPhotoPath,level.numFish,levelBossFish);
+                String save=String.format("%s:%s:%d:%d \n",level.levelName,level.levelPhotoPath,level.numFish,levelBossFish);
                
                 for(AllObject obj: level.objects){
-                save+="O"+obj.getType()+ ","+obj.getX()+","+obj.getY()+"\n";
+                save+=obj.getType()+ ":"+obj.getX()+":"+obj.getY()+"\n";
               
 
                 }

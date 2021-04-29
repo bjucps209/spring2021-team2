@@ -1,3 +1,2 @@
-L Level Name,/images/ocean.png,1,0 
-OFish Type 0,140,-1
-OFish Type 2,0,0
+L Level Name:/images/ocean.png:1:0 
+Fish Type 0:232:46
