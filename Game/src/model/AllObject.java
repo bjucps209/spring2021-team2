@@ -67,7 +67,7 @@ public class AllObject {
         if (size == 1 || size == 0) {
             circle[0] = ((x.get() + imageSize) / 2);
             circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = imageSize / 2;
+            circle[2] = (imageSize) / 2;
         } else if (size == 2) {
             circle[0] = ((x.get() + imageSize) / 2);
             circle[1] = ((y.get() + imageSize) / 2);
@@ -75,15 +75,15 @@ public class AllObject {
         } else if (size == 3) {
             circle[0] = ((x.get() + imageSize) / 2);
             circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = (imageSize) / 2;
+            circle[2] = (imageSize - 7) / 2;
         } else if (size == 4) {
             circle[0] = ((x.get() + imageSize) / 2);
             circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = (imageSize) / 2;
+            circle[2] = (imageSize - 12) / 2;
         } else if (size == 5) {
             circle[0] = ((x.get() + imageSize) / 2);
             circle[1] = ((y.get() + imageSize) / 2);
-            circle[2] = (imageSize) / 2;
+            circle[2] = (imageSize - 15) / 2;
         }
         return circle;
 
