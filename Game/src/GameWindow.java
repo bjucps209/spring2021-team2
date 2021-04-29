@@ -147,7 +147,7 @@ public class GameWindow implements GameEventObserver {
             health.setTextFill(Color.web("#FF0000"));
         }
 
-        TextInputDialog td = new TextInputDialog("Please enter your name");
+        TextInputDialog td = new TextInputDialog("Please enter your first name");
         td.showAndWait();
         start.name = td.getResult();
 
