@@ -75,7 +75,10 @@ public class FishGame {
         FishGame.points = new SimpleIntegerProperty(0);
     }
 
-    // constructor for passing soft coded game files into the model
+    /**
+     * This constructor is for loading save files into the model.
+     * @param file the file object that points to the save game
+     */
     public FishGame(File file) {
 
         System.out.println("File read state: " + file.canRead());
@@ -479,13 +482,10 @@ public class FishGame {
         updataDS();
     }
 
-    // load and save, I don't know yet
-    public void load() {
-        // A loop through the save file which will spawn all the objects contained
-        // within
-
-    }
-
+    /**
+     * this function takes whatever is on the screen and writes it to the path C:\.FishGame\SaveData\save.game
+     * @throws Exception
+     */
     public void save() throws Exception {
         try {
             File save = new File("C:\\.FishGame\\SaveData\\save.game");

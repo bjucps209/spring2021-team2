@@ -40,7 +40,12 @@ public class AllObject {
     public void ChangeSpeedAndDirection() {
     }
 
-    // serialize handle
+    /**
+     * Blank method for children to implement
+     * 
+     * @return The string that the child generates
+     * @throws Exception if the child does not implement the serialize method
+     */
     public String serialize() throws Exception {
         throw new Exception("Method cannot serialize");
     }
