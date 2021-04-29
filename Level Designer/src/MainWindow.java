@@ -1,7 +1,6 @@
 //MainWindow.java 
 // This file serves as the GUI Platform for the Level Designer 
 
-
 import java.io.File;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -100,7 +99,7 @@ public class MainWindow {
         // BACKGROUND MUSIC
         AudioClip music = new AudioClip(Paths.get("music.mp3").toUri().toString());
         music.setCycleCount(Timeline.INDEFINITE);
-    // music.play();
+        music.play();
 
         // FLIP
         Image flipimg = new Image("images/flip.jpg");
@@ -179,12 +178,12 @@ public class MainWindow {
 
         VBox FishMenu = new VBox();
 
-
-         //Get the files from the directory 
-        try (Stream<Path> filepath = Files.walk(Paths.get("C:/Users/gfund/Documents/GitHub/spring2021-team2/Level Designer/src/images/Fish")))
+        // Get the files from the directory
+        try (Stream<Path> filepath = Files
+                .walk(Paths.get("C:/Users/gfund/Documents/GitHub/spring2021-team2/Level Designer/src/images/Fish")))
 
         {
-           
+
             filepath.forEach(e -> {
                 if (Files.isDirectory(e) == false) {
                     if (e.getFileName().toString().contains("flip") == false) {
@@ -195,22 +194,24 @@ public class MainWindow {
                         String filenamewithnumber = filenamewithoutextension.substring(
                                 filenamewithoutextension.lastIndexOf(".gif") + 4, filenamewithoutextension.length());
                         int filenumber;
-                                
+
                         try {
-                            //this is if the integer can be converted to an it which will work with Fish Type 0-9 but will break at A 
+                            // this is if the integer can be converted to an it which will work with Fish
+                            // Type 0-9 but will break at A
                             filenumber = Integer.parseInt(filenamewithnumber.substring(0, 1));
                         } catch (Exception except) {
-                            //this is for integers that I have placed in hexedecimal in order so that 
+                            // this is for integers that I have placed in hexedecimal in order so that
                             filenumber = Integer.decode("0x" + filenamewithnumber.substring(0, 1));
 
                         }
-                        //This capatalizes the fish names by taking out the first character and capataliazing it, ensuring the rest of the string is lowercase and then combining the two fragments into
-                        //a capatalized word.
-                        String filename = filenamewithnumber.substring(1, 2).toUpperCase()+ filenamewithnumber.substring(2, filenamewithnumber.length()).toLowerCase();
+                        // This capatalizes the fish names by taking out the first character and
+                        // capataliazing it, ensuring the rest of the string is lowercase and then
+                        // combining the two fragments into
+                        // a capatalized word.
+                        String filename = filenamewithnumber.substring(1, 2).toUpperCase()
+                                + filenamewithnumber.substring(2, filenamewithnumber.length()).toLowerCase();
 
                         fishTypes.add(filename);
-
-                        
 
                     }
                 }
@@ -224,7 +225,8 @@ public class MainWindow {
         }
         ChoiceBox fishChoiceBox = new ChoiceBox(FXCollections.observableArrayList(fishTypes));
         fishChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            //this is the event handler that checks if the choice box selected value has been changed
+            // this is the event handler that checks if the choice box selected value has
+            // been changed
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
@@ -245,7 +247,7 @@ public class MainWindow {
                 }
             } catch (Exception except) {
                 except.printStackTrace();
-               System.out.println("This error handler is useful");
+                System.out.println("This error handler is useful");
             }
         });
 
@@ -320,28 +322,27 @@ public class MainWindow {
     void onFlipClicked(ActionEvent e) {
         if (Objects.isNull(selected) == false) {
             ImageView img = (ImageView) selected;
-            
 
             String filename = img.getImage().getUrl();
 
-            if(filename.contains("Fish")){
+            if (filename.contains("Fish")) {
 
-            if (filename.contains("flipped") == false) {
-                String filewithoutExtension = filename.substring(0, filename.lastIndexOf(".gif"));
+                if (filename.contains("flipped") == false) {
+                    String filewithoutExtension = filename.substring(0, filename.lastIndexOf(".gif"));
 
-                Image flippedimage = new Image(filewithoutExtension + "flipped.gif");
-                img.setImage(flippedimage);
+                    Image flippedimage = new Image(filewithoutExtension + "flipped.gif");
+                    img.setImage(flippedimage);
 
+                } else {
+                    String filewithoutflip = filename.substring(0, filename.lastIndexOf("flipped.gif"));
+
+                    Image flippedimage = new Image(filewithoutflip + ".gif");
+                    System.out.println("Filename");
+                    System.out.println(filewithoutflip);
+                    img.setImage(flippedimage);
+
+                }
             } else {
-                String filewithoutflip = filename.substring(0, filename.lastIndexOf("flipped.gif"));
-
-                Image flippedimage = new Image(filewithoutflip + ".gif");
-                System.out.println("Filename");
-                System.out.println(filewithoutflip);
-                img.setImage(flippedimage);
-
-            }
-            }else{
                 var alert = new Alert(AlertType.WARNING, "Non-Fish may not be flipped!");
                 alert.setHeaderText(null);
                 alert.show();
@@ -505,8 +506,7 @@ public class MainWindow {
 
     @FXML
     void onLoadFileClicked(ActionEvent e) throws IOException {
-       
-        
+
         Node node = (Node) e.getSource();
         // get the Stage the button is in
         Stage thisStage = (Stage) node.getScene().getWindow();
@@ -519,13 +519,13 @@ public class MainWindow {
         // Set a new photo per the user's choice
 
         try {
-            //clear currentStateObjects
+            // clear currentStateObjects
             currentState.getObjects().clear();
-            
+
             currentState = manager.load(file.getName());
-            //clear the pane
+            // clear the pane
             pane.getChildren().clear();
-         
+
             System.out.println(currentState.getObjects().size());
             // System.exit(0);
 
@@ -555,7 +555,7 @@ public class MainWindow {
                     onfood("Kelp", object.getX(), object.getY(), true);
 
                 }
-        
+
             }
 
         } catch (Exception exception) {
@@ -565,7 +565,6 @@ public class MainWindow {
             alert.show();
 
         }
-    
 
     }
 
@@ -589,7 +588,6 @@ public class MainWindow {
         currentState.setNumFish((int) enemyFish.getValue());
         currentState.setBossFish(bossFish.isSelected());
 
-      
         if (currentState.getObjects().size() > 0) {
             manager.save(currentState);
         } else {
@@ -655,29 +653,29 @@ public class MainWindow {
             node.getScene().setCursor(Cursor.MOVE);
         });
         node.setOnMouseDragged(me -> {
-            if (node.getLayoutX() < 750 && node.getLayoutY() < 450 && node.getLayoutY() >= -40
-                    && node.getLayoutX() >= -20) {
+            if (node.getLayoutX() < 750&& node.getLayoutX() >= -20) {
 
                 node.setLayoutX(node.getLayoutX() + me.getX() - dragDelta.x);
-                node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
+                    }else{
+                        if(node.getLayoutX()>=750){
+                            node.setLayoutX(node.getLayoutX() -50);
+                            var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
+                            alert.setHeaderText(null);
+                            alert.show();
+            
+            
+                            }
+                            if(node.getLayoutX()>=-20){
+                                node.setLayoutX(node.getLayoutX() + 50);
+                                var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
+                                alert.setHeaderText(null);
+                                alert.show();
+                    }
+                if(node.getLayoutY() < 450 && node.getLayoutY() >= -40){
+                   node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
 
             } else {
-                if(node.getLayoutX()>=750){
-                node.setLayoutX(node.getLayoutX() -50);
-                var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
-                alert.setHeaderText(null);
-                alert.show();
-
-
-                }
-                if(node.getLayoutX()>=-20){
-                    node.setLayoutX(node.getLayoutX() + 50);
-                    var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
-                    alert.setHeaderText(null);
-                    alert.show();
-    
-    
-                    }
+               
                     if(node.getLayoutY()>=450){
                         node.setLayoutY(node.getLayoutY() -50);
                         var alert = new Alert(AlertType.WARNING, "You have tried to put an object out of bounds. It has been automatically reset for you.");
@@ -686,11 +684,12 @@ public class MainWindow {
         
         
                         }
-                node.setLayoutY(node.getLayoutY() + me.getY() - dragDelta.y);
+             
 
 
                
             }
+        }
            
             AllObject object = (AllObject) node.getUserData();
             System.out.println(object.getType());
@@ -701,8 +700,9 @@ public class MainWindow {
             System.out.println(object.getY());
             System.out.println((int) node.getLayoutX());
             System.out.println((int) node.getLayoutY());
-        });
-        node.setOnMouseReleased(me -> onMouseReleased(me));
+        });node.setOnMouseReleased(me->
+
+    onMouseReleased(me));
 
     }
 

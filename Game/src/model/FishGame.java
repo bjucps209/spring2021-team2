@@ -469,6 +469,7 @@ public class FishGame {
 
     }
 
+  
     public void save() throws Exception {
         try {
             File save = new File("C:\\.FishGame\\SaveData\\save.game");
@@ -478,6 +479,7 @@ public class FishGame {
             writer.append(":" + this.getPoints().get());
             writer.append("\n");
             for (AllObject item : objectStorage) {
+                
                 writer.append(item.serialize());
                 writer.append("\n");
             }
