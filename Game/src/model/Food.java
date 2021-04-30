@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------
+//File:   Food.java
+//Desc:   Class for food and food movement
+//By:     Shubin Yuan
+//-------------------------------------------------------------------
 package model;
 
 import java.util.Random;

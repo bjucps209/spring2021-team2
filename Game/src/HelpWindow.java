@@ -22,23 +22,26 @@ public class HelpWindow {
     @FXML
     Label helpLabel;
 
-    @FXML 
+    @FXML
     Label one;
 
-    @FXML 
+    @FXML
     Label two;
 
-    @FXML 
+    @FXML
     Label three;
-    
-    @FXML 
+
+    @FXML
     Label four;
 
-    @FXML 
+    @FXML
     Label five;
 
-    @FXML 
+    @FXML
     Label six;
+
+    @FXML
+    Label two2;
 
     @FXML
     Label designers;
@@ -49,29 +52,29 @@ public class HelpWindow {
     @FXML
     Label credits;
 
-
     public void initialize() {
         help.setAlignment(Pos.BASELINE_LEFT);
         help.setPadding(new Insets(10, 10, 110, 10));
-
 
         InnerShadow innerShadow = new InnerShadow();
         innerShadow.setOffsetX(4);
         innerShadow.setOffsetY(4);
         innerShadow.setColor(Color.web("0x3b596d"));
-       
+
         helpLabel.setEffect(innerShadow);
         helpLabel.setText("How to Play");
         helpLabel.setTextFill(Color.color(0.5, .8, 1));
         helpLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 55));
 
-        one.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
-        two.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
-        three.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
-        four.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
-        five.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
-        six.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
-
+        two2.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
+        two2.setText("     look to eat you, larger fish will make you to lose more health.");
+        one.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
+        two.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
+        two.setText("2) Navigate across the ocean and try to avoid the opnonents as they will");
+        three.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
+        four.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
+        five.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
+        six.setFont(Font.font("Verdana", FontWeight.NORMAL, 17));
 
         creditBox.setPadding(new Insets(30, 10, 10, 10));
         credits.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 16));

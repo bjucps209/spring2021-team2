@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------
+//File:   Obstacle.java
+//Desc:   NOt using class
+//By:     Shubin Yuan
+//-------------------------------------------------------------------
 package model;
 
 import java.util.Random;
@@ -21,9 +26,11 @@ public class Obstacles extends AllObject {
     }
 
     @Override
-    public void ChangeSpeedAndDirection() {;}
+    public void ChangeSpeedAndDirection() {
+        ;
+    }
 
-    //TODO: figure out how Obstacle serializatoin works
+    // TODO: figure out how Obstacle serializatoin works
     @Override
     public String serialize() {
         String dataString = "";
@@ -33,8 +40,8 @@ public class Obstacles extends AllObject {
         dataString += ":";
         dataString += Integer.toString(direction);
         dataString += ":";
-         
+
         return dataString;
     }
-    
+
 }

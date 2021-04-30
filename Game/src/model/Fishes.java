@@ -1,3 +1,10 @@
+//--------------------------------------------------------------------
+//File:   Fish.java
+//Desc:   Fish class, extends AllObject it will give:
+//        speed, size initaldirection, type, imagesize to each fish
+//By:     Shubin Yuan expect serialize method
+//-------------------------------------------------------------------
+
 package model;
 
 import java.util.Random;

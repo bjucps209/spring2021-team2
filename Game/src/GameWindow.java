@@ -1,16 +1,12 @@
+
+//--------------------------------------------------------------------
+//File:   GameWindow.java
+//Desc:   Game windows code, main view class
+//By:     Shubin Yuan except serialize method
+//-------------------------------------------------------------------
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.Animation.Status;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SetPropertyBase;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -18,41 +14,22 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Screen;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
-import javafx.util.converter.NumberStringConverter;
 import model.*;
 import HighScores.*;
 
-import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-import java.lang.Thread.State;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.DoublePredicate;
 
-import javax.swing.Action;
-import javafx.event.ActionEvent;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TabPane.TabDragPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 public class GameWindow implements GameEventObserver {
 
+    // all image and media code url
     final Image User_fishl = new Image("/FishPicture/Fish/userfish_left.gif");
     final Image User_fishr = new Image("/FishPicture/Fish/userfish_right.gif");
     final Image IMG_Fish1l = new Image("/FishPicture/Fish/fish1_l.gif");
@@ -71,9 +48,16 @@ public class GameWindow implements GameEventObserver {
     Media win = new Media(Paths.get("stageclear.mp3").toUri().toString());
     Media grow = new Media(Paths.get("playergrow.mp3").toUri().toString());
 
+    // instance variable for start a new game
     static FishGame start;
+
+    // boolean check leading
     static Boolean amILoading = false;
+
+    // file saving url
     final File saveGame = new File("C:\\.FishGame\\SaveData\\save.game");
+
+    // boolean to know is is loading
     final Boolean isLoading = Loading.getState();
 
     @FXML
@@ -97,20 +81,29 @@ public class GameWindow implements GameEventObserver {
     @FXML
     VBox vbox;
 
+    // overall timer
     static Timeline timer1;
 
+    // boolean to pause game
     static boolean isPaused = false;
+
+    // boolean to blink user fish
     boolean isinblinkstate = false;
 
+    // boolean to handle Game over
     boolean isGameOver = false;
 
+    // boolean to handle timer
     long timercount = 0;
     long imageblinkCount = 0;
-    // boolean GameOver = false;
 
+    // boolean to handle cheatmode
     static boolean isCheatModeOn = false;
+
+    // boolean to handle current image
     Image currentuserUsing;
 
+    // itiaialize the game
     public void initialize() throws Exception {
 
         if (isLoading) {
@@ -184,7 +177,6 @@ public class GameWindow implements GameEventObserver {
             try {
                 updata();
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
         });
@@ -210,6 +202,7 @@ public class GameWindow implements GameEventObserver {
         }
     }
 
+    // ESC key
     public static void onCKeyPress() {
         if (isCheatModeOn) {
             start.setIsCheatModeOn(false);
@@ -227,11 +220,7 @@ public class GameWindow implements GameEventObserver {
         }
     }
 
-    @FXML
-    public void isGameOver() {
-
-    }
-
+    // 4 method for handle sound effects
     @Override
     public void EatingSound() {
         MediaPlayer player = new MediaPlayer(eat);
@@ -256,6 +245,7 @@ public class GameWindow implements GameEventObserver {
         player.play();
     }
 
+    // puting image for user, and check state for user
     public void imagePuttingForUserFish() {
         ImageView image = new ImageView();
 
@@ -303,6 +293,7 @@ public class GameWindow implements GameEventObserver {
         pane.getChildren().add(image);
     }
 
+    // putting image for other fish and check state
     public void imagePutting(AllObject a) {
         ImageView image;
         if (a.getType() == Type.Food) {
@@ -350,6 +341,7 @@ public class GameWindow implements GameEventObserver {
         pane.getChildren().add(image);
     }
 
+    // overall caller in program run by time line.
     void updata() throws IOException {
         // userfishimagechecking();
         start.updata();
@@ -399,9 +391,10 @@ public class GameWindow implements GameEventObserver {
         } else {
             ((Label) hbox.getChildren().get(3)).setText("Life: ");
         }
-        
+
     }
 
+    // use to make image blink
     void imageblink() {
         if (imageblinkCount % 6 == 0) {
             isinblinkstate = false;
@@ -418,6 +411,7 @@ public class GameWindow implements GameEventObserver {
         amILoading = true;
     }
 
+    // put image for game over
     @FXML
     void imageputtingGameOver() {
         ImageView image = new ImageView(GameOver);
@@ -425,6 +419,7 @@ public class GameWindow implements GameEventObserver {
         pane.getChildren().add(image);
     }
 
+    // hand game over event
     @Override
     public void gameOver() {
         timer1.stop();

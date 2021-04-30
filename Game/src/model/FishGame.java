@@ -1,3 +1,8 @@
+//--------------------------------------------------------------------
+//File:   FishGame.java
+//Desc:   Main object Code, it hold the list of AllOject
+//By:     Shubin Yuan except serialize method
+//-------------------------------------------------------------------
 package model;
 
 import java.io.BufferedReader;
@@ -61,16 +66,8 @@ public class FishGame {
     boolean isCheatModeOn;
     GameEventObserver gameEvent;
 
-    public GameEventObserver getGameEvent() {
-        return this.gameEvent;
-    }
-
-    public void setGameEvent(GameEventObserver gameEvent) {
-        this.gameEvent = gameEvent;
-    }
-
-    // basic constructor to start game if there is not input yet, purpose for
-    // testing the program.
+    // basic constructor to start game if there is not input yet,
+    // purpose for testing the program.
     public FishGame() {
         isCheatModeOn = false;
         objectStorage = new ArrayList<AllObject>();
@@ -78,7 +75,11 @@ public class FishGame {
         FishGame.points = new SimpleIntegerProperty(0);
     }
 
-    // constructor for passing soft coded game files into the model
+    /**
+     * This constructor is for loading save files into the model.
+     * 
+     * @param file the file object that points to the save game
+     */
     public FishGame(File file) {
 
         System.out.println("File read state: " + file.canRead());
@@ -219,6 +220,7 @@ public class FishGame {
         }
     }
 
+    // use to handle when userfish collision with other fish
     public void userfishcollision() {
         boolean loseHealthCheck = false;
         ArrayList<AllObject> removea = new ArrayList<>();
@@ -270,6 +272,7 @@ public class FishGame {
         increaseSizeChecker();
     }
 
+    // checking is circle overlap each other;
     public static int circleChecking(int[] circle1, int[] circle2) {
         int dispostion = (circle1[0] - circle2[0]) * (circle1[0] - circle2[0])
                 + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]);
@@ -282,13 +285,13 @@ public class FishGame {
             return 0;
         }
     }
+
     // handle all kinds of situation while different things met
     // return first object eat second object
     // return second object eat first object
     // return first object is obstacles and second object is not fish
     // return seoncond object is obstacles and first object is not fish
     // else do nothing
-
     public static AllObject[] situationHandle(AllObject firstobject, AllObject secondObject) {
         AllObject[] eaten = new AllObject[] {};
         if (firstobject.getType() == Type.Shark) {
@@ -314,6 +317,7 @@ public class FishGame {
         return eaten;
     }
 
+    // while user fish reach certain point increase size
     public void increaseSizeChecker() {
         if (FishGame.points.get() > 80 && user.getSize() == 3) {
             user.setSize(user.getSize() + 1);
@@ -337,6 +341,10 @@ public class FishGame {
         }
     }
 
+    // check life and health, if heal lest than 1, life - 1,
+    // if life < 0, gameover
+    // return true if lose life
+    // return false if not
     public boolean healthAndLifeChecker() {
         if (FishGame.health.get() < 1) {
             FishGame.setLife(FishGame.getlife().get() - 1);
@@ -360,14 +368,17 @@ public class FishGame {
     public void blockingArea() {
     }
 
+    // import a mine into game, bug exsit, not using
     public void mineImport() {
         objectStorage.add(new Mine());
     }
 
+    // add shark into Game, not using.
     public void add(AllObject a) {
         objectStorage.add(a);
     }
 
+    // remove object in the list
     public void remove(AllObject a) {
         objectStorage.remove(a);
     }
@@ -391,6 +402,7 @@ public class FishGame {
         objectStorage.add(new Shark());
     }
 
+    // updata position for every object
     public void updata() {
         user.updatePosition();
         for (AllObject a : objectStorage) {
@@ -398,6 +410,7 @@ public class FishGame {
         }
     }
 
+    // check number of fish in the screen and updata
     public void updatanum() {
         for (int i = 0; i < limitOfFood - numberOfFood; i++) {
             Food currentAdding = new Food();
@@ -427,6 +440,7 @@ public class FishGame {
 
     }
 
+    // check userfish out of screen and take it back
     public void userFishOutOfScreenChecker() {
         if (user.getX().get() < -15) {
             user.setX(-15);
@@ -440,6 +454,7 @@ public class FishGame {
         }
     }
 
+    // updata diection and speed for each object
     public void updataDS() {
         for (AllObject a : objectStorage) {
             if (a instanceof Fishes) {
@@ -448,34 +463,23 @@ public class FishGame {
         }
     }
 
-    // public void updataMine() {
-    // while (!pause) {
-    // mineImport();
-    // try {
-    // Thread.sleep(6000);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
-
+    // updata every 30 milliseconds
     public void updataEveryseocnds() {
         updata();
     }
 
+    // updata every 3 seconds
     public void updataEach3seconds() {
         updatanum();
         updataDS();
     }
 
-    // load and save, I don't know yet
-    public void load() {
-        // A loop through the save file which will spawn all the objects contained
-        // within
-
-    }
-
-  
+    /**
+     * this function takes whatever is on the screen and writes it to the path
+     * C:\.FishGame\SaveData\save.game
+     * 
+     * @throws Exception
+     */
     public void save() throws Exception {
         try {
             File save = new File("C:\\.FishGame\\SaveData\\save.game");
@@ -623,6 +627,14 @@ public class FishGame {
 
     public void setNumberOfPoisonFish(int numberOfPoisonFish) {
         this.numberOfPoisonFish = numberOfPoisonFish;
+    }
+
+    public GameEventObserver getGameEvent() {
+        return this.gameEvent;
+    }
+
+    public void setGameEvent(GameEventObserver gameEvent) {
+        this.gameEvent = gameEvent;
     }
 
 }

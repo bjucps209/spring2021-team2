@@ -1,3 +1,9 @@
+//--------------------------------------------------------------------
+//File:   FishTest.java
+//Desc:   Unit test for Fis class
+//By:     Shubin Yuan
+//-------------------------------------------------------------------
+
 package model;
 
 import static org.junit.Assert.assertEquals;
@@ -8,7 +14,7 @@ import org.junit.Test;
 
 public class FishesTest {
 
-    // except eatTest method, all other method involve random, therefore, 
+    // except eatTest method, all other method involve random, therefore,
     // it is possible random 0, then the test will not pass.
 
     @Test

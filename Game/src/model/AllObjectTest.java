@@ -1,7 +1,11 @@
+//--------------------------------------------------------------------
+//File:   AllObjectTest.java
+//Desc:   Unit test for all method in AllObject.java
+//By:     Shubin Yuan
+//-------------------------------------------------------------------
 package model;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,7 +23,11 @@ public class AllObjectTest {
         a.setY(100);
         a.setDirection(180);
         a.updatePosition();
-        assertEquals(new SimpleIntegerProperty(95), a.getX());
+        assertEquals(new SimpleIntegerProperty(95).get(), a.getX().get());
     }
 
+    @Test
+    public void drawTrangleTest() {
+        // Don't need test
+    }
 }
